@@ -154,3 +154,10 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 
 - `b912073` GitHub main üzerinde doğrulandı. Ek test paketi derlemesi başarılı; ana APK özeti hâlâ `32d33ea29485daa4091d6b279d94b6a73246530e0585732854e14ca4e9dd76d9`.
 - İlk beş testin tamamının geçmesini bekleyen `run-handoff-test.py` başlatıldı. Başarı gelince yalnız test/probe paketlerini güncelleyip Wi-Fi→mobil→Wi-Fi regresyonunu çalıştıracak; ilk paket başarısızsa ilerlemeyecek. Çalışan süreç ve log konumları devir notuna eklendi; başka oturum aynı emülatörde testi çakıştırmamalı.
+
+## 2026-11-09T19:46+03:00 — 0.1.3 ilk beş Android testini geçti
+
+- `67816c3` ara kaydı GitHub main üzerinde doğrulandı.
+- 0.1.3 üzerinde **OK (5 tests)**, 389,009 saniye: gerçek TCP/UDP, Wi-Fi engeli, iki protokolde hız, kota, durdur/başlat, hostname DNS/HTTP, sahte IPv6 bağlantısının önlenmesi ve üç JSON/yedek testi geçti. Android 16/API 36 yazılım emülatörü; bekleme ayarları 120.000 ms / çarpan 10, trafik başarı koşulları değiştirilmedi.
+- Eski sürüm aynı IPv6 regresyonunda başarısızken yeni sürüm geçti. Test paketi, 14 gerçek probe sonucu, lint ve ELF hizalama kanıtları `docs/validation/0.1.3/` altına alındı.
+- Ek Wi-Fi→mobil→Wi-Fi testi otomatik olarak sıradaki aşamaya geçti; test/probe paketleri güncelleniyor. Ana APK aynı imzalı ve aynı SHA-256 değerindeki dosya. Telefon üzerindeki Samsung doğrulaması hâlâ bekliyor.

@@ -50,7 +50,7 @@ Yeni kaynak sürümü **0.1.3 / versionCode 4** olarak artırıldı. **54 JVM te
 (44 core + 10 app) geçti.** API 33 `RouteInfo.getType` kullanımı API 29 uyumlu
 `isDefaultRoute()` ile düzeltildi; app birim testi ve lint başarılı. Deprecated
 site-local IPv6 adresleri desteğe dahil edilmiyor. Native 16 test ve 19 alt test
-geçti. Birleşik yeni APK derlemesi başarılı; 0.1.3 üzerinde 5 Android testi çalışıyor.
+geçti. Birleşik yeni APK derlemesi başarılı; 0.1.3 üzerinde 5 Android testi geçti (389,009 s); ek Wi-Fi/mobil geçiş testi çalışıyor.
 
 **Bu checkpoint yeni APK'nın hazır olduğu anlamına gelmez.** 0.1.2 dosyasının
 üzerine doğrulanmamış bir APK yazma; yeni APK üretildiğinde sürüm/boyut/özet ve
@@ -67,7 +67,7 @@ fiziksel çıkış soketine bağlanmadan tamamlanıyor. IPv4-only ağda tarayıc
 bağlantısını başarılı sanıp daha sonra reset alabilir; normal IPv4'e dönüş devreye
 girmeyebilir. Android regresyon testi **eski 0.1.2'de beklenen hatayı tekrar gösterdi**: VPN
 kapalıyken başarısız olan IPv6 connect, VPN açıkken 651 ms içinde sahte başarı
-verdi. Yeni 0.1.3 test sonucu bekliyor; bunun kullanıcı cihazındaki tek neden
+verdi. Yeni 0.1.3 aynı testi başarıyla geçti; bunun kullanıcı cihazındaki tek neden
 olduğu iddia edilmemeli. Kanıt: [eski sürüm regresyonu](validation/0.1.3/regression-before-0.1.2.txt).
 
 ## Kesin sonraki adımlar
@@ -75,8 +75,9 @@ olduğu iddia edilmemeli. Kanıt: [eski sürüm regresyonu](validation/0.1.3/reg
 1. Uzak depoyu getir, yerel/uzak ayrışmayı ve çalışma günlüğündeki yeni sonuçları oku.
 2. Eski APK regresyonu tamamlandı; tekrar çalıştırma. Yeni test çalıştırıcısı
    `/workspace/toolchains/connectivity-013/run-new-tests.py` şu anda 0.1.3 üzerinde
-   tüm 5 cihaz testini çalıştırıyor. Sonucu `new-013-instrumentation.txt` ve
-   `new-tests-runner.log` içinde kontrol et; beklenen sonuç `OK (5 tests)`.
+   ilk 5 cihaz testini **OK (5 tests)** ile tamamladı. Tekrar çalıştırma.
+   Şu anda `run-handoff-test.py` ek testi çalıştırıyor;
+   `network-handoff-instrumentation.txt` sonucunu kontrol et: beklenen `OK (1 test)`.
 3. Birleşik derleme ve 54 JVM testi başarılı (`build-0.1.3-final.log`); native
    AAR ve 16+19 native test başarılı. APK eski sürümle aynı imzaya sahip ve ZIP
    16 KB hizalaması geçti. İndirilecek APK henüz depoya konmadı.
@@ -122,3 +123,5 @@ Sıradaki sonuç beklenen dosya: `/workspace/toolchains/connectivity-013/new-013
 Ek doğrulama: `VpnDeviceTest#hostnameConnectionsFollowWifiAndMobileRules` eklendi fakat henüz çalışmadı. İlk 5 test bitince test APK'sını yeniden derleyip bu metodu ayrı çalıştır; mevcut ana APK aynı kalmalı. Bağımsız inceleme TUN değişiminde engelleyici kusur bulmadı; fiziksel global/ULA IPv6 erişimi yine de garantilenmiyor.
 
 Çalışan otomasyon: `run-new-tests.py` 5 testlik paketi tamamlayıp sonuçları yazar. `run-handoff-test.py` bu paketin başarısını bekler ve ardından yeni test APK'sını kurarak tek Wi-Fi/mobil testini çalıştırır. Bu iki süreç `/workspace/toolchains/connectivity-013/` altında; `new-tests-runner.log` ve `handoff-test-runner.log` kontrol edilmeden aynı emülatörde ikinci test başlatma.
+
+Güncel sonuç: 0.1.3 ilk beş cihaz testini geçti; kayıtlar `docs/validation/0.1.3/android-instrumentation.txt` ve `android-traffic-results.json`. Şu an yalnız ek ağ geçişi testi sonucu bekleniyor. Yeni APK henüz downloads dizinine konmadı.

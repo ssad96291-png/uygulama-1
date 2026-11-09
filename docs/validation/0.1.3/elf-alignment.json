@@ -1,0 +1,36 @@
+[
+  {
+    "library": "lib/arm64-v8a/libandroidx.graphics.path.so",
+    "load_alignment": [
+      16384,
+      16384,
+      16384
+    ]
+  },
+  {
+    "library": "lib/arm64-v8a/libgojni.so",
+    "load_alignment": [
+      16384,
+      16384,
+      16384,
+      16384
+    ]
+  },
+  {
+    "library": "lib/x86_64/libandroidx.graphics.path.so",
+    "load_alignment": [
+      16384,
+      16384,
+      16384
+    ]
+  },
+  {
+    "library": "lib/x86_64/libgojni.so",
+    "load_alignment": [
+      16384,
+      16384,
+      16384,
+      16384
+    ]
+  }
+]
