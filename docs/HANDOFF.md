@@ -4,7 +4,7 @@ Son güncelleme: **2026-11-09T19:51+03:00**. Her yeni görevde veya “devam” 
 
 ## Güncel durum
 
-**Akış 0.1.3 / versionCode 4** için bağlantı düzeltmesi ve otomatik kontroller tamamlandı. APK GitHub teslim checkpoint'ine hazırlandı; push/gerçek indirme doğrulamasının sonucu aşağıda veya son WORK_LOG kaydında kontrol edilmeli. Son kullanıcıdaki Samsung fiziksel test sonucu henüz yok.
+**Akış 0.1.3 / versionCode 4** için bağlantı düzeltmesi ve otomatik kontroller tamamlandı. APK `14b4be9` commit'iyle GitHub main'e yüklendi. Doğrudan bağlantıdan HTTP 200 ile yeniden indirildi; 76.857.067 bayt ve SHA-256 birebir eşleşti. Son kullanıcıdaki Samsung fiziksel test sonucu henüz yok.
 
 - Paket: `dev.akiskontrol.app`; Android 10/API 29+, target/compile 36.
 - [APK](../downloads/akis-0.1.3-debug.apk), 76.857.067 bayt.
@@ -24,7 +24,7 @@ Native TLS 1.2/1.3 × IPv4/IPv6 aktarımı, Android alan adı çözümleme, uygu
 
 ## Kesin sonraki adım
 
-1. Uzak GitHub durumunu kontrol et. Son WORK_LOG kaydında APK indirmesi doğrulanmamışsa doğrudan raw bağlantısından indir, boyut ve SHA-256 eşleştir; sonucu kaydet.
+1. Uzak GitHub durumunu kontrol et. 0.1.3 APK indirmesi doğrulandı; kaynak/APK değişmedikçe derleme ve testleri tekrarlama. Yeni kullanıcı hata/deneme sonucundan devam et.
 2. Kullanıcıdan mevcut uygulamayı kaldırmadan **0.1.3** kurup Samsung SM-S921B üzerinde Wi-Fi ve mobilde Samsung Browser/diğer uygulamalar + Speedtest'i yeniden denemesini iste.
 3. Sorun sürerse ağ türü ve uygulamayla birlikte yerel bakım günlüğündeki kategoriye göre incele; ilk DNS şüphesini kanıtlanmış neden gibi yeniden ele alma. Yeni hata yokken aynı testleri gereksiz tekrarlama.
 4. Fiziksel ağ geçişleri, global/ULA IPv6 blackhole, Private DNS, API 29 ve farklı OEM/pil davranışları genel uyumluluk kontrolünde hâlâ yer alır. Reklam/üyelik ve Play Store yayını kullanıcı daha sonra istediğinde ele alınacak.

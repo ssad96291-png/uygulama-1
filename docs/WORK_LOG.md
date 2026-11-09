@@ -168,3 +168,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Aynı 0.1.3 ana APK üzerinde toplam **6 Android testi** iki çalıştırmada geçti (5 + 1); 54 JVM ve native 16 fonksiyon/19 alt test sonuçlarıyla `verification.json` oluşturuldu. Ana APK değişmedi.
 - APK ve SHA-256 dosyası `downloads/` içine hazırlandı: 76.857.067 bayt, `32d33ea29485daa4091d6b279d94b6a73246530e0585732854e14ca4e9dd76d9`. İmza 0.1.2 ile aynı, ZIP ve 64-bit ELF hizalamaları 16 KB uyumlu.
 - README, indirme açıklaması ve test belgesi 0.1.3'e güncellendi. Samsung SM-S921B ve gerçek operatör yeniden testi bekliyor; tüm cihazlarda sorunsuzluk iddiası yok. GitHub push ve gerçek indirme doğrulaması sıradaki son adım.
+
+## 2026-11-09T19:54+03:00 — 0.1.3 GitHub teslimi ve indirme doğrulaması tamamlandı
+
+- Kaynak, 0.1.3 APK, test kanıtları ve devir notu `14b4be9` commit'iyle GitHub `main` dalına yüklendi. Uzak commit `git ls-remote` ile eşleştirildi. GitHub'ın 50 MB öneri uyarısı yüklemeyi engellemedi.
+- APK doğrudan raw bağlantısından yeniden indirildi: **HTTP 200**, **76.857.067 bayt**, SHA-256 `32d33ea29485daa4091d6b279d94b6a73246530e0585732854e14ca4e9dd76d9`. `cmp` ile yerel test edilen dosyayla birebir aynı olduğu doğrulandı; bağlantı [burada](https://raw.githubusercontent.com/ssad96291-png/uygulama-1/main/downloads/akis-0.1.3-debug.apk).
+- `verification.json` ve ara durum dosyası teslim edildi olarak güncellendi. Tüm test süreçleri tamamlandı; sıradaki iş kullanıcının Samsung telefonunda 0.1.3 denemesinden gelen sonucu değerlendirmek. Aynı imza sayesinde mevcut uygulama kaldırılmadan güncellenebilir.
