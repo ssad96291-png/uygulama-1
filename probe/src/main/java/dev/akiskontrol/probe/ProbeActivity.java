@@ -24,7 +24,7 @@ public class ProbeActivity extends Activity {
                     // A VPN must not falsely complete this TCP handshake on its virtual stack.
                     try (Socket socket = new Socket()) {
                         socket.connect(new InetSocketAddress(InetAddress.getByName("2001:db8::1"), 443), 3000);
-                        received = count;
+                        result.put("connected", true);
                     }
                 } else if ("dns".equals(mode) || "hostname".equals(mode)) {
                     String hostname = "run-" + (id == null ? System.nanoTime() : id.replaceAll("[^a-zA-Z0-9]", "")) + ".akis.test.invalid";
@@ -33,8 +33,7 @@ public class ProbeActivity extends Activity {
                     for (InetAddress address : addresses) if ("10.0.2.2".equals(address.getHostAddress())) expected = true;
                     if (!expected) throw new IOException("Unexpected test DNS response");
                     result.put("resolved", true);
-                    if ("dns".equals(mode)) received = count;
-                    else received = fetch("http://" + hostname + ":18081/bytes/" + count);
+                    if (!"dns".equals(mode)) received = fetch("http://" + hostname + ":18081/bytes/" + count);
                 } else if ("udp".equals(mode)) {
                     try (DatagramSocket socket = new DatagramSocket()) {
                         socket.setSoTimeout(6000); byte[] payload = new byte[count]; java.util.Arrays.fill(payload, (byte) 65);
@@ -44,7 +43,8 @@ public class ProbeActivity extends Activity {
                 } else {
                     received = fetch("http://10.0.2.2:18081/bytes/" + count);
                 }
-                result.put("success", received == count);
+                result.put("success", "ipv6-connect".equals(mode) ? result.optBoolean("connected")
+                    : "dns".equals(mode) ? result.optBoolean("resolved") : received == count);
             } catch (Exception error) { try { result.put("success", false); result.put("error", error.getClass().getSimpleName()); } catch (Exception ignored) {} }
             try {
                 result.put("mode", mode); result.put("bytes", received); result.put("elapsedMs", SystemClock.elapsedRealtime()-started);

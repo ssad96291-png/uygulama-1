@@ -1,0 +1,12 @@
+{
+  "previous": {
+    "certificate_sha256": "09b153dbc484daf6723476aad94d4e4e1dbf614712670a502a0390ef9bffa156",
+    "size": 76694248,
+    "sha256": "09881ca6c3379acf04d8e52cad6a7db2068b8c10a599a2c640343ffa6e94a5d3"
+  },
+  "candidate": {
+    "certificate_sha256": "09b153dbc484daf6723476aad94d4e4e1dbf614712670a502a0390ef9bffa156",
+    "size": 76857067,
+    "sha256": "32d33ea29485daa4091d6b279d94b6a73246530e0585732854e14ca4e9dd76d9"
+  }
+}

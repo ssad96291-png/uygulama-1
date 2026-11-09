@@ -50,7 +50,7 @@ Yeni kaynak sürümü **0.1.3 / versionCode 4** olarak artırıldı. **54 JVM te
 (44 core + 10 app) geçti.** API 33 `RouteInfo.getType` kullanımı API 29 uyumlu
 `isDefaultRoute()` ile düzeltildi; app birim testi ve lint başarılı. Deprecated
 site-local IPv6 adresleri desteğe dahil edilmiyor. Native 16 test ve 19 alt test
-geçti. Birleşik yeni APK derlemesi çalışıyor; cihaz doğrulaması bekliyor.
+geçti. Birleşik yeni APK derlemesi başarılı; 0.1.3 üzerinde 5 Android testi çalışıyor.
 
 **Bu checkpoint yeni APK'nın hazır olduğu anlamına gelmez.** 0.1.2 dosyasının
 üzerine doğrulanmamış bir APK yazma; yeni APK üretildiğinde sürüm/boyut/özet ve
@@ -65,20 +65,21 @@ diyor. Bu, tek başına DNS arızasını kanıtlamaz.
 Kaynak kodunda somut kusur: eski VPN her ağda IPv6 sunuyor. gVisor TCP el sıkışması,
 fiziksel çıkış soketine bağlanmadan tamamlanıyor. IPv4-only ağda tarayıcı IPv6
 bağlantısını başarılı sanıp daha sonra reset alabilir; normal IPv4'e dönüş devreye
-girmeyebilir. Android regresyon testinde eski sürümün başarısızlığını ve düzeltmenin
-başarısını göstermek **henüz bekliyor**; bunun kullanıcı cihazındaki tek neden
-olduğu iddia edilmemeli.
+girmeyebilir. Android regresyon testi **eski 0.1.2'de beklenen hatayı tekrar gösterdi**: VPN
+kapalıyken başarısız olan IPv6 connect, VPN açıkken 651 ms içinde sahte başarı
+verdi. Yeni 0.1.3 test sonucu bekliyor; bunun kullanıcı cihazındaki tek neden
+olduğu iddia edilmemeli. Kanıt: [eski sürüm regresyonu](validation/0.1.3/regression-before-0.1.2.txt).
 
 ## Kesin sonraki adımlar
 
 1. Uzak depoyu getir, yerel/uzak ayrışmayı ve çalışma günlüğündeki yeni sonuçları oku.
-2. API 36 emülatöründe **önce eski 0.1.2 APK** + yeni probe/test APK ile
-   `VpnDeviceTest#hostnameConnectionsWorkBeforeDuringAndAfterVpn` çalıştır.
-   DNS fixture ve HTTP fixture'ın VPN kapalıyken çalıştığını doğrula; eski sürümün
-   IPv6 el sıkışması hatasını test çıktısıyla kaydet. Test altyapısı arızasını
-   uygulama regresyonuyla karıştırma.
-3. Native AAR derlemesi ve Android birim testlerinin sonucunu kontrol et; gerekli
-   düzeltmeleri yap. Ardından yeni APK'yı üret, tüm ilgili testleri çalıştır.
+2. Eski APK regresyonu tamamlandı; tekrar çalıştırma. Yeni test çalıştırıcısı
+   `/workspace/toolchains/connectivity-013/run-new-tests.py` şu anda 0.1.3 üzerinde
+   tüm 5 cihaz testini çalıştırıyor. Sonucu `new-013-instrumentation.txt` ve
+   `new-tests-runner.log` içinde kontrol et; beklenen sonuç `OK (5 tests)`.
+3. Birleşik derleme ve 54 JVM testi başarılı (`build-0.1.3-final.log`); native
+   AAR ve 16+19 native test başarılı. APK eski sürümle aynı imzaya sahip ve ZIP
+   16 KB hizalaması geçti. İndirilecek APK henüz depoya konmadı.
 4. DNS/IPv6 regresyonu, mevcut hız/kota/yeniden başlatma testleri, lint, imza ve
    APK bütünlüğü doğrulandıktan sonra yeni sürümü `downloads/` ve doğrulama
    kayıtlarıyla paylaş. Testi geçmeyen kısmı açık bırak.
@@ -114,4 +115,6 @@ uygulamayı kaldırmayı çözüm olarak önermeden önce durumu açıkla.
 Tam geçmiş: [WORK_LOG.md](WORK_LOG.md). Yeni test çıktısı gelince bu dosyadaki
 bekliyor ifadelerini kanıtlarıyla güncelle ve checkpoint'i GitHub'a push et.
 
-Son ara kayıt: `55f554b` GitHub main üzerinde doğrulandı. API 33 `RouteInfo.getType` kullanımı kaldırıldı; `isDefaultRoute()` Android 10'da aynı unicast kontrolünü zaten yapıyor. Lint doğrulaması başarılı; eski APK cihaz regresyonu ve birleşik APK derlemesi sürüyor.
+Son doğrulanan ara kayıt: `5fe7039` GitHub main üzerinde. Yeni test öncesi APK
+SHA-256: `32d33ea29485daa4091d6b279d94b6a73246530e0585732854e14ca4e9dd76d9`.
+Sıradaki sonuç beklenen dosya: `/workspace/toolchains/connectivity-013/new-013-instrumentation.txt`.

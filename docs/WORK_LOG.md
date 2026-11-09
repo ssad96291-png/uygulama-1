@@ -127,3 +127,11 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Native motor için **16 test fonksiyonu ve 19 alt test** race detector ile geçti. TLS 1.2/1.3 × IPv4/IPv6 gerçek şifreli aktarımı dahil sonuç `docs/validation/0.1.3/native-tests.jsonl` içinde. Native AAR üretildi.
 - Eski APK karşılaştırmasının ilk adımında VPN kapalıyken DNS+hostname HTTP başarılı, ulaşılamayan IPv6 bağlantısı başarısız. VPN açık kısmı sürüyor. Emülatör Wi-Fi'sinin site-local IPv6 bilgisi taşıdığı ayrıca kaydedildi; fiziksel ağ sonucu olarak sunulmayacak.
 - Yeni APK için birleşik derleme/lint/test yeniden çalıştırılıyor. `docs/validation/0.1.3/progress.json` yalnızca ara durumdur; cihaz doğrulaması ve APK paylaşımı henüz tamamlanmadı.
+
+## 2026-11-09T19:39+03:00 — Eski sürüm hatası testle tekrarlandı
+
+- “Devam” sonrası uzak `main` tekrar getirildi: `5fe7039`, yerel/uzak ayrışma yok. Önceki checkpoint push'u doğrulandı.
+- Eski 0.1.2 APK'da yeni Android testi **beklenen regresyon nedeniyle başarısız** oldu (146,827 s). VPN kapalı: DNS+HTTP başarılı, ulaşılamayan IPv6 connect başarısız; VPN açık: aynı DNS+HTTP başarılı, fakat aynı ulaşılamayan IPv6 connect **651 ms'de başarılı sanılıyor**. Kaynakta bulunan sahte IPv6 el sıkışması kusuru cihaz testinde tekrarlandı. Kayıt: `docs/validation/0.1.3/regression-before-0.1.2.txt`. Bu sonuç kullanıcının telefonundaki tek nedenin aynı olduğunu kanıtlamaz.
+- 0.1.3 için birleşik 54 JVM testi/lint/APK/test paketi derlemesi başarılı. APK imzası önceki sürümle aynı; 16 KB ZIP hizalaması geçti. Aday dosya 76.857.067 bayt, SHA-256 `32d33ea29485daa4091d6b279d94b6a73246530e0585732854e14ca4e9dd76d9`; henüz indirilecek APK olarak yayımlanmadı.
+- Test probe'unda yalnız DNS/bağlantı kontrolünü yapay bir byte sayısı gibi raporlama kaldırıldı; gerçek aktarılan byte miktarı ayrı kaldı. Probe yeniden derlendi. Bu değişiklik ana APK'yı değiştirmiyor.
+- Yeni 0.1.3 + probe + instrumentation APK'ları kurulup **5 testlik Android paketi** başlatıldı. Sonuç bekleniyor; yeni cihaz sonucuna göre sonraki adım ağ geçişi kontrolü ve teslim.

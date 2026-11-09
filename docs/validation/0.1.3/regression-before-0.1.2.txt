@@ -1,0 +1,44 @@
+INSTRUMENTATION_STATUS: class=dev.akiskontrol.app.VpnDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+dev.akiskontrol.app.VpnDeviceTest:
+INSTRUMENTATION_STATUS: test=hostnameConnectionsWorkBeforeDuringAndAfterVpn
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=dev.akiskontrol.app.VpnDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: VPN falsely completed unreachable IPv6 TCP handshake: {"success":true,"mode":"ipv6-connect","bytes":32768,"elapsedMs":651}
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at dev.akiskontrol.app.VpnDeviceTest.hostnameConnectionsWorkBeforeDuringAndAfterVpn(VpnDeviceTest.kt:68)
+
+INSTRUMENTATION_STATUS: stream=
+Error in hostnameConnectionsWorkBeforeDuringAndAfterVpn(dev.akiskontrol.app.VpnDeviceTest):
+java.lang.AssertionError: VPN falsely completed unreachable IPv6 TCP handshake: {"success":true,"mode":"ipv6-connect","bytes":32768,"elapsedMs":651}
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at dev.akiskontrol.app.VpnDeviceTest.hostnameConnectionsWorkBeforeDuringAndAfterVpn(VpnDeviceTest.kt:68)
+
+INSTRUMENTATION_STATUS: test=hostnameConnectionsWorkBeforeDuringAndAfterVpn
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 146.827
+There was 1 failure:
+1) hostnameConnectionsWorkBeforeDuringAndAfterVpn(dev.akiskontrol.app.VpnDeviceTest)
+java.lang.AssertionError: VPN falsely completed unreachable IPv6 TCP handshake: {"success":true,"mode":"ipv6-connect","bytes":32768,"elapsedMs":651}
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at dev.akiskontrol.app.VpnDeviceTest.hostnameConnectionsWorkBeforeDuringAndAfterVpn(VpnDeviceTest.kt:68)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

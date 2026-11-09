@@ -1,0 +1,51 @@
+{
+  "version": "0.1.2",
+  "result": "expected_failure_reproduced",
+  "fixture": "API 36 emulator Wi-Fi: IPv4 and deprecated site-local IPv6; unreachable 2001:db8::1:443",
+  "note": "ipv6-connect checks handshake only; its old bytes field was a nominal test counter, not transferred payload. New probe reports actual zero bytes for connection-only checks.",
+  "probes": [
+    {
+      "file": "files/result-192a2e2a99fd48cbbc0ba1619a7ae046.json",
+      "modified": 1794241255,
+      "result": {
+        "resolved": true,
+        "success": true,
+        "mode": "hostname",
+        "bytes": 32768,
+        "elapsedMs": 2602
+      }
+    },
+    {
+      "file": "files/result-800efac5cbf5413090f4e3e1475d13a3.json",
+      "modified": 1794241276,
+      "result": {
+        "success": false,
+        "error": "ConnectException",
+        "mode": "ipv6-connect",
+        "bytes": 0,
+        "elapsedMs": 1538
+      }
+    },
+    {
+      "file": "files/result-db96ecccc81c434dbed769ce1913d2ea.json",
+      "modified": 1794241329,
+      "result": {
+        "resolved": true,
+        "success": true,
+        "mode": "hostname",
+        "bytes": 32768,
+        "elapsedMs": 4617
+      }
+    },
+    {
+      "file": "files/result-9d83fa329ea74d4488dce6c831b68851.json",
+      "modified": 1794241346,
+      "result": {
+        "success": true,
+        "mode": "ipv6-connect",
+        "bytes": 32768,
+        "elapsedMs": 651
+      }
+    }
+  ]
+}
