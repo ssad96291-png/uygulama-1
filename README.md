@@ -6,15 +6,15 @@ Oturumlar arasında devam etmek için önce [güncel devir kaydını](docs/HANDO
 [işlem günlüğünü](docs/WORK_LOG.md) ve [çalışma kurallarını](AGENTS.md) oku.
 GitHub'daki son durumu kontrol etmeden eski sohbetin kaldığı yerden değişiklik uygulama.
 
-**0.1.2 alfa:** Debug APK cihazda denemek için hazır. 48 JVM birim testi ve Android 16/API 36 emülatöründe dört cihaz testi geçti; izin/engel, hız, kota, VPN yeniden başlatma ve yedek doğrulaması sınandı. Android 10 ve üzerini hedefler; fiziksel telefon, üretici güç yönetimi ve gerçek mobil ağ geçişleri henüz doğrulanmadı. Debug APK, Play Store yayını için hazırlanmış bir sürüm değildir. Test ortamı ve kalan kontroller [docs/TESTING.md](docs/TESTING.md) dosyasındadır.
+**0.1.3 alfa:** Desteklenmeyen IPv6 yolunun tarayıcı bağlantısını sıfırlamasına yol açabilen hata düzeltildi; ağın DNS/rota değişiklikleri de izleniyor. 54 JVM testi, native TLS testleri ve Android 16/API 36 emülatöründe 6 cihaz testi geçti. Wi-Fi/mobil kural geçişi ve alan adıyla bağlantı sınandı. Android 10 ve üzerini hedefler; Samsung telefonda tekrar doğrulama bekleniyor. Bu bir debug test sürümüdür; Play Store yayınına hazır olarak sunulmaz. Ayrıntılar [docs/TESTING.md](docs/TESTING.md) içinde.
 
 ## APK indir
 
-[Akış 0.1.2 test APK'sını indir](https://github.com/ssad96291-png/uygulama-1/raw/refs/heads/main/downloads/akis-0.1.2-debug.apk)
+[Akış 0.1.3 test APK'sını indir](https://raw.githubusercontent.com/ssad96291-png/uygulama-1/main/downloads/akis-0.1.3-debug.apk)
 
-Android 10 ve üzeri telefonda APK'yı kur. **Uygulamalar** ekranından kurallarını seç, ardından **Korumayı başlat** düğmesiyle Android VPN iznini onayla. Aynı Android profilinde başka bir VPN ile eşzamanlı çalışmaz.
+Android 10 ve üzeri telefonda APK'yı kur. 0.1.2 ile aynı imzayı kullandığı için mevcut uygulamayı kaldırmadan güncelleyebilirsin. **Uygulamalar** ekranından kurallarını seç, ardından **Korumayı başlat** düğmesiyle Android VPN iznini onayla. Aynı Android profilinde başka bir VPN ile eşzamanlı çalışmaz.
 
-[Dosya özeti](downloads/akis-0.1.2-debug.apk.sha256) · [Doğrulama kaydı](docs/validation/0.1.2/verification.json) · [Android test sonucu](docs/validation/0.1.2/android-instrumentation.txt)
+[Dosya özeti](downloads/akis-0.1.3-debug.apk.sha256) · [Doğrulama kaydı](docs/validation/0.1.3/verification.json) · [Android test sonucu](docs/validation/0.1.3/android-instrumentation.txt)
 
 <img src="docs/images/akis-home.png" alt="Akış uygulamasının koyu temalı ana ekranı" width="300" />
 
@@ -89,7 +89,7 @@ AKIS_ENV_FILE=/absolute/path/android-env.sh ./tools/build-debug.sh
 
 Betik önce [engine/build.sh](engine/build.sh) ile sabitlenmiş Go bağımlılıklarını kullanarak motor testlerini ve AAR derlemesini yapar. Sonra Gradle üzerinden birim testlerini, Android lint kontrolünü ve debug APK derlemesini çalıştırır. Gradle dağıtımının SHA-256 değeri wrapper yapılandırmasında sabitlenmiştir. İlk derleme bağımlılıkları indirmek için internet gerektirir; çalışma zamanında kendi sunucumuz gerekmez.
 
-Çıktı: `app/build/outputs/apk/debug/app-debug.apk`. Paket adı `dev.akiskontrol.app`; sürüm `0.1.2`. APK `arm64-v8a`, `armeabi-v7a` ve `x86_64` içerir. `app/libs/engine.aar` üretilen bir dosyadır ve depoya alınmaz; temiz kopyada önce motor derlenmelidir. Debug imzası geliştirme amaçlıdır; dağıtım imzası ve Play App Signing ayrıca hazırlanmalıdır.
+Çıktı: `app/build/outputs/apk/debug/app-debug.apk`. Paket adı `dev.akiskontrol.app`; sürüm `0.1.3`. APK `arm64-v8a`, `armeabi-v7a` ve `x86_64` içerir. `app/libs/engine.aar` üretilen bir dosyadır ve depoya alınmaz; temiz kopyada önce motor derlenmelidir. Debug imzası geliştirme amaçlıdır; dağıtım imzası ve Play App Signing ayrıca hazırlanmalıdır.
 
 ## Proje ve yayın hazırlığı
 

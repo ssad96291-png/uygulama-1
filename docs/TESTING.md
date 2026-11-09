@@ -2,15 +2,15 @@
 
 Bu dosya otomatik testlerle doğrulanan davranışları cihazda henüz doğrulanmamış davranışlardan ayırır. APK'nın derlenmesi tek başına telefon üzerinde VPN uyumluluğunu kanıtlamaz.
 
-## 0.1.3 bağlantı düzeltmesi — doğrulama sürüyor
+## 0.1.3 bağlantı düzeltmesi — tamamlanan kontroller
 
 Eski 0.1.2 APK'da ulaşılamayan IPv6 hedefinin VPN açıkken sahte TCP bağlantı başarısı vermesi Android 16 emülatöründe tekrarlandı. VPN kapalıyken aynı hedefe bağlantı kurulamadı; alan adıyla DNS/HTTP her iki durumda çalıştı. [Önceki sürümün başarısız regresyon testi](validation/0.1.3/regression-before-0.1.2.txt) bu ayrımı kaydeder. Emülatör Wi-Fi'si site-local IPv6 adresi taşır; test sonucu fiziksel Samsung cihazının ağ durumu olarak yorumlanmamalıdır.
 
 0.1.3 kullanılabilir IPv6 adresi ve varsayılan rota olmayan ağlarda IPv6 sunmaz; link-local ve eski site-local adresler yeterli sayılmaz. Ağ özellikleri değişince motor güncellenir. Bu, her global/ULA IPv6 rotasının Internet'e gerçekten erişebildiği garantisi değildir. Samsung cihazında tekrar test gerekir.
 
-54 JVM testi, lint ve APK derlemesi geçti. Native motorun 16 test fonksiyonu ve 19 alt testi, TLS 1.2/1.3 × IPv4/IPv6 dahil, race detector ile geçti. Yeni APK'nın Android testleri sürüyor; güncel ara sonuç [progress.json](validation/0.1.3/progress.json) ve [devir kaydında](HANDOFF.md) bulunur. Eski 0.1.2'nin aşağıdaki sonuçları yeni APK için cihaz doğrulaması sayılmaz.
+54 JVM testi, lint ve APK derlemesi geçti. Native motorun 16 test fonksiyonu ve 19 alt testi, TLS 1.2/1.3 × IPv4/IPv6 dahil, race detector ile geçti. Yeni APK üzerinde **6 Android testi iki çalıştırmada (5 + 1) geçti**: ilk paket 389,009 saniye, Wi-Fi/mobil geçiş testi 198,864 saniye. Aynı APK kullanıldı; ayrı çalıştırma yalnız ek testin sonradan hazırlanmasından kaynaklandı. [Doğrulama kaydı](validation/0.1.3/verification.json), [ilk beş test](validation/0.1.3/android-instrumentation.txt) ve [ağ geçişi testi](validation/0.1.3/network-handoff-instrumentation.txt) depodadır. Eski 0.1.2'nin aşağıdaki sonuçları yeni APK için cihaz doğrulaması sayılmaz.
 
-## Kayıtlı sonuçlar
+## 0.1.2 tarihsel sonuçları
 
 9 Kasım 2026: **0.1.2 alfa için 48 JVM birim testi ve Android 16/API 36 emülatöründeki dört cihaz testinin tamamı geçti.** Cihaz testleri 237,443 saniyede tamamlandı. Fiziksel telefon, üretici davranışı ve gerçek mobil ağ geçişi kontrolleri bekliyor.
 

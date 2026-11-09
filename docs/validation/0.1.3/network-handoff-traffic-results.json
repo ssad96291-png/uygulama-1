@@ -1,0 +1,57 @@
+[
+  {
+    "file": "files/result-7ba9cc3fe289401a875d5cce1085ad44.json",
+    "modified": 1794242859,
+    "result": {
+      "success": false,
+      "error": "UnknownHostException",
+      "mode": "hostname",
+      "bytes": 0,
+      "elapsedMs": 10195
+    }
+  },
+  {
+    "file": "files/result-8518361d3f9945cca93e7eec4c8e99a5.json",
+    "modified": 1794242901,
+    "result": {
+      "resolved": true,
+      "success": true,
+      "mode": "hostname",
+      "bytes": 32768,
+      "elapsedMs": 7028
+    }
+  },
+  {
+    "file": "files/result-8cda93516067474db436e8cfacab9594.json",
+    "modified": 1794242913,
+    "result": {
+      "success": false,
+      "error": "NoRouteToHostException",
+      "mode": "ipv6-connect",
+      "bytes": 0,
+      "elapsedMs": 350
+    }
+  },
+  {
+    "file": "files/result-f67cfecbc8b946e392d825f76b607f9d.json",
+    "modified": 1794242946,
+    "result": {
+      "success": false,
+      "error": "UnknownHostException",
+      "mode": "hostname",
+      "bytes": 0,
+      "elapsedMs": 10678
+    }
+  },
+  {
+    "file": "files/result-af484079521c43b6b720324f73501370.json",
+    "modified": 1794242993,
+    "result": {
+      "resolved": true,
+      "success": true,
+      "mode": "hostname",
+      "bytes": 32768,
+      "elapsedMs": 4502
+    }
+  }
+]

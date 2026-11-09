@@ -1,0 +1,130 @@
+{
+  "package": "dev.akiskontrol.app",
+  "version": "0.1.3",
+  "versionCode": 4,
+  "minSdk": 29,
+  "targetSdk": 36,
+  "sha256": "32d33ea29485daa4091d6b279d94b6a73246530e0585732854e14ca4e9dd76d9",
+  "bytes": 76857067,
+  "verifiedAt": "2026-11-09T19:51+03:00",
+  "signature": "APK v2 verified; certificate matches 0.1.2",
+  "certificateSha256": "09b153dbc484daf6723476aad94d4e4e1dbf614712670a502a0390ef9bffa156",
+  "zipAlignment16KB": "passed",
+  "elf64LoadAlignment16KB": [
+    {
+      "library": "lib/arm64-v8a/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "library": "lib/arm64-v8a/libgojni.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "library": "lib/x86_64/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "library": "lib/x86_64/libgojni.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384,
+        16384
+      ]
+    }
+  ],
+  "unitTests": [
+    {
+      "name": "dev.akiskontrol.core.TrafficOwnerTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "dev.akiskontrol.core.QuotaPeriodsTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "dev.akiskontrol.core.PolicyEngineTest",
+      "tests": "35",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "dev.akiskontrol.app.vpn.IpSupportTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "dev.akiskontrol.app.data.IdentityReconcilerTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0"
+    }
+  ],
+  "unitTestsTotal": 54,
+  "lint": {
+    "errors": 0,
+    "warnings": 2,
+    "hints": 1
+  },
+  "native": {
+    "raceDetector": true,
+    "testFunctionsPassed": 16,
+    "subtestsPassed": 19,
+    "tls": "TLS 1.2 and TLS 1.3 over IPv4 and IPv6, verified certificate, large payload"
+  },
+  "androidInstrumentation": {
+    "androidApi": 36,
+    "readinessTimeoutMs": 120000,
+    "hardwareTimeoutMultiplier": 10,
+    "totalTestsPassed": 6,
+    "runs": [
+      {
+        "result": "OK (5 tests)",
+        "elapsedSeconds": 389.009,
+        "log": "android-instrumentation.txt"
+      },
+      {
+        "result": "OK (1 test)",
+        "elapsedSeconds": 198.864,
+        "log": "network-handoff-instrumentation.txt"
+      }
+    ],
+    "coverage": [
+      "TCP and UDP allow/block, rates, quota, VPN stop/start and counters",
+      "System DNS and hostname HTTP before, during and after VPN",
+      "Unreachable IPv6 target fails connect instead of false handshake success",
+      "Wi-Fi blocked / mobile allowed, then mobile blocked / Wi-Fi allowed with real emulator network handoff",
+      "Three Android JSON and backup compatibility tests"
+    ]
+  },
+  "regressionBefore": {
+    "version": "0.1.2",
+    "result": "expected failure reproduced: false IPv6 TCP success after VPN starts",
+    "elapsedSeconds": 146.827,
+    "log": "regression-before-0.1.2.txt"
+  },
+  "physicalDevices": "Samsung SM-S921B retest pending; emulator results do not certify OEM or operator compatibility",
+  "limits": [
+    "Address and route checks do not guarantee global/ULA IPv6 Internet reachability",
+    "Same Android profile cannot run a second independent VPN concurrently"
+  ],
+  "downloadVerification": "pending after push"
+}

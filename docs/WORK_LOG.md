@@ -161,3 +161,10 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - 0.1.3 üzerinde **OK (5 tests)**, 389,009 saniye: gerçek TCP/UDP, Wi-Fi engeli, iki protokolde hız, kota, durdur/başlat, hostname DNS/HTTP, sahte IPv6 bağlantısının önlenmesi ve üç JSON/yedek testi geçti. Android 16/API 36 yazılım emülatörü; bekleme ayarları 120.000 ms / çarpan 10, trafik başarı koşulları değiştirilmedi.
 - Eski sürüm aynı IPv6 regresyonunda başarısızken yeni sürüm geçti. Test paketi, 14 gerçek probe sonucu, lint ve ELF hizalama kanıtları `docs/validation/0.1.3/` altına alındı.
 - Ek Wi-Fi→mobil→Wi-Fi testi otomatik olarak sıradaki aşamaya geçti; test/probe paketleri güncelleniyor. Ana APK aynı imzalı ve aynı SHA-256 değerindeki dosya. Telefon üzerindeki Samsung doğrulaması hâlâ bekliyor.
+
+## 2026-11-09T19:51+03:00 — Altı Android testi tamamlandı, 0.1.3 teslimi hazırlanıyor
+
+- `8d00a84` checkpoint'i GitHub main üzerinde doğrulandı. Ek Wi-Fi→mobil→Wi-Fi testi **OK (1 test)** ile 198,864 saniyede geçti. Wi-Fi engeli, mobil izinli hostname aktarımı, ulaşılamayan IPv6 hedefinin reddi, mobil engeli ve Wi-Fi'ye dönüşte izinli aktarım doğrulandı. Beş ek probe sonucu kaydedildi.
+- Aynı 0.1.3 ana APK üzerinde toplam **6 Android testi** iki çalıştırmada geçti (5 + 1); 54 JVM ve native 16 fonksiyon/19 alt test sonuçlarıyla `verification.json` oluşturuldu. Ana APK değişmedi.
+- APK ve SHA-256 dosyası `downloads/` içine hazırlandı: 76.857.067 bayt, `32d33ea29485daa4091d6b279d94b6a73246530e0585732854e14ca4e9dd76d9`. İmza 0.1.2 ile aynı, ZIP ve 64-bit ELF hizalamaları 16 KB uyumlu.
+- README, indirme açıklaması ve test belgesi 0.1.3'e güncellendi. Samsung SM-S921B ve gerçek operatör yeniden testi bekliyor; tüm cihazlarda sorunsuzluk iddiası yok. GitHub push ve gerçek indirme doğrulaması sıradaki son adım.

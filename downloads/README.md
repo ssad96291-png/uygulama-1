@@ -1,13 +1,15 @@
 # Test APK'sı
 
-[Akış 0.1.2 APK'yı indir](https://github.com/ssad96291-png/uygulama-1/raw/refs/heads/main/downloads/akis-0.1.2-debug.apk).
+[Akış 0.1.3 APK'yı indir](https://raw.githubusercontent.com/ssad96291-png/uygulama-1/main/downloads/akis-0.1.3-debug.apk).
 
-Bu, Android 10 ve üzeri için debug imzalı alfa sürümüdür. Paket adı `dev.akiskontrol.app`, sürüm kodu `3`.
+Android 10 ve üzeri için debug imzalı alfa sürümü. Paket `dev.akiskontrol.app`, sürüm kodu `4`. 0.1.2 ile aynı sertifikayı kullanır; mevcut kurulum üzerine güncellenebilir.
 
 SHA-256:
 
 ```text
-09881ca6c3379acf04d8e52cad6a7db2068b8c10a599a2c640343ffa6e94a5d3
+32d33ea29485daa4091d6b279d94b6a73246530e0585732854e14ca4e9dd76d9
 ```
 
-48 JVM birim testi ve Android 16 emülatöründeki dört cihaz testi geçti. Fiziksel cihaz kontrolleri [test notlarında](../docs/TESTING.md) listelenmiştir. İmzalama anahtarı bu depoya dahil değildir.
+54 JVM testi, native TLS/race testleri ve Android 16 emülatöründe 6 cihaz testi geçti. Eski 0.1.2'de tekrarlanan sahte IPv6 bağlantısı hatası 0.1.3'te giderildi; Wi-Fi/mobil geçiş kuralları da sınandı. [Doğrulama kaydı](../docs/validation/0.1.3/verification.json).
+
+Samsung telefon ve gerçek operatör ağında tekrar kontrol bekleniyor; [test sınırları](../docs/TESTING.md). 0.1.2 dosyası yalnız eski hata karşılaştırması için saklanıyor. İmzalama anahtarı depoda değildir; başka ortamda APK üretirken [imza sürekliliği notunu](../docs/HANDOFF.md) oku.
