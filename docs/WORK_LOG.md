@@ -181,3 +181,12 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - AGENTS ve güncel devir kaydı okundu, uzak main açık refspec ile getirildi. Yerel/uzak aynı `978cdb6` commit'inde; başka oturumun ek değişikliği ve kirli çalışma dosyası yoktu.
 - Üç yön planlandı: açık Sade Mint, grafit/camgöbeği Koyu Kontrol, sıcak krem/indigo Renkli Kartlar. Uygulama bazlı Wi-Fi/mobil izinleri, hız sınırı ve kota arayüzü gösterilecek. Görsel üretimi bu kayıt anında bekliyor; tamamlandı veya teslim edildi olarak işaretlenmedi.
 - Yalnız bu günlük ve HANDOFF güncellendi. Uygulama kodu, APK ve önceki test kanıtları değişmedi; 0.1.3 için Samsung telefonda yeniden test sonucu ayrıca bekleniyor.
+
+## 2026-11-09T20:19+03:00 — Üç görsel tasarım tamamlandı ve yedeklendi
+
+- Kök ajan üç tasarım görselinin başarıyla üretildiğini ve kullanıcıya sohbette sunulduğunu doğruladı: açık mint uygulama listesi/kural düzenleyici, koyu grafit/camgöbeği kontrol paneli/gelişmiş düzenleyici, krem/menekşe büyük kartlar/basit düzenleyici.
+- Uzak main yeniden getirildi; yerel/uzak aynı `a7a29e0` commit'inde ve çalışma ağacı temizdi. Görseller özgün dosyalar değiştirilmeden `docs/designs/` altına kopyalandı; her kopya byte düzeyinde doğrulandı.
+  - `01-acik-ve-sade.png` — 1465127 bayt; SHA-256 `96e07d6d0e914956b490cde8901421d56acbc726e06b76107cfc5af6345736cf`.
+  - `02-koyu-ve-ayrintili.png` — 1691963 bayt; SHA-256 `9692b2cdd0bfdfe329ea8f31e444853a151092d18e18b5d3e65f91d3bec9419c`.
+  - `03-renkli-ve-kolay.png` — 1601608 bayt; SHA-256 `4b1abdfb8eab4643be9f6291647dc7d423f0604b4fc3d77cd8a8638c63d53842`.
+- `docs/designs/README.md` seçenekleri ve iki ekranlık kapsamlarını gösterir. HANDOFF güncellendi: kullanıcı seçimi/revizyonu bekleniyor; uygulama kodu veya APK değiştirilmedi. 0.1.3'ün önceki testleri yeniden çalıştırılmadı; Samsung fiziksel test sonucu ayrıca bekleniyor.
