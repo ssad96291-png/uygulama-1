@@ -20,7 +20,10 @@ mkdir -p "$GOBIN" build ../app/libs
 MOBILE_VERSION="$(go list -m -f '{{.Version}}' golang.org/x/mobile)"
 go install "golang.org/x/mobile/cmd/gomobile@$MOBILE_VERSION"
 go install "golang.org/x/mobile/cmd/gobind@$MOBILE_VERSION"
-gomobile init
+# `gomobile init` installs gobind@latest even when gomobile itself is pinned,
+# which can silently switch Go versions. Bind needs only this work directory
+# and the pinned gobind above; Akış does not use init's optional OpenAL build.
+mkdir -p "${GOPATH%%:*}/pkg/gomobile"
 go test -race ./mobile
 gomobile bind -target=android/arm64,android/arm,android/amd64 \
   -androidapi 29 -javapkg=dev.akiskontrol.engine -trimpath \

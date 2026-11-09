@@ -3,10 +3,18 @@ package mobile
 import (
 	"bytes"
 	"context"
+	"crypto/ecdsa"
+	"crypto/elliptic"
+	"crypto/rand"
+	"crypto/tls"
+	"crypto/x509"
+	"crypto/x509/pkix"
 	"errors"
 	"io"
+	"math/big"
 	"net"
 	"net/netip"
+	"strings"
 	"sync"
 	"testing"
 	"time"
@@ -158,6 +166,7 @@ type integrationBridge struct {
 	uploaded               int
 	downloaded             int
 	refunded               int
+	events                 []string
 }
 
 func newIntegrationBridge() *integrationBridge {
@@ -240,7 +249,11 @@ func (b *integrationBridge) Complete(token int64, actual int) {
 		b.downloaded += actual
 	}
 }
-func (*integrationBridge) Event(string) {}
+func (b *integrationBridge) Event(message string) {
+	b.mu.Lock()
+	defer b.mu.Unlock()
+	b.events = append(b.events, message)
+}
 func (b *integrationBridge) DnsServer() string {
 	b.mu.Lock()
 	defer b.mu.Unlock()
@@ -317,6 +330,84 @@ func TestEngineTCPAndUDPIPv4IPv6(t *testing.T) {
 	}
 }
 
+// Plaintext echo tests do not exercise TLS record boundaries, certificate
+// validation, handshake round trips, or encrypted records larger than the TUN
+// MTU. Use the same client/server verification a browser connection requires.
+func TestEngineTLSIPv4IPv6LargeTransfer(t *testing.T) {
+	key, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+	if err != nil {
+		t.Fatal(err)
+	}
+	now := time.Now()
+	template := &x509.Certificate{
+		SerialNumber: big.NewInt(1), Subject: pkix.Name{CommonName: "akis.test.invalid"},
+		NotBefore: now.Add(-time.Hour), NotAfter: now.Add(time.Hour),
+		KeyUsage: x509.KeyUsageDigitalSignature, ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
+		DNSNames: []string{"akis.test.invalid"},
+	}
+	der, err := x509.CreateCertificate(rand.Reader, template, template, &key.PublicKey, key)
+	if err != nil {
+		t.Fatal(err)
+	}
+	certificate, err := x509.ParseCertificate(der)
+	if err != nil {
+		t.Fatal(err)
+	}
+	roots := x509.NewCertPool()
+	roots.AddCert(certificate)
+	serverConfig := &tls.Config{MinVersion: tls.VersionTLS12, Certificates: []tls.Certificate{{Certificate: [][]byte{der}, PrivateKey: key}}}
+	for _, ip := range []string{"127.0.0.1", "::1"} {
+		for _, version := range []uint16{tls.VersionTLS12, tls.VersionTLS13} {
+			t.Run(ip+"/"+tls.VersionName(version), func(t *testing.T) {
+				listener, err := tls.Listen("tcp", net.JoinHostPort(ip, "0"), serverConfig)
+				if err != nil {
+					t.Fatal(err)
+				}
+				t.Cleanup(func() { listener.Close() })
+				serverDone := make(chan error, 1)
+				go func() {
+					conn, err := listener.Accept()
+					if err != nil {
+						serverDone <- err
+						return
+					}
+					defer conn.Close()
+					conn.SetDeadline(time.Now().Add(5 * time.Second))
+					_, err = io.Copy(conn, conn)
+					serverDone <- err
+				}()
+				bridge := newIntegrationBridge()
+				bridge.maxChunk = 317
+				h := newIntegrationHarness(t, bridge)
+				raw := h.dial(t, "tcp", listener.Addr().String())
+				secure := tls.Client(raw, &tls.Config{RootCAs: roots, ServerName: "akis.test.invalid", MinVersion: version, MaxVersion: version})
+				if err := secure.Handshake(); err != nil {
+					t.Fatalf("validated TLS handshake failed: %v", err)
+				}
+				payload := bytes.Repeat([]byte("encrypted-browser-transfer"), 8192)
+				writeDone := make(chan error, 1)
+				go func() { _, err := secure.Write(payload); writeDone <- err }()
+				response := make([]byte, len(payload))
+				if _, err := io.ReadFull(secure, response); err != nil || !bytes.Equal(response, payload) {
+					t.Fatalf("TLS payload mismatch/error: %v", err)
+				}
+				if err := <-writeDone; err != nil {
+					t.Fatal(err)
+				}
+				secure.Close()
+				if err := <-serverDone; err != nil {
+					t.Fatalf("TLS shutdown failed: %v", err)
+				}
+				waitForIntegration(t, "TLS bytes charged and settled", func() bool {
+					bridge.mu.Lock()
+					defer bridge.mu.Unlock()
+					return bridge.uploaded > len(payload) && bridge.downloaded > len(payload) && len(bridge.active) == 0
+				})
+			})
+		}
+	}
+}
+
 func startIntegrationEcho(t *testing.T, network, ip string) string {
 	return startIntegrationEchoAt(t, network, net.JoinHostPort(ip, "0"))
 }
@@ -378,6 +469,9 @@ func TestEngineUnknownOwnerFailsClosed(t *testing.T) {
 	defer bridge.mu.Unlock()
 	if bridge.protectCalls != 0 || bridge.uploaded != 0 || bridge.downloaded != 0 || len(bridge.active) != 0 {
 		t.Fatalf("unknown owner reached outbound socket or quota accounting: protected=%d upload=%d download=%d active=%d", bridge.protectCalls, bridge.uploaded, bridge.downloaded, len(bridge.active))
+	}
+	if len(bridge.events) != 1 || bridge.events[0] != "Uygulama sahibi bulunamadı · UDP/IPv4" {
+		t.Fatalf("unknown owner was not diagnosed without endpoint data: %q", bridge.events)
 	}
 }
 
@@ -491,16 +585,82 @@ func TestEngineSocketProtectionFailureFailsClosed(t *testing.T) {
 	if _, err := conn.Write([]byte("never send an unprotected socket")); err != nil {
 		t.Fatal(err)
 	}
-	waitForIntegration(t, "socket protection attempt", func() bool {
+	waitForIntegration(t, "socket protection failure diagnostic", func() bool {
 		bridge.mu.Lock()
 		defer bridge.mu.Unlock()
-		return bridge.protectCalls > 0
+		return bridge.protectCalls > 0 && len(bridge.events) > 0
 	})
 	h.engine.stop()
 	bridge.mu.Lock()
 	defer bridge.mu.Unlock()
 	if bridge.uploaded != 0 || bridge.downloaded != 0 || len(bridge.active) != 0 {
 		t.Fatalf("protection failure forwarded or leaked quota: upload=%d download=%d active=%d", bridge.uploaded, bridge.downloaded, len(bridge.active))
+	}
+	if bridge.events[0] != "Dış bağlantı kurulamadı · UDP/IPv4 · soket koruma/ağa bağlama" {
+		t.Fatalf("protection error was not categorized: %q", bridge.events)
+	}
+}
+
+func TestEngineUnknownDNSOwnerIsDiagnosedAndNeverBypassesRules(t *testing.T) {
+	bridge := newIntegrationBridge()
+	bridge.uid = -1
+	h := newIntegrationHarness(t, bridge)
+	for i := 0; i < 4; i++ {
+		conn := h.dial(t, "udp", "10.111.0.1:53")
+		if _, err := conn.Write([]byte("private query contents")); err != nil {
+			t.Fatal(err)
+		}
+	}
+	waitForIntegration(t, "all DNS ownership failures", func() bool {
+		bridge.mu.Lock()
+		defer bridge.mu.Unlock()
+		return len(bridge.owners) == 4
+	})
+	h.engine.stop()
+	bridge.mu.Lock()
+	defer bridge.mu.Unlock()
+	if bridge.protectCalls != 0 || bridge.uploaded != 0 || bridge.downloaded != 0 {
+		t.Fatal("unknown DNS owner was allowed around application rules")
+	}
+	if len(bridge.events) != 1 || bridge.events[0] != "Uygulama sahibi bulunamadı · UDP/IPv4/DNS" {
+		t.Fatalf("DNS failure storm was not bounded and categorized: %q", bridge.events)
+	}
+}
+
+func TestEngineFailedDNSUpstreamDiagnosedWithoutEndpoint(t *testing.T) {
+	bridge := newIntegrationBridge()
+	bridge.dnsServer = "127.0.0.54"
+	h := newIntegrationHarness(t, bridge)
+	// Reserve the port without listening, so TCP refusal is deterministic and
+	// independent of whether the host has a system DNS server on port 53.
+	fd, err := unix.Socket(unix.AF_INET, unix.SOCK_STREAM|unix.SOCK_CLOEXEC, 0)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer unix.Close(fd)
+	if err := unix.Bind(fd, &unix.SockaddrInet4{Port: 53, Addr: [4]byte{127, 0, 0, 54}}); err != nil {
+		t.Fatal(err)
+	}
+	conn := h.dial(t, "tcp", "10.111.0.1:53")
+	_, _ = conn.Write([]byte("private query contents"))
+	waitForIntegration(t, "DNS upstream connection diagnostic", func() bool {
+		bridge.mu.Lock()
+		defer bridge.mu.Unlock()
+		return len(bridge.events) > 0
+	})
+	h.engine.stop()
+	bridge.mu.Lock()
+	defer bridge.mu.Unlock()
+	if bridge.uploaded != 0 || bridge.downloaded != 0 || len(bridge.active) != 0 {
+		t.Fatal("failed DNS upstream forwarded or leaked reservation")
+	}
+	if bridge.events[0] != "Dış bağlantı kurulamadı · TCP/IPv4/DNS · bağlantı reddedildi" {
+		t.Fatalf("missing categorized DNS failure: %q", bridge.events)
+	}
+	for _, message := range bridge.events {
+		if strings.Contains(message, "127.0.") || strings.Contains(message, "10.111.") || strings.Contains(message, "private") {
+			t.Fatalf("diagnostic leaked endpoint or query: %q", message)
+		}
 	}
 }
 

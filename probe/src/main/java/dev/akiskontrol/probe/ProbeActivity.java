@@ -19,28 +19,50 @@ public class ProbeActivity extends Activity {
         new Thread(() -> {
             JSONObject result = new JSONObject(); long started = SystemClock.elapsedRealtime(); int received = 0;
             try {
-                if ("udp".equals(mode)) {
+                if ("ipv6-connect".equals(mode)) {
+                    // Documentation prefix has no route on our IPv4-only test underlay.
+                    // A VPN must not falsely complete this TCP handshake on its virtual stack.
+                    try (Socket socket = new Socket()) {
+                        socket.connect(new InetSocketAddress(InetAddress.getByName("2001:db8::1"), 443), 3000);
+                        received = count;
+                    }
+                } else if ("dns".equals(mode) || "hostname".equals(mode)) {
+                    String hostname = "run-" + (id == null ? System.nanoTime() : id.replaceAll("[^a-zA-Z0-9]", "")) + ".akis.test.invalid";
+                    InetAddress[] addresses = InetAddress.getAllByName(hostname);
+                    boolean expected = false;
+                    for (InetAddress address : addresses) if ("10.0.2.2".equals(address.getHostAddress())) expected = true;
+                    if (!expected) throw new IOException("Unexpected test DNS response");
+                    result.put("resolved", true);
+                    if ("dns".equals(mode)) received = count;
+                    else received = fetch("http://" + hostname + ":18081/bytes/" + count);
+                } else if ("udp".equals(mode)) {
                     try (DatagramSocket socket = new DatagramSocket()) {
                         socket.setSoTimeout(6000); byte[] payload = new byte[count]; java.util.Arrays.fill(payload, (byte) 65);
                         socket.send(new DatagramPacket(payload, payload.length, InetAddress.getByName("10.0.2.2"), 18082));
                         DatagramPacket reply = new DatagramPacket(new byte[65507], 65507); socket.receive(reply); received = reply.getLength();
                     }
                 } else {
-                    HttpURLConnection connection = (HttpURLConnection) new URL("http://10.0.2.2:18081/bytes/"+count).openConnection();
-                    connection.setConnectTimeout(6000); connection.setReadTimeout(12000);
-                    try (InputStream input = connection.getInputStream()) {
-                        byte[] buffer = new byte[4096]; int n;
-                        while ((n = input.read(buffer)) >= 0) received += n;
-                    } finally { connection.disconnect(); }
+                    received = fetch("http://10.0.2.2:18081/bytes/" + count);
                 }
                 result.put("success", received == count);
             } catch (Exception error) { try { result.put("success", false); result.put("error", error.getClass().getSimpleName()); } catch (Exception ignored) {} }
             try {
-                result.put("bytes", received); result.put("elapsedMs", SystemClock.elapsedRealtime()-started);
+                result.put("mode", mode); result.put("bytes", received); result.put("elapsedMs", SystemClock.elapsedRealtime()-started);
                 String safeId = id == null ? "manual" : id.replaceAll("[^a-zA-Z0-9]", "");
                 try (FileOutputStream out = openFileOutput("result-"+safeId+".json", MODE_PRIVATE)) { out.write(result.toString().getBytes(StandardCharsets.UTF_8)); }
                 runOnUiThread(() -> text.setText(result.toString()));
             } catch (Exception ignored) {}
         }, "probe-network").start();
+    }
+
+    private static int fetch(String url) throws IOException {
+        int received = 0;
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.setConnectTimeout(6000); connection.setReadTimeout(12000);
+        try (InputStream input = connection.getInputStream()) {
+            byte[] buffer = new byte[4096]; int n;
+            while ((n = input.read(buffer)) >= 0) received += n;
+        } finally { connection.disconnect(); }
+        return received;
     }
 }

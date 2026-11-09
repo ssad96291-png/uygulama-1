@@ -41,6 +41,48 @@ class VpnDeviceTest {
         }
         return result!!
     }
+    /** Requires tools/probe_dns_server.py and emulator -dns-server 127.0.0.1. */
+    @Test fun hostnameConnectionsWorkBeforeDuringAndAfterVpn() {
+        device.executeShellCommand("am start -W -n dev.akiskontrol.app/.MainActivity")
+        context.startService(Intent(context, AkisVpnService::class.java).setAction(AkisVpnService.ACTION_STOP))
+        waitFor { !AkisVpnService.hasActiveTunnel }
+        repository.refreshApps()
+        val uid = context.packageManager.getApplicationInfo("dev.akiskontrol.probe", 0).uid
+        val original = repository.ruleFor(uid)
+        val originalGlobal = repository.state.value.globalQuota
+        try {
+            repository.setGlobalQuota(GlobalQuota())
+            repository.saveRule(AppRule(uid))
+            val baseline = probe("hostname")
+            assertTrue("Fixture DNS/HTTP failed without VPN: $baseline", baseline.getBoolean("success"))
+            val ipv6Baseline = probe("ipv6-connect")
+            assertFalse("Fixture must have an IPv4-only underlay: $ipv6Baseline", ipv6Baseline.getBoolean("success"))
+            device.executeShellCommand("appops set dev.akiskontrol.app ACTIVATE_VPN allow")
+            assertNull("VPN consent must be granted", VpnService.prepare(context))
+            device.executeShellCommand("am start -W -n dev.akiskontrol.app/.MainActivity")
+            context.startForegroundService(Intent(context, AkisVpnService::class.java))
+            waitFor { repository.state.value.status == ProtectionStatus.RUNNING }
+            val allowed = probe("hostname")
+            assertTrue("System DNS + hostname HTTP failed through VPN: $allowed", allowed.getBoolean("success"))
+            val ipv6 = probe("ipv6-connect")
+            assertFalse("VPN falsely completed unreachable IPv6 TCP handshake: $ipv6", ipv6.getBoolean("success"))
+            repository.saveRule(AppRule(uid, wifi = NetworkRule(allowed = false)))
+            Thread.sleep(700)
+            val blocked = probe("hostname")
+            assertFalse("Blocked app reached hostname endpoint: $blocked", blocked.getBoolean("success"))
+            repository.saveRule(AppRule(uid))
+            Thread.sleep(700)
+            val restored = probe("hostname")
+            assertTrue("Hostname HTTP failed after allowing app: $restored", restored.getBoolean("success"))
+            context.startService(Intent(context, AkisVpnService::class.java).setAction(AkisVpnService.ACTION_STOP))
+            waitFor { !AkisVpnService.hasActiveTunnel }
+            assertTrue("Hostname HTTP failed after VPN stopped", probe("hostname").getBoolean("success"))
+        } finally {
+            repository.saveRule(original)
+            repository.setGlobalQuota(originalGlobal)
+            context.startService(Intent(context, AkisVpnService::class.java).setAction(AkisVpnService.ACTION_STOP))
+        }
+    }
     @Test fun realPacketsRespectWifiRulesRatesQuotasAndRestart() {
         device.executeShellCommand("am start -W -n dev.akiskontrol.app/.MainActivity")
         repository.refreshApps()

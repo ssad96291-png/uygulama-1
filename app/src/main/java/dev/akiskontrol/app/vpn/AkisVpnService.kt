@@ -15,6 +15,7 @@ import dev.akiskontrol.engine.mobile.Bridge
 import dev.akiskontrol.engine.mobile.Mobile
 import kotlinx.coroutines.*
 import java.net.InetAddress
+import java.net.Inet6Address
 import java.net.InetSocketAddress
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -36,12 +37,14 @@ class AkisVpnService : VpnService() {
     private lateinit var quotaAlerts: QuotaAlerts
     private var tun: ParcelFileDescriptor? = null
     private var lastNetwork: Network? = null
+    private var lastLinkProperties: LinkProperties? = null
+    private var tunnelIpv6 = false
     private var lastKind: NetworkKind = NetworkKind.NONE
     private var lastPolicy: List<Any>? = null
     private var callbackRegistered = false
     private var observeJob: Job? = null
     private var reconfigureJob: Job? = null
-    private var lastErrorLogTime = 0L
+    private val lastErrorLogTimes = mutableMapOf<String, Long>()
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) = requestReconfigure()
@@ -165,26 +168,56 @@ class AkisVpnService : VpnService() {
     private fun policyKey(state: AppState): List<Any> = listOf(state.rules, state.globalQuota,
         state.settings.defaultWifiAllowed, state.settings.defaultMobileAllowed, state.temporaryAllowUntil)
 
+    private fun establishTunnel(network: Network?, ipv6: Boolean) {
+        val builder = Builder().setSession("Akış · internet kontrolü")
+            .setMtu(1500).addAddress("10.111.0.2", 32)
+            .addRoute("0.0.0.0", 0).addDnsServer("10.111.0.1")
+            .setBlocking(false).setMetered(false).addDisallowedApplication(packageName)
+            .setUnderlyingNetworks(network?.let { arrayOf(it) } ?: emptyArray())
+            .setConfigureIntent(PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE))
+        if (ipv6) builder.addAddress("fd71:616b:6973::2", 128).addRoute("::", 0)
+        // With no IPv6 address, route or DNS server, Android blocks that family.
+        // Do not call allowFamily(): unsupported IPv6 must not bypass our rules.
+        // Advertising it would let the local TCP stack complete a connection on
+        // an IPv4-only uplink, then reset TLS instead of allowing IPv4 fallback.
+        val replacement = builder.establish() ?: throw IllegalStateException("VPN izni artık geçerli değil")
+        val previous = tun
+        tun = replacement
+        tunnelIpv6 = ipv6
+        hasActiveTunnel = true
+        // establish() switches routes directly to the new interface. The old
+        // interface stays open until this succeeds, so replacement has no
+        // interval where traffic can escape the VPN. A failed establish leaves
+        // the previous interface intact (VpnService.Builder contract).
+        try { Mobile.stop() } finally { previous?.close() }
+    }
+
     private fun reconfigure() {
         if (stopping.get()) return
         try {
             val physical = choosePhysicalNetwork()
+            // ConnectivityManager returns a parcelled snapshot; we never mutate it.
+            val properties = physical?.first?.let { connectivity.getLinkProperties(it) }
             val key = policyKey(repository.state.value)
             val kind = physical?.second ?: NetworkKind.NONE
-            // Keep the TUN and its routes alive during changes. Closing it would briefly bypass rules.
-            if (tun == null) {
+            val ipv6 = if (physical == null) tunnelIpv6 else supportsIpv6(
+                properties?.linkAddresses?.filter {
+                    it.flags and (OsConstants.IFA_F_TENTATIVE or OsConstants.IFA_F_DADFAILED) == 0
+                }?.map { it.address }.orEmpty(),
+                properties?.routes?.any {
+                    it.isDefaultRoute && it.type == RouteInfo.RTN_UNICAST && it.destination.address is Inet6Address
+                } == true,
+            )
+            // Retain the TUN on ordinary rule/DNS changes; replace it only when
+            // address-family support changes, with the old routes still active.
+            if (tun == null || tunnelIpv6 != ipv6) {
                 repository.setProtection(ProtectionStatus.STARTING, "Yerel koruma hazırlanıyor")
-                tun = Builder().setSession("Akış · internet kontrolü")
-                    .setMtu(1500).addAddress("10.111.0.2", 32).addAddress("fd71:616b:6973::2", 128)
-                    .addRoute("0.0.0.0", 0).addRoute("::", 0).addDnsServer("10.111.0.1")
-                    .setBlocking(false).setMetered(false).addDisallowedApplication(packageName)
-                    .setConfigureIntent(PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE))
-                    .establish() ?: throw IllegalStateException("VPN izni artık geçerli değil")
-                hasActiveTunnel = true
+                establishTunnel(physical?.first, ipv6)
             }
-            if (physical?.first == lastNetwork && key == lastPolicy && Mobile.running()) return
+            if (physical?.first == lastNetwork && properties == lastLinkProperties && key == lastPolicy && Mobile.running()) return
             Mobile.stop()
             lastNetwork = null
+            lastLinkProperties = null
             lastPolicy = key
             repository.setNetwork(kind)
             if (physical == null) {
@@ -199,13 +232,16 @@ class AkisVpnService : VpnService() {
             Mobile.start(tun!!.fd.toLong(), 1500, AndroidBridge(network, kind))
             if (stopping.get()) { Mobile.stop(); return }
             lastNetwork = network
+            lastLinkProperties = properties
             lastKind = kind
             repository.setProtection(ProtectionStatus.RUNNING, if (kind == NetworkKind.WIFI) "Wi-Fi kuralları etkin" else "Mobil veri kuralları etkin")
             repository.log("Koruma etkin · ${if (kind == NetworkKind.WIFI) "Wi-Fi" else "mobil veri"}")
+            repository.log("Ağ desteği · IPv6 ${if (ipv6) "açık" else "kapalı"} · ${properties?.dnsServers?.size ?: 0} DNS sunucusu")
             updateNotification(repository.state.value.statusMessage)
         } catch (e: Exception) {
             runCatching { Mobile.stop() }
             lastNetwork = null
+            lastLinkProperties = null
             val message = if (tun != null) "Ağ motoru durdu; koruma tüneli trafiği kapalı tutuyor"
                 else "Koruma başlatılamadı; internet trafiği denetlenmiyor"
             repository.setProtection(ProtectionStatus.ERROR, message)
@@ -248,8 +284,14 @@ class AkisVpnService : VpnService() {
         override fun event(message: String) {
             // Bound repeated endpoint/owner errors, without retaining domains or packet contents.
             val now = SystemClock.elapsedRealtime()
+            val category = message.take(200)
             synchronized(this@AkisVpnService) {
-                if (now - lastErrorLogTime > 2000) { lastErrorLogTime = now; repository.log(message.take(200)) }
+                val previous = lastErrorLogTimes[category]
+                if (previous == null || now - previous > 2000) {
+                    if (lastErrorLogTimes.size >= 64) lastErrorLogTimes.clear()
+                    lastErrorLogTimes[category] = now
+                    repository.log(category)
+                }
             }
         }
     }
@@ -280,7 +322,8 @@ class AkisVpnService : VpnService() {
             synchronized(lifecycleLock) {
                 runCatching { Mobile.stop() }
                 runCatching { tun?.close() }; tun = null; hasActiveTunnel = false
-                lastNetwork = null; lastKind = NetworkKind.NONE; lastPolicy = null
+                lastNetwork = null; lastLinkProperties = null; tunnelIpv6 = false
+                lastKind = NetworkKind.NONE; lastPolicy = null
                 runCatching { repository.flush() }.onFailure { repository.log("Son kullanım kayıtları diske yazılamadı") }
             }
             withContext(Dispatchers.Main.immediate) { finishShutdown() }

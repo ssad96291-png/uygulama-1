@@ -2,6 +2,10 @@
 
 Akış, uygulamaların Wi-Fi ve mobil veri erişimini, hızını ve kotasını telefonda yöneten bir Android uygulamasıdır. Kotlin ve Jetpack Compose arayüzü, Android `VpnService` ve Go tabanlı yerel TCP/UDP motorunu kullanır. Root gerektirmez.
 
+Oturumlar arasında devam etmek için önce [güncel devir kaydını](docs/HANDOFF.md),
+[işlem günlüğünü](docs/WORK_LOG.md) ve [çalışma kurallarını](AGENTS.md) oku.
+GitHub'daki son durumu kontrol etmeden eski sohbetin kaldığı yerden değişiklik uygulama.
+
 **0.1.2 alfa:** Debug APK cihazda denemek için hazır. 48 JVM birim testi ve Android 16/API 36 emülatöründe dört cihaz testi geçti; izin/engel, hız, kota, VPN yeniden başlatma ve yedek doğrulaması sınandı. Android 10 ve üzerini hedefler; fiziksel telefon, üretici güç yönetimi ve gerçek mobil ağ geçişleri henüz doğrulanmadı. Debug APK, Play Store yayını için hazırlanmış bir sürüm değildir. Test ortamı ve kalan kontroller [docs/TESTING.md](docs/TESTING.md) dosyasındadır.
 
 ## APK indir
