@@ -120,3 +120,5 @@ SHA-256: `32d33ea29485daa4091d6b279d94b6a73246530e0585732854e14ca4e9dd76d9`.
 Sıradaki sonuç beklenen dosya: `/workspace/toolchains/connectivity-013/new-013-instrumentation.txt`.
 
 Ek doğrulama: `VpnDeviceTest#hostnameConnectionsFollowWifiAndMobileRules` eklendi fakat henüz çalışmadı. İlk 5 test bitince test APK'sını yeniden derleyip bu metodu ayrı çalıştır; mevcut ana APK aynı kalmalı. Bağımsız inceleme TUN değişiminde engelleyici kusur bulmadı; fiziksel global/ULA IPv6 erişimi yine de garantilenmiyor.
+
+Çalışan otomasyon: `run-new-tests.py` 5 testlik paketi tamamlayıp sonuçları yazar. `run-handoff-test.py` bu paketin başarısını bekler ve ardından yeni test APK'sını kurarak tek Wi-Fi/mobil testini çalıştırır. Bu iki süreç `/workspace/toolchains/connectivity-013/` altında; `new-tests-runner.log` ve `handoff-test-runner.log` kontrol edilmeden aynı emülatörde ikinci test başlatma.

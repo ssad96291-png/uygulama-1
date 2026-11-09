@@ -149,3 +149,8 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - 0.1.3 üzerinde mevcut gerçek paket/hız/kota/yeniden başlatma cihaz testi geçti; aynı çalıştırmada hostname/IPv6 testi başladı. Tam paket sonucu henüz tamamlanmadı.
 - APK manifestinden 0.1.3/versionCode 4 ve üç ABI doğrulandı. Tüm dört 64-bit native kütüphanenin ELF LOAD hizalaması en az 16 KB; APK ZIP hizalaması ve önceki sürümle aynı imza daha önce doğrulanmıştı.
 - `docs/TESTING.md` güncellendi: yerel DNS fixture kurulumu, altı güncel cihaz testinin kapsamı, emülatör hücresel ağ gereksinimi ve fiziksel IPv6 erişimi sınırları açıklandı. Yeni cihaz sonuçları tamamlanmadan yayın hazır iddiası yok.
+
+## 2026-11-09T19:45+03:00 — Ağ geçişi doğrulaması sıraya alındı
+
+- `b912073` GitHub main üzerinde doğrulandı. Ek test paketi derlemesi başarılı; ana APK özeti hâlâ `32d33ea29485daa4091d6b279d94b6a73246530e0585732854e14ca4e9dd76d9`.
+- İlk beş testin tamamının geçmesini bekleyen `run-handoff-test.py` başlatıldı. Başarı gelince yalnız test/probe paketlerini güncelleyip Wi-Fi→mobil→Wi-Fi regresyonunu çalıştıracak; ilk paket başarısızsa ilerlemeyecek. Çalışan süreç ve log konumları devir notuna eklendi; başka oturum aynı emülatörde testi çakıştırmamalı.
