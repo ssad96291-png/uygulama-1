@@ -1,0 +1,39 @@
+[
+  {
+    "success": true,
+    "bytes": 32768,
+    "elapsedMs": 2661
+  },
+  {
+    "success": true,
+    "bytes": 1200,
+    "elapsedMs": 455
+  },
+  {
+    "success": false,
+    "error": "SocketException",
+    "bytes": 0,
+    "elapsedMs": 1462
+  },
+  {
+    "success": true,
+    "bytes": 16384,
+    "elapsedMs": 3754
+  },
+  {
+    "success": true,
+    "bytes": 1200,
+    "elapsedMs": 1502
+  },
+  {
+    "success": false,
+    "error": "SocketException",
+    "bytes": 0,
+    "elapsedMs": 1191
+  },
+  {
+    "success": true,
+    "bytes": 32768,
+    "elapsedMs": 2410
+  }
+]

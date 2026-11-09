@@ -1,0 +1,58 @@
+{
+  "package": "dev.akiskontrol.app",
+  "version": "0.1.2",
+  "versionCode": 3,
+  "minSdk": 29,
+  "targetSdk": 36,
+  "sha256": "09881ca6c3379acf04d8e52cad6a7db2068b8c10a599a2c640343ffa6e94a5d3",
+  "bytes": 76694248,
+  "signature": "APK v2 verified",
+  "zipAlignment16KB": "passed",
+  "elf64LoadAlignment16KB": [
+    "lib/arm64-v8a/libandroidx.graphics.path.so",
+    "lib/arm64-v8a/libgojni.so",
+    "lib/x86_64/libandroidx.graphics.path.so",
+    "lib/x86_64/libgojni.so"
+  ],
+  "unitTests": [
+    {
+      "name": "dev.akiskontrol.core.TrafficOwnerTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "dev.akiskontrol.core.QuotaPeriodsTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "dev.akiskontrol.core.PolicyEngineTest",
+      "tests": "35",
+      "failures": "0",
+      "errors": "0"
+    },
+    {
+      "name": "dev.akiskontrol.app.data.IdentityReconcilerTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0"
+    }
+  ],
+  "androidInstrumentation": {
+    "result": "OK (4 tests)",
+    "androidApi": 36,
+    "elapsedSeconds": 237.443,
+    "readinessTimeoutMs": 120000,
+    "hardwareTimeoutMultiplier": 10,
+    "tests": [
+      "VPN TCP/UDP forwarding, Wi-Fi block, TCP/UDP rate limit, quota, stop/start and counters",
+      "State and backup round trip",
+      "Legacy renewal day compatibility",
+      "Malformed limits and duplicate identities rejected"
+    ]
+  },
+  "visualCheck": "Home screen inspected; dark theme system bars verified",
+  "physicalDevices": "not yet tested"
+}

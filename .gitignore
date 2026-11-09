@@ -1,0 +1,11 @@
+.gradle/
+.kotlin/
+**/build/
+local.properties
+*.jks
+*.keystore
+app/libs/*.aar
+engine/.cache/
+engine/build/
+*.log
+.DS_Store
