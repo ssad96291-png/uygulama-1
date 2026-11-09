@@ -142,3 +142,10 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Bağımsız kod incelemesinde TUN değişimi ve native tanı kayıtlarında yeni engelleyici kusur bulunmadı. Sınır kaydedildi: fiziksel IPv6 adresi+rota, gerçek Internet erişimini tek başına garanti etmez; global/ULA IPv6 blackhole durumları ve Samsung telefon testi hâlâ ayrıca değerlendirilmelidir.
 - Test açıklamasındaki fazla kesin “IPv4-only fixture” ifadesi düzeltildi: Wi-Fi fixture'ı site-local IPv6 taşıyor, test hedefi erişilemez. Eski regresyonun sahte TCP başarısı kanıtı değişmedi.
 - `hostnameConnectionsFollowWifiAndMobileRules` cihaz testi eklendi: Wi-Fi engelli/mobil izinli, mobilde alan adıyla erişim ve yanlış IPv6 el sıkışmasının reddi, sonra mobil engelli/Wi-Fi izinli ve Wi-Fi'ye dönüş. Bu ek test henüz çalıştırılmadı; ilk 5 test bitince ayrı çalıştırılacak. Ana APK bu test değişikliğiyle değişmiyor.
+
+## 2026-11-09T19:43+03:00 — Test çalıştırma belgesi ve APK paket kontrolleri
+
+- `cc6321c` GitHub main üzerinde doğrulandı. Yeni Wi-Fi/mobil test paketi derlendi; henüz kurulu çalışan test paketinin bitmesi bekleniyor.
+- 0.1.3 üzerinde mevcut gerçek paket/hız/kota/yeniden başlatma cihaz testi geçti; aynı çalıştırmada hostname/IPv6 testi başladı. Tam paket sonucu henüz tamamlanmadı.
+- APK manifestinden 0.1.3/versionCode 4 ve üç ABI doğrulandı. Tüm dört 64-bit native kütüphanenin ELF LOAD hizalaması en az 16 KB; APK ZIP hizalaması ve önceki sürümle aynı imza daha önce doğrulanmıştı.
+- `docs/TESTING.md` güncellendi: yerel DNS fixture kurulumu, altı güncel cihaz testinin kapsamı, emülatör hücresel ağ gereksinimi ve fiziksel IPv6 erişimi sınırları açıklandı. Yeni cihaz sonuçları tamamlanmadan yayın hazır iddiası yok.

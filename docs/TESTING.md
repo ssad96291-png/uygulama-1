@@ -2,6 +2,14 @@
 
 Bu dosya otomatik testlerle doğrulanan davranışları cihazda henüz doğrulanmamış davranışlardan ayırır. APK'nın derlenmesi tek başına telefon üzerinde VPN uyumluluğunu kanıtlamaz.
 
+## 0.1.3 bağlantı düzeltmesi — doğrulama sürüyor
+
+Eski 0.1.2 APK'da ulaşılamayan IPv6 hedefinin VPN açıkken sahte TCP bağlantı başarısı vermesi Android 16 emülatöründe tekrarlandı. VPN kapalıyken aynı hedefe bağlantı kurulamadı; alan adıyla DNS/HTTP her iki durumda çalıştı. [Önceki sürümün başarısız regresyon testi](validation/0.1.3/regression-before-0.1.2.txt) bu ayrımı kaydeder. Emülatör Wi-Fi'si site-local IPv6 adresi taşır; test sonucu fiziksel Samsung cihazının ağ durumu olarak yorumlanmamalıdır.
+
+0.1.3 kullanılabilir IPv6 adresi ve varsayılan rota olmayan ağlarda IPv6 sunmaz; link-local ve eski site-local adresler yeterli sayılmaz. Ağ özellikleri değişince motor güncellenir. Bu, her global/ULA IPv6 rotasının Internet'e gerçekten erişebildiği garantisi değildir. Samsung cihazında tekrar test gerekir.
+
+54 JVM testi, lint ve APK derlemesi geçti. Native motorun 16 test fonksiyonu ve 19 alt testi, TLS 1.2/1.3 × IPv4/IPv6 dahil, race detector ile geçti. Yeni APK'nın Android testleri sürüyor; güncel ara sonuç [progress.json](validation/0.1.3/progress.json) ve [devir kaydında](HANDOFF.md) bulunur. Eski 0.1.2'nin aşağıdaki sonuçları yeni APK için cihaz doğrulaması sayılmaz.
+
 ## Kayıtlı sonuçlar
 
 9 Kasım 2026: **0.1.2 alfa için 48 JVM birim testi ve Android 16/API 36 emülatöründeki dört cihaz testinin tamamı geçti.** Cihaz testleri 237,443 saniyede tamamlandı. Fiziksel telefon, üretici davranışı ve gerçek mobil ağ geçişi kontrolleri bekliyor.
@@ -58,7 +66,7 @@ Raporlar:
 
 ## Gerçek paketlerle emülatör testi
 
-`VpnDeviceTest` ayrı UID'ye sahip `probe` uygulamasının TCP ve UDP trafiğini denetler. Emülatörün Wi-Fi bağlantısı etkin, ekranı açılmış ve normal Android açılışı tamamlanmış olmalıdır. Bu test için ayrı bir test emülatörü kullan: test korumayı başlatıp durdurur ve probe uygulamasının kuralını geçici olarak değiştirir.
+`VpnDeviceTest` ayrı UID'ye sahip `probe` uygulamasının TCP/UDP, sistem DNS'i, alan adıyla bağlantı ve Wi-Fi/mobil geçiş trafiğini denetler. Emülatörün Wi-Fi bağlantısı etkin, hücresel veri bağlantısı kullanılabilir, ekranı açılmış ve normal Android açılışı tamamlanmış olmalıdır. Bu test için ayrı bir test emülatörü kullan: test korumayı başlatıp durdurur, Wi-Fi'yi kapatıp açar ve probe uygulamasının kuralını geçici olarak değiştirir.
 
 `StateJsonDeviceTest` ayrıca Android'in gerçek JSON uygulamasıyla 3 test çalıştırır: yerel kayıt ve taşınabilir yedeğin yazılıp geri okunması, önceki sürüm 1 dosyalarında eksik yenileme gününün ayın ilk gününe dönüşmesi ve geçersiz sınır/yinelenen paket kimliklerinin reddedilmesi. Taşınabilir yedeğin geçici izinleri taşımadığı da doğrulanır.
 
@@ -76,6 +84,8 @@ python3 tools/probe_server.py
 
 Sunucu yalnızca `127.0.0.1:18081` üzerinden HTTP ve `127.0.0.1:18082` üzerinden UDP sunar. Probe, Android emülatörünün ana makine adresi `10.0.2.2` üzerinden bağlanır; fiziksel telefon testi için bu adres uygun değildir. Test uygulaması dış servise ihtiyaç duymaz.
 
+Alan adı testleri için ayrıca `python3 tools/probe_dns_server.py` çalıştır ve emülatörü `-dns-server 127.0.0.1` seçeneğiyle başlat. DNS fixture yalnızca `*.akis.test.invalid` adlarını `10.0.2.2`'ye çözer; her probe farklı ad kullanarak DNS önbelleğini devre dışı bırakır. Linux üzerinde loopback 53 numaralı portu açmak yetki gerektirebilir. Bu DNS yapılandırması yalnızca ayrı test emülatörüne uygulanır; gerçek telefona veya host'un genel DNS ayarlarına uygulanmaz.
+
 Tek bir emülatör bağlıyken:
 
 ```sh
@@ -87,7 +97,7 @@ adb shell am instrument -w -r \
   dev.akiskontrol.app.test/androidx.test.runner.AndroidJUnitRunner
 ```
 
-Birden fazla cihaz bağlıysa her `adb` komutuna `-s SERIAL` ekle. Dört testin tamamında başarı için komutun sonunda `OK (4 tests)` sonucu görülmelidir; yalnızca paketlerin kurulması veya uygulamanın açılması başarı sayılmaz.
+Birden fazla cihaz bağlıysa her `adb` komutuna `-s SERIAL` ekle. Güncel kaynakta üç VPN testi ve üç JSON testi vardır; tümü birlikte çalıştırıldığında beklenen sonuç `OK (6 tests)` olur. Yalnızca paketlerin kurulması veya uygulamanın açılması başarı sayılmaz. Eski sürümün 4 testlik kayıtları tarihsel kanıttır.
 
 Donanım hızlandırması olmayan yavaş emülatörde, Android hizmetinin hazır olmasını bekleyen süreyi 120 saniyeye çıkarmak için:
 
@@ -130,6 +140,8 @@ Trafik testi şu adımları sınar:
 5. 1.024 bayt/s sınırında 1.200 baytlık UDP paketi bekletilerek taşınır.
 6. Dolmuş uygulama kotası aktarımı engeller.
 7. Hizmet durdurulup tekrar başlatılınca aktarım çalışır ve kullanım kaydedilir.
+
+Ek hostname testi VPN öncesi/sırası/sonrası sistem DNS'i ve HTTP aktarımını, uygulama engelinin korunmasını ve ulaşılamayan IPv6 hedefinde sahte TCP başarısı oluşmamasını sınar. Ağ geçişi testi Wi-Fi engelli/mobil izinli kuralından mobil engelli/Wi-Fi izinli kuralına geçer; gerçek paketlerle seçilen ağın kuralını doğrular. Bunlar emüle edilmiş ağlardır; operatör ve üretici telefon testlerinin yerine geçmez.
 
 Test sonunda önceki probe kuralı ve toplam kota geri yüklenir; koruma durdurulur. Hata incelemesinde test çıktısı, `adb logcat` ve uygulamanın bakım ekranındaki kayıtlar birlikte değerlendirilmelidir.
 
