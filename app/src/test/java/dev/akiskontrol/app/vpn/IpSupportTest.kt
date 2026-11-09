@@ -21,6 +21,13 @@ class IpSupportTest {
         assertFalse(supportsIpv6(addresses("2001:db8::1"), false))
     }
 
+    @Test fun deprecatedSiteLocalAddressIsNotAnInternetSourceEvenWithDefaultRoute() {
+        assertFalse(supportsIpv6(addresses("fec0::15"), true))
+        assertFalse(supportsIpv6(addresses("feff::1", "192.0.2.10"), true))
+        // A second, globally usable address still supports IPv6 on the uplink.
+        assertTrue(supportsIpv6(addresses("fec0::15", "2001:db8::1"), true))
+    }
+
     @Test fun routedIpv6IsRetainedForDualStackAndIpv6OnlyUplinks() {
         assertTrue(supportsIpv6(addresses("192.0.2.10", "2001:db8::1"), true))
         assertTrue(supportsIpv6(addresses("2001:db8::1"), true))

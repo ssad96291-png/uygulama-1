@@ -205,7 +205,9 @@ class AkisVpnService : VpnService() {
                     it.flags and (OsConstants.IFA_F_TENTATIVE or OsConstants.IFA_F_DADFAILED) == 0
                 }?.map { it.address }.orEmpty(),
                 properties?.routes?.any {
-                    it.isDefaultRoute && it.type == RouteInfo.RTN_UNICAST && it.destination.address is Inet6Address
+                    // isDefaultRoute already requires RTN_UNICAST on API 29+;
+                    // RouteInfo.getType itself is only public starting at API 33.
+                    it.isDefaultRoute && it.destination.address is Inet6Address
                 } == true,
             )
             // Retain the TUN on ordinary rule/DNS changes; replace it only when

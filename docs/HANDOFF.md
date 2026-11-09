@@ -46,11 +46,11 @@ GitHub commit'lerini ve aşağıdaki sonuçların güncellenip güncellenmediği
    çekerek sabit Go sürümünü aşması bulundu. Sabitlenmiş araçlarla tekrarlanabilir
    AAR derlemesi için düzeltme uygulandı ve native derleme tamamlandı.
 
-Yeni kaynak sürümü **0.1.3 / versionCode 4** olarak artırıldı. **53 JVM testi
-(44 core + 9 app) geçti.** İlk tam Gradle kontrolü, minSdk 29'a rağmen yeni
-`RouteInfo.getType` kullanımının API 33 istemesi nedeniyle lint aşamasında
-başarısız oldu; Android ajanı uyumluluk düzeltmesini yapıyor. Yeni APK henüz
-doğrulanmış/teslime hazır değil.
+Yeni kaynak sürümü **0.1.3 / versionCode 4** olarak artırıldı. **54 JVM testi
+(44 core + 10 app) geçti.** API 33 `RouteInfo.getType` kullanımı API 29 uyumlu
+`isDefaultRoute()` ile düzeltildi; app birim testi ve lint başarılı. Deprecated
+site-local IPv6 adresleri desteğe dahil edilmiyor. Native 16 test ve 19 alt test
+geçti. Birleşik yeni APK derlemesi çalışıyor; cihaz doğrulaması bekliyor.
 
 **Bu checkpoint yeni APK'nın hazır olduğu anlamına gelmez.** 0.1.2 dosyasının
 üzerine doğrulanmamış bir APK yazma; yeni APK üretildiğinde sürüm/boyut/özet ve
@@ -113,3 +113,5 @@ uygulamayı kaldırmayı çözüm olarak önermeden önce durumu açıkla.
 
 Tam geçmiş: [WORK_LOG.md](WORK_LOG.md). Yeni test çıktısı gelince bu dosyadaki
 bekliyor ifadelerini kanıtlarıyla güncelle ve checkpoint'i GitHub'a push et.
+
+Son ara kayıt: `55f554b` GitHub main üzerinde doğrulandı. API 33 `RouteInfo.getType` kullanımı kaldırıldı; `isDefaultRoute()` Android 10'da aynı unicast kontrolünü zaten yapıyor. Lint doğrulaması başarılı; eski APK cihaz regresyonu ve birleşik APK derlemesi sürüyor.

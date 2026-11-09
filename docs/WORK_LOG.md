@@ -112,3 +112,18 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
   eklenmeyecek; sonraki APK'nın sertifikası önceki APK ile karşılaştırılacak.
 - Eski 0.1.2 üzerinde Android DNS/IPv6 regresyon testi, emülatör framework'ünün
   hazır olması beklenerek yürütülüyor; sonuç henüz alınmadı.
+
+## 2026-11-09 19:19 +03 — İlk sürekli yedek ve API 29 düzeltmesi
+
+- `55f554b` checkpoint'i `main` dalına push edildi; `git ls-remote` ile uzak commit doğrulandı. Kaynak değişiklikleri, geçmiş günlüğü ve oturum devam talimatları artık GitHub'da. Yeni APK henüz paylaşılmadı.
+- Android lint, `RouteInfo.getType` çağrısının API 33 gerektirdiğini yakaladı. AOSP Android 10 `RouteInfo.isDefaultRoute()` uygulamasının zaten `RTN_UNICAST` ve sıfır önek uzunluğunu kontrol ettiği doğrulandı; fazladan API 33 çağrısı kaldırıldı. API 29 desteği lint bastırılarak geçiştirilmedi.
+- 44 core + 9 app JVM testi geçti. Düzeltilmiş kaynakta lint/derleme tekrar doğrulanıyor; native sonuç kaydı alınıyor.
+- Emülatör açıldı, Wi-Fi bağlı. Ayrı test oturumu eski **0.1.2** APK ve yeni probe/test APK ile DNS/IPv6 regresyonunu çalıştırıyor; sonucu henüz yok.
+
+## 2026-11-09T19:22+03:00 — Uyumluluk kontrolü geçti, native kanıt kaydı
+
+- API 33 bağımlılığı kaldırıldıktan sonra `:app:testDebugUnitTest :app:lintDebug` başarılı oldu; 0 lint hatası.
+- IPv6 desteği hesabı eski site-local `fec0::/10` adreslerini de dışlıyor. AOSP API 29 `LinkAddress` bu adresleri Internet kapsamı yerine `RT_SCOPE_SITE` olarak sınıflandırıyor. ULA `fd00::/8` davranışı korunuyor; bu ölçüt AOSP `isGlobalPreferred` işlevinin birebir kopyası değil. Altıncı IPv6 destek testi eklendi; artık **44 core + 10 app = 54 JVM testi geçti**.
+- Native motor için **16 test fonksiyonu ve 19 alt test** race detector ile geçti. TLS 1.2/1.3 × IPv4/IPv6 gerçek şifreli aktarımı dahil sonuç `docs/validation/0.1.3/native-tests.jsonl` içinde. Native AAR üretildi.
+- Eski APK karşılaştırmasının ilk adımında VPN kapalıyken DNS+hostname HTTP başarılı, ulaşılamayan IPv6 bağlantısı başarısız. VPN açık kısmı sürüyor. Emülatör Wi-Fi'sinin site-local IPv6 bilgisi taşıdığı ayrıca kaydedildi; fiziksel ağ sonucu olarak sunulmayacak.
+- Yeni APK için birleşik derleme/lint/test yeniden çalıştırılıyor. `docs/validation/0.1.3/progress.json` yalnızca ara durumdur; cihaz doğrulaması ve APK paylaşımı henüz tamamlanmadı.

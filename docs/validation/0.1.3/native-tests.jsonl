@@ -1,0 +1,144 @@
+{"Time":"2026-11-09T16:19:43.363165497Z","Action":"start","Package":"dev.akiskontrol/engine/mobile"}
+{"Time":"2026-11-09T16:19:43.374595766Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6"}
+{"Time":"2026-11-09T16:19:43.374629376Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6","Output":"=== RUN   TestEngineTCPAndUDPIPv4IPv6\n"}
+{"Time":"2026-11-09T16:19:43.374722646Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/tcp/127.0.0.1"}
+{"Time":"2026-11-09T16:19:43.374727814Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/tcp/127.0.0.1","Output":"=== RUN   TestEngineTCPAndUDPIPv4IPv6/tcp/127.0.0.1\n"}
+{"Time":"2026-11-09T16:19:43.384975163Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/tcp/127.0.0.1","Output":"--- PASS: TestEngineTCPAndUDPIPv4IPv6/tcp/127.0.0.1 (0.01s)\n"}
+{"Time":"2026-11-09T16:19:43.385021332Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/tcp/127.0.0.1","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:43.385027742Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/tcp/::1"}
+{"Time":"2026-11-09T16:19:43.385030756Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/tcp/::1","Output":"=== RUN   TestEngineTCPAndUDPIPv4IPv6/tcp/::1\n"}
+{"Time":"2026-11-09T16:19:43.391049539Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/tcp/::1","Output":"--- PASS: TestEngineTCPAndUDPIPv4IPv6/tcp/::1 (0.01s)\n"}
+{"Time":"2026-11-09T16:19:43.391137261Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/tcp/::1","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:43.391179174Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/udp/127.0.0.1"}
+{"Time":"2026-11-09T16:19:43.391182328Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/udp/127.0.0.1","Output":"=== RUN   TestEngineTCPAndUDPIPv4IPv6/udp/127.0.0.1\n"}
+{"Time":"2026-11-09T16:19:43.395446918Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/udp/127.0.0.1","Output":"--- PASS: TestEngineTCPAndUDPIPv4IPv6/udp/127.0.0.1 (0.00s)\n"}
+{"Time":"2026-11-09T16:19:43.395475091Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/udp/127.0.0.1","Elapsed":0}
+{"Time":"2026-11-09T16:19:43.395484515Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/udp/::1"}
+{"Time":"2026-11-09T16:19:43.395487429Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/udp/::1","Output":"=== RUN   TestEngineTCPAndUDPIPv4IPv6/udp/::1\n"}
+{"Time":"2026-11-09T16:19:43.403156689Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/udp/::1","Output":"--- PASS: TestEngineTCPAndUDPIPv4IPv6/udp/::1 (0.00s)\n"}
+{"Time":"2026-11-09T16:19:43.403266784Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6/udp/::1","Elapsed":0}
+{"Time":"2026-11-09T16:19:43.403273895Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6","Output":"--- PASS: TestEngineTCPAndUDPIPv4IPv6 (0.03s)\n"}
+{"Time":"2026-11-09T16:19:43.403277721Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPAndUDPIPv4IPv6","Elapsed":0.03}
+{"Time":"2026-11-09T16:19:43.403281486Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer"}
+{"Time":"2026-11-09T16:19:43.40328386Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer","Output":"=== RUN   TestEngineTLSIPv4IPv6LargeTransfer\n"}
+{"Time":"2026-11-09T16:19:43.403286444Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/127.0.0.1/TLS_1.2"}
+{"Time":"2026-11-09T16:19:43.403298872Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/127.0.0.1/TLS_1.2","Output":"=== RUN   TestEngineTLSIPv4IPv6LargeTransfer/127.0.0.1/TLS_1.2\n"}
+{"Time":"2026-11-09T16:19:43.495656999Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/127.0.0.1/TLS_1.2","Output":"--- PASS: TestEngineTLSIPv4IPv6LargeTransfer/127.0.0.1/TLS_1.2 (0.09s)\n"}
+{"Time":"2026-11-09T16:19:43.495698571Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/127.0.0.1/TLS_1.2","Elapsed":0.09}
+{"Time":"2026-11-09T16:19:43.495710319Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/127.0.0.1/TLS_1.3"}
+{"Time":"2026-11-09T16:19:43.495714074Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/127.0.0.1/TLS_1.3","Output":"=== RUN   TestEngineTLSIPv4IPv6LargeTransfer/127.0.0.1/TLS_1.3\n"}
+{"Time":"2026-11-09T16:19:43.586316666Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/127.0.0.1/TLS_1.3","Output":"--- PASS: TestEngineTLSIPv4IPv6LargeTransfer/127.0.0.1/TLS_1.3 (0.09s)\n"}
+{"Time":"2026-11-09T16:19:43.586354553Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/127.0.0.1/TLS_1.3","Elapsed":0.09}
+{"Time":"2026-11-09T16:19:43.586364408Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/::1/TLS_1.2"}
+{"Time":"2026-11-09T16:19:43.586367402Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/::1/TLS_1.2","Output":"=== RUN   TestEngineTLSIPv4IPv6LargeTransfer/::1/TLS_1.2\n"}
+{"Time":"2026-11-09T16:19:43.694731716Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/::1/TLS_1.2","Output":"--- PASS: TestEngineTLSIPv4IPv6LargeTransfer/::1/TLS_1.2 (0.11s)\n"}
+{"Time":"2026-11-09T16:19:43.694820619Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/::1/TLS_1.2","Elapsed":0.11}
+{"Time":"2026-11-09T16:19:43.694833929Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/::1/TLS_1.3"}
+{"Time":"2026-11-09T16:19:43.694839708Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/::1/TLS_1.3","Output":"=== RUN   TestEngineTLSIPv4IPv6LargeTransfer/::1/TLS_1.3\n"}
+{"Time":"2026-11-09T16:19:43.797884477Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/::1/TLS_1.3","Output":"--- PASS: TestEngineTLSIPv4IPv6LargeTransfer/::1/TLS_1.3 (0.10s)\n"}
+{"Time":"2026-11-09T16:19:43.797935844Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer/::1/TLS_1.3","Elapsed":0.1}
+{"Time":"2026-11-09T16:19:43.797948543Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer","Output":"--- PASS: TestEngineTLSIPv4IPv6LargeTransfer (0.40s)\n"}
+{"Time":"2026-11-09T16:19:43.797957256Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTLSIPv4IPv6LargeTransfer","Elapsed":0.4}
+{"Time":"2026-11-09T16:19:43.797970536Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineUnknownOwnerFailsClosed"}
+{"Time":"2026-11-09T16:19:43.797974142Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineUnknownOwnerFailsClosed","Output":"=== RUN   TestEngineUnknownOwnerFailsClosed\n"}
+{"Time":"2026-11-09T16:19:43.805905455Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineUnknownOwnerFailsClosed","Output":"--- PASS: TestEngineUnknownOwnerFailsClosed (0.01s)\n"}
+{"Time":"2026-11-09T16:19:43.808445968Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineUnknownOwnerFailsClosed","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:43.808472097Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPPartialQuotaForwardsOnlyAuthorizedBytes"}
+{"Time":"2026-11-09T16:19:43.808481171Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPPartialQuotaForwardsOnlyAuthorizedBytes","Output":"=== RUN   TestEngineTCPPartialQuotaForwardsOnlyAuthorizedBytes\n"}
+{"Time":"2026-11-09T16:19:43.809904907Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPPartialQuotaForwardsOnlyAuthorizedBytes","Output":"--- PASS: TestEngineTCPPartialQuotaForwardsOnlyAuthorizedBytes (0.00s)\n"}
+{"Time":"2026-11-09T16:19:43.809931397Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineTCPPartialQuotaForwardsOnlyAuthorizedBytes","Elapsed":0}
+{"Time":"2026-11-09T16:19:43.809937416Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEnginePartialUDPQuotaDropsWholeDatagram"}
+{"Time":"2026-11-09T16:19:43.809940761Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEnginePartialUDPQuotaDropsWholeDatagram","Output":"=== RUN   TestEnginePartialUDPQuotaDropsWholeDatagram\n"}
+{"Time":"2026-11-09T16:19:43.898601278Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEnginePartialUDPQuotaDropsWholeDatagram","Output":"--- PASS: TestEnginePartialUDPQuotaDropsWholeDatagram (0.09s)\n"}
+{"Time":"2026-11-09T16:19:43.898644794Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEnginePartialUDPQuotaDropsWholeDatagram","Elapsed":0.09}
+{"Time":"2026-11-09T16:19:43.898652225Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineStopInterruptsPacingAndRefunds"}
+{"Time":"2026-11-09T16:19:43.89865545Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineStopInterruptsPacingAndRefunds","Output":"=== RUN   TestEngineStopInterruptsPacingAndRefunds\n"}
+{"Time":"2026-11-09T16:19:43.906986413Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineStopInterruptsPacingAndRefunds","Output":"--- PASS: TestEngineStopInterruptsPacingAndRefunds (0.01s)\n"}
+{"Time":"2026-11-09T16:19:43.907013713Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineStopInterruptsPacingAndRefunds","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:43.907019582Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineSocketProtectionFailureFailsClosed"}
+{"Time":"2026-11-09T16:19:43.907022196Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineSocketProtectionFailureFailsClosed","Output":"=== RUN   TestEngineSocketProtectionFailureFailsClosed\n"}
+{"Time":"2026-11-09T16:19:43.914045637Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineSocketProtectionFailureFailsClosed","Output":"--- PASS: TestEngineSocketProtectionFailureFailsClosed (0.01s)\n"}
+{"Time":"2026-11-09T16:19:43.914071585Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineSocketProtectionFailureFailsClosed","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:43.914076613Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineUnknownDNSOwnerIsDiagnosedAndNeverBypassesRules"}
+{"Time":"2026-11-09T16:19:43.914078816Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineUnknownDNSOwnerIsDiagnosedAndNeverBypassesRules","Output":"=== RUN   TestEngineUnknownDNSOwnerIsDiagnosedAndNeverBypassesRules\n"}
+{"Time":"2026-11-09T16:19:43.923639434Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineUnknownDNSOwnerIsDiagnosedAndNeverBypassesRules","Output":"--- PASS: TestEngineUnknownDNSOwnerIsDiagnosedAndNeverBypassesRules (0.01s)\n"}
+{"Time":"2026-11-09T16:19:43.923673235Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineUnknownDNSOwnerIsDiagnosedAndNeverBypassesRules","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:43.923690591Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineFailedDNSUpstreamDiagnosedWithoutEndpoint"}
+{"Time":"2026-11-09T16:19:43.923694497Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineFailedDNSUpstreamDiagnosedWithoutEndpoint","Output":"=== RUN   TestEngineFailedDNSUpstreamDiagnosedWithoutEndpoint\n"}
+{"Time":"2026-11-09T16:19:43.930597657Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineFailedDNSUpstreamDiagnosedWithoutEndpoint","Output":"--- PASS: TestEngineFailedDNSUpstreamDiagnosedWithoutEndpoint (0.01s)\n"}
+{"Time":"2026-11-09T16:19:43.930622133Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineFailedDNSUpstreamDiagnosedWithoutEndpoint","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:43.93062642Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple"}
+{"Time":"2026-11-09T16:19:43.930628513Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple","Output":"=== RUN   TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple\n"}
+{"Time":"2026-11-09T16:19:43.930663425Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/tcp/127.0.0.53"}
+{"Time":"2026-11-09T16:19:43.93066654Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/tcp/127.0.0.53","Output":"=== RUN   TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/tcp/127.0.0.53\n"}
+{"Time":"2026-11-09T16:19:43.93598402Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/tcp/127.0.0.53","Output":"--- PASS: TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/tcp/127.0.0.53 (0.01s)\n"}
+{"Time":"2026-11-09T16:19:43.936007385Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/tcp/127.0.0.53","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:43.936013264Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/tcp/::1"}
+{"Time":"2026-11-09T16:19:43.936015888Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/tcp/::1","Output":"=== RUN   TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/tcp/::1\n"}
+{"Time":"2026-11-09T16:19:43.939973838Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/tcp/::1","Output":"--- PASS: TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/tcp/::1 (0.00s)\n"}
+{"Time":"2026-11-09T16:19:43.939994239Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/tcp/::1","Elapsed":0}
+{"Time":"2026-11-09T16:19:43.939998535Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/udp/127.0.0.53"}
+{"Time":"2026-11-09T16:19:43.940000668Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/udp/127.0.0.53","Output":"=== RUN   TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/udp/127.0.0.53\n"}
+{"Time":"2026-11-09T16:19:43.943255343Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/udp/127.0.0.53","Output":"--- PASS: TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/udp/127.0.0.53 (0.00s)\n"}
+{"Time":"2026-11-09T16:19:43.943272188Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/udp/127.0.0.53","Elapsed":0}
+{"Time":"2026-11-09T16:19:43.943284777Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/udp/::1"}
+{"Time":"2026-11-09T16:19:43.943287651Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/udp/::1","Output":"=== RUN   TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/udp/::1\n"}
+{"Time":"2026-11-09T16:19:43.946433933Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/udp/::1","Output":"--- PASS: TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/udp/::1 (0.00s)\n"}
+{"Time":"2026-11-09T16:19:43.946450208Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple/udp/::1","Elapsed":0}
+{"Time":"2026-11-09T16:19:43.946454854Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple","Output":"--- PASS: TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple (0.02s)\n"}
+{"Time":"2026-11-09T16:19:43.946472331Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineDNSAliasUsesUnderlyingServerAndOriginalOwnerTuple","Elapsed":0.02}
+{"Time":"2026-11-09T16:19:43.946502666Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed"}
+{"Time":"2026-11-09T16:19:43.946506041Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed","Output":"=== RUN   TestEngineInvalidUnderlyingDNSFailsClosed\n"}
+{"Time":"2026-11-09T16:19:43.946528004Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/#00"}
+{"Time":"2026-11-09T16:19:43.946529797Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/#00","Output":"=== RUN   TestEngineInvalidUnderlyingDNSFailsClosed/#00\n"}
+{"Time":"2026-11-09T16:19:43.953938806Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/#00","Output":"--- PASS: TestEngineInvalidUnderlyingDNSFailsClosed/#00 (0.01s)\n"}
+{"Time":"2026-11-09T16:19:43.953957013Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/#00","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:43.953961861Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/host.invalid"}
+{"Time":"2026-11-09T16:19:43.953963864Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/host.invalid","Output":"=== RUN   TestEngineInvalidUnderlyingDNSFailsClosed/host.invalid\n"}
+{"Time":"2026-11-09T16:19:43.961212222Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/host.invalid","Output":"--- PASS: TestEngineInvalidUnderlyingDNSFailsClosed/host.invalid (0.01s)\n"}
+{"Time":"2026-11-09T16:19:43.961230028Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/host.invalid","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:43.961234866Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/0.0.0.0"}
+{"Time":"2026-11-09T16:19:43.9612374Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/0.0.0.0","Output":"=== RUN   TestEngineInvalidUnderlyingDNSFailsClosed/0.0.0.0\n"}
+{"Time":"2026-11-09T16:19:43.969026058Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/0.0.0.0","Output":"--- PASS: TestEngineInvalidUnderlyingDNSFailsClosed/0.0.0.0 (0.01s)\n"}
+{"Time":"2026-11-09T16:19:43.96904741Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/0.0.0.0","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:43.969066479Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/::"}
+{"Time":"2026-11-09T16:19:43.969069353Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/::","Output":"=== RUN   TestEngineInvalidUnderlyingDNSFailsClosed/::\n"}
+{"Time":"2026-11-09T16:19:43.976785143Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/::","Output":"--- PASS: TestEngineInvalidUnderlyingDNSFailsClosed/:: (0.01s)\n"}
+{"Time":"2026-11-09T16:19:43.976827687Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/::","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:43.976833916Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/224.0.0.1"}
+{"Time":"2026-11-09T16:19:43.97685641Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/224.0.0.1","Output":"=== RUN   TestEngineInvalidUnderlyingDNSFailsClosed/224.0.0.1\n"}
+{"Time":"2026-11-09T16:19:43.984390086Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/224.0.0.1","Output":"--- PASS: TestEngineInvalidUnderlyingDNSFailsClosed/224.0.0.1 (0.01s)\n"}
+{"Time":"2026-11-09T16:19:43.984410477Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/224.0.0.1","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:43.984415424Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/ff02::1"}
+{"Time":"2026-11-09T16:19:43.984417698Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/ff02::1","Output":"=== RUN   TestEngineInvalidUnderlyingDNSFailsClosed/ff02::1\n"}
+{"Time":"2026-11-09T16:19:43.992795961Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/ff02::1","Output":"--- PASS: TestEngineInvalidUnderlyingDNSFailsClosed/ff02::1 (0.01s)\n"}
+{"Time":"2026-11-09T16:19:43.992830563Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/ff02::1","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:43.992834629Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/10.111.0.1"}
+{"Time":"2026-11-09T16:19:43.992857914Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/10.111.0.1","Output":"=== RUN   TestEngineInvalidUnderlyingDNSFailsClosed/10.111.0.1\n"}
+{"Time":"2026-11-09T16:19:44.00123722Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/10.111.0.1","Output":"--- PASS: TestEngineInvalidUnderlyingDNSFailsClosed/10.111.0.1 (0.01s)\n"}
+{"Time":"2026-11-09T16:19:44.00125748Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed/10.111.0.1","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:44.001300454Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed","Output":"--- PASS: TestEngineInvalidUnderlyingDNSFailsClosed (0.05s)\n"}
+{"Time":"2026-11-09T16:19:44.001318502Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEngineInvalidUnderlyingDNSFailsClosed","Elapsed":0.05}
+{"Time":"2026-11-09T16:19:44.001375958Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestEnginePacingDelaysForwarding"}
+{"Time":"2026-11-09T16:19:44.001379303Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEnginePacingDelaysForwarding","Output":"=== RUN   TestEnginePacingDelaysForwarding\n"}
+{"Time":"2026-11-09T16:19:44.165822321Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestEnginePacingDelaysForwarding","Output":"--- PASS: TestEnginePacingDelaysForwarding (0.16s)\n"}
+{"Time":"2026-11-09T16:19:44.16587501Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestEnginePacingDelaysForwarding","Elapsed":0.16}
+{"Time":"2026-11-09T16:19:44.165882942Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNCloseInterruptsReadAndPreservesOriginalDescriptor"}
+{"Time":"2026-11-09T16:19:44.165885886Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNCloseInterruptsReadAndPreservesOriginalDescriptor","Output":"=== RUN   TestTUNCloseInterruptsReadAndPreservesOriginalDescriptor\n"}
+{"Time":"2026-11-09T16:19:44.166038185Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNCloseInterruptsReadAndPreservesOriginalDescriptor","Output":"--- PASS: TestTUNCloseInterruptsReadAndPreservesOriginalDescriptor (0.00s)\n"}
+{"Time":"2026-11-09T16:19:44.166071855Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNCloseInterruptsReadAndPreservesOriginalDescriptor","Elapsed":0}
+{"Time":"2026-11-09T16:19:44.166097704Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNCloseInterruptsSaturatedWrite"}
+{"Time":"2026-11-09T16:19:44.166103753Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNCloseInterruptsSaturatedWrite","Output":"=== RUN   TestTUNCloseInterruptsSaturatedWrite\n"}
+{"Time":"2026-11-09T16:19:44.171631989Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNCloseInterruptsSaturatedWrite","Output":"--- PASS: TestTUNCloseInterruptsSaturatedWrite (0.01s)\n"}
+{"Time":"2026-11-09T16:19:44.171658009Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNCloseInterruptsSaturatedWrite","Elapsed":0.01}
+{"Time":"2026-11-09T16:19:44.171664088Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNPacketsRetainBytesAfterReadBufferReuse"}
+{"Time":"2026-11-09T16:19:44.171667523Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNPacketsRetainBytesAfterReadBufferReuse","Output":"=== RUN   TestTUNPacketsRetainBytesAfterReadBufferReuse\n"}
+{"Time":"2026-11-09T16:19:44.172186361Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNPacketsRetainBytesAfterReadBufferReuse","Output":"--- PASS: TestTUNPacketsRetainBytesAfterReadBufferReuse (0.00s)\n"}
+{"Time":"2026-11-09T16:19:44.172194664Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNPacketsRetainBytesAfterReadBufferReuse","Elapsed":0}
+{"Time":"2026-11-09T16:19:44.172197288Z","Action":"run","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNRejectsInvalidAndUnpollableDescriptors"}
+{"Time":"2026-11-09T16:19:44.172204228Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNRejectsInvalidAndUnpollableDescriptors","Output":"=== RUN   TestTUNRejectsInvalidAndUnpollableDescriptors\n"}
+{"Time":"2026-11-09T16:19:44.172762236Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNRejectsInvalidAndUnpollableDescriptors","Output":"--- PASS: TestTUNRejectsInvalidAndUnpollableDescriptors (0.00s)\n"}
+{"Time":"2026-11-09T16:19:44.172876557Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Test":"TestTUNRejectsInvalidAndUnpollableDescriptors","Elapsed":0}
+{"Time":"2026-11-09T16:19:44.172880213Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Output":"PASS\n"}
+{"Time":"2026-11-09T16:19:45.175443662Z","Action":"output","Package":"dev.akiskontrol/engine/mobile","Output":"ok  \tdev.akiskontrol/engine/mobile\t1.812s\n"}
+{"Time":"2026-11-09T16:19:45.176031735Z","Action":"pass","Package":"dev.akiskontrol/engine/mobile","Elapsed":1.813}
