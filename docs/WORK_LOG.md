@@ -174,3 +174,10 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Kaynak, 0.1.3 APK, test kanıtları ve devir notu `14b4be9` commit'iyle GitHub `main` dalına yüklendi. Uzak commit `git ls-remote` ile eşleştirildi. GitHub'ın 50 MB öneri uyarısı yüklemeyi engellemedi.
 - APK doğrudan raw bağlantısından yeniden indirildi: **HTTP 200**, **76.857.067 bayt**, SHA-256 `32d33ea29485daa4091d6b279d94b6a73246530e0585732854e14ca4e9dd76d9`. `cmp` ile yerel test edilen dosyayla birebir aynı olduğu doğrulandı; bağlantı [burada](https://raw.githubusercontent.com/ssad96291-png/uygulama-1/main/downloads/akis-0.1.3-debug.apk).
 - `verification.json` ve ara durum dosyası teslim edildi olarak güncellendi. Tüm test süreçleri tamamlandı; sıradaki iş kullanıcının Samsung telefonunda 0.1.3 denemesinden gelen sonucu değerlendirmek. Aynı imza sayesinde mevcut uygulama kaldırılmadan güncellenebilir.
+
+## 2026-11-09T20:14+03:00 — Görsel tasarım alternatifleri hazırlığı
+
+- Kullanıcı Akış için birkaç uygulama tasarımını resim olarak istedi. Mevcut APK üzerinde arayüz uygulaması istenmedi; bu aşama görsel konsept hazırlığıdır.
+- AGENTS ve güncel devir kaydı okundu, uzak main açık refspec ile getirildi. Yerel/uzak aynı `978cdb6` commit'inde; başka oturumun ek değişikliği ve kirli çalışma dosyası yoktu.
+- Üç yön planlandı: açık Sade Mint, grafit/camgöbeği Koyu Kontrol, sıcak krem/indigo Renkli Kartlar. Uygulama bazlı Wi-Fi/mobil izinleri, hız sınırı ve kota arayüzü gösterilecek. Görsel üretimi bu kayıt anında bekliyor; tamamlandı veya teslim edildi olarak işaretlenmedi.
+- Yalnız bu günlük ve HANDOFF güncellendi. Uygulama kodu, APK ve önceki test kanıtları değişmedi; 0.1.3 için Samsung telefonda yeniden test sonucu ayrıca bekleniyor.

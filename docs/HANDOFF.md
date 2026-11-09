@@ -1,6 +1,6 @@
 # Güncel devir kaydı
 
-Son güncelleme: **2026-11-09T19:51+03:00**. Her yeni görevde veya “devam” mesajında [AGENTS.md](../AGENTS.md) başlangıç adımlarını uygula, uzak main'i getir ve son [işlem günlüğünü](WORK_LOG.md) oku. Aktif oturum notu hesaplar arasında kilit değildir.
+Son güncelleme: **2026-11-09T20:14+03:00**. Her yeni görevde veya “devam” mesajında [AGENTS.md](../AGENTS.md) başlangıç adımlarını uygula, uzak main'i getir ve son [işlem günlüğünü](WORK_LOG.md) oku. Aktif oturum notu hesaplar arasında kilit değildir.
 
 ## Güncel durum
 
@@ -22,9 +22,19 @@ Yeni VPN yalnızca kullanılabilir IPv6 adresi ve varsayılan rota bulunan ağla
 
 Native TLS 1.2/1.3 × IPv4/IPv6 aktarımı, Android alan adı çözümleme, uygulama engelleri, hız/kota, VPN yeniden başlatma ve emüle edilmiş Wi-Fi→mobil→Wi-Fi geçişi doğrulandı. IPv6 adresi+rota gerçek global/ULA erişimini garanti etmez; tüm üretici/operatör sorunlarının giderildiği iddia edilmemeli.
 
+## Güncel görev: görsel tasarım alternatifleri
+
+Kullanıcı Akış için birkaç uygulama tasarımını **resim olarak** istedi. Üç konsept hazırlanıyor:
+
+1. **Sade Mint:** açık, temiz tema; kolay okunur izin ve kota kontrolleri.
+2. **Koyu Kontrol:** grafit zemin, camgöbeği vurgular; ayrıntılı kontrol paneli.
+3. **Renkli Kartlar:** sıcak krem zemin, indigo ve renkli kartlar; kolay kullanım.
+
+Bunlar görsel seçeneklerdir; henüz kullanıcının tasarım seçimi yok. Üretimin tamamlandığı veya görsellerin teslim edildiği, sonraki işlem günlüğü kaydıyla doğrulanmalıdır. Görsellerin var olmayan dosya yolları kayda alınmadı. Bu görevde uygulama arayüzü, kaynak kodu veya APK değiştirilmedi. Teslim edilen 0.1.3 ve önceki 54 JVM / 6 Android testi geçerlidir; Samsung fiziksel yeniden test sonucu hâlâ bekleniyor.
+
 ## Kesin sonraki adım
 
-1. Uzak GitHub durumunu kontrol et. 0.1.3 APK indirmesi doğrulandı; kaynak/APK değişmedikçe derleme ve testleri tekrarlama. Yeni kullanıcı hata/deneme sonucundan devam et.
+1. Uzak GitHub durumunu kontrol et. Öncelikli yeni görev görsel tasarım alternatiflerini tamamlayıp kullanıcıya sunmak; seçim gelmeden bu konseptleri uygulama koduna aktarma. 0.1.3 APK indirmesi doğrulandı; kaynak/APK değişmedikçe derleme ve testleri tekrarlama.
 2. Kullanıcıdan mevcut uygulamayı kaldırmadan **0.1.3** kurup Samsung SM-S921B üzerinde Wi-Fi ve mobilde Samsung Browser/diğer uygulamalar + Speedtest'i yeniden denemesini iste.
 3. Sorun sürerse ağ türü ve uygulamayla birlikte yerel bakım günlüğündeki kategoriye göre incele; ilk DNS şüphesini kanıtlanmış neden gibi yeniden ele alma. Yeni hata yokken aynı testleri gereksiz tekrarlama.
 4. Fiziksel ağ geçişleri, global/ULA IPv6 blackhole, Private DNS, API 29 ve farklı OEM/pil davranışları genel uyumluluk kontrolünde hâlâ yer alır. Reklam/üyelik ve Play Store yayını kullanıcı daha sonra istediğinde ele alınacak.
