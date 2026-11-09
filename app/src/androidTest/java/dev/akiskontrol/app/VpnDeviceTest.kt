@@ -56,7 +56,7 @@ class VpnDeviceTest {
             val baseline = probe("hostname")
             assertTrue("Fixture DNS/HTTP failed without VPN: $baseline", baseline.getBoolean("success"))
             val ipv6Baseline = probe("ipv6-connect")
-            assertFalse("Fixture must have an IPv4-only underlay: $ipv6Baseline", ipv6Baseline.getBoolean("success"))
+            assertFalse("Fixture must not reach the reserved IPv6 target: $ipv6Baseline", ipv6Baseline.getBoolean("success"))
             device.executeShellCommand("appops set dev.akiskontrol.app ACTIVATE_VPN allow")
             assertNull("VPN consent must be granted", VpnService.prepare(context))
             device.executeShellCommand("am start -W -n dev.akiskontrol.app/.MainActivity")
@@ -78,6 +78,42 @@ class VpnDeviceTest {
             waitFor { !AkisVpnService.hasActiveTunnel }
             assertTrue("Hostname HTTP failed after VPN stopped", probe("hostname").getBoolean("success"))
         } finally {
+            repository.saveRule(original)
+            repository.setGlobalQuota(originalGlobal)
+            context.startService(Intent(context, AkisVpnService::class.java).setAction(AkisVpnService.ACTION_STOP))
+        }
+    }
+    /** Requires both emulator Wi-Fi and cellular data, plus the local DNS fixture. */
+    @Test fun hostnameConnectionsFollowWifiAndMobileRules() {
+        device.executeShellCommand("svc wifi enable")
+        device.executeShellCommand("am start -W -n dev.akiskontrol.app/.MainActivity")
+        repository.refreshApps()
+        val uid = context.packageManager.getApplicationInfo("dev.akiskontrol.probe", 0).uid
+        val original = repository.ruleFor(uid)
+        val originalGlobal = repository.state.value.globalQuota
+        try {
+            repository.setGlobalQuota(GlobalQuota())
+            repository.saveRule(AppRule(uid, wifi = NetworkRule(allowed = false)))
+            device.executeShellCommand("appops set dev.akiskontrol.app ACTIVATE_VPN allow")
+            assertNull("VPN consent must be granted", VpnService.prepare(context))
+            context.startForegroundService(Intent(context, AkisVpnService::class.java))
+            waitFor { repository.state.value.status == ProtectionStatus.RUNNING && repository.state.value.network == NetworkKind.WIFI }
+            assertFalse("Wi-Fi block did not apply", probe("hostname").getBoolean("success"))
+            device.executeShellCommand("svc wifi disable")
+            waitFor { repository.state.value.status == ProtectionStatus.RUNNING && repository.state.value.network == NetworkKind.MOBILE }
+            val mobile = probe("hostname")
+            assertTrue("Allowed mobile hostname HTTP failed: $mobile", mobile.getBoolean("success"))
+            val ipv6 = probe("ipv6-connect")
+            assertFalse("IPv4-only mobile uplink falsely completed IPv6 connect: $ipv6", ipv6.getBoolean("success"))
+            repository.saveRule(AppRule(uid, mobile = NetworkRule(allowed = false)))
+            Thread.sleep(700)
+            assertFalse("Mobile block did not apply", probe("hostname").getBoolean("success"))
+            device.executeShellCommand("svc wifi enable")
+            waitFor { repository.state.value.status == ProtectionStatus.RUNNING && repository.state.value.network == NetworkKind.WIFI }
+            val wifi = probe("hostname")
+            assertTrue("Allowed Wi-Fi hostname HTTP failed after mobile handoff: $wifi", wifi.getBoolean("success"))
+        } finally {
+            device.executeShellCommand("svc wifi enable")
             repository.saveRule(original)
             repository.setGlobalQuota(originalGlobal)
             context.startService(Intent(context, AkisVpnService::class.java).setAction(AkisVpnService.ACTION_STOP))

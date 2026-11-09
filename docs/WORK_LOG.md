@@ -135,3 +135,10 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - 0.1.3 için birleşik 54 JVM testi/lint/APK/test paketi derlemesi başarılı. APK imzası önceki sürümle aynı; 16 KB ZIP hizalaması geçti. Aday dosya 76.857.067 bayt, SHA-256 `32d33ea29485daa4091d6b279d94b6a73246530e0585732854e14ca4e9dd76d9`; henüz indirilecek APK olarak yayımlanmadı.
 - Test probe'unda yalnız DNS/bağlantı kontrolünü yapay bir byte sayısı gibi raporlama kaldırıldı; gerçek aktarılan byte miktarı ayrı kaldı. Probe yeniden derlendi. Bu değişiklik ana APK'yı değiştirmiyor.
 - Yeni 0.1.3 + probe + instrumentation APK'ları kurulup **5 testlik Android paketi** başlatıldı. Sonuç bekleniyor; yeni cihaz sonucuna göre sonraki adım ağ geçişi kontrolü ve teslim.
+
+## 2026-11-09T19:40+03:00 — Bağımsız inceleme ve Wi-Fi/mobil geçiş testi
+
+- `7581c83` checkpoint'i GitHub main üzerinde doğrulandı. Yeni 0.1.3 ve test paketlerinin emülatöre kurulması başarılı; mevcut 5 test çalışıyor.
+- Bağımsız kod incelemesinde TUN değişimi ve native tanı kayıtlarında yeni engelleyici kusur bulunmadı. Sınır kaydedildi: fiziksel IPv6 adresi+rota, gerçek Internet erişimini tek başına garanti etmez; global/ULA IPv6 blackhole durumları ve Samsung telefon testi hâlâ ayrıca değerlendirilmelidir.
+- Test açıklamasındaki fazla kesin “IPv4-only fixture” ifadesi düzeltildi: Wi-Fi fixture'ı site-local IPv6 taşıyor, test hedefi erişilemez. Eski regresyonun sahte TCP başarısı kanıtı değişmedi.
+- `hostnameConnectionsFollowWifiAndMobileRules` cihaz testi eklendi: Wi-Fi engelli/mobil izinli, mobilde alan adıyla erişim ve yanlış IPv6 el sıkışmasının reddi, sonra mobil engelli/Wi-Fi izinli ve Wi-Fi'ye dönüş. Bu ek test henüz çalıştırılmadı; ilk 5 test bitince ayrı çalıştırılacak. Ana APK bu test değişikliğiyle değişmiyor.

@@ -20,7 +20,7 @@ public class ProbeActivity extends Activity {
             JSONObject result = new JSONObject(); long started = SystemClock.elapsedRealtime(); int received = 0;
             try {
                 if ("ipv6-connect".equals(mode)) {
-                    // Documentation prefix has no route on our IPv4-only test underlay.
+                    // Documentation prefix is unreachable on our local test underlay.
                     // A VPN must not falsely complete this TCP handshake on its virtual stack.
                     try (Socket socket = new Socket()) {
                         socket.connect(new InetSocketAddress(InetAddress.getByName("2001:db8::1"), 443), 3000);
