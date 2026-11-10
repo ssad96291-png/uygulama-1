@@ -45,7 +45,8 @@ fun AkisApp(
     var destination by rememberSaveable { mutableStateOf(Destination.APPS) }
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
-    var editing by remember { mutableStateOf<AppEntry?>(null) }
+    var editingUid by rememberSaveable { mutableStateOf<Int?>(null) }
+    val editing = state.apps.firstOrNull { it.uid == editingUid }
     var quotaEditor by rememberSaveable { mutableStateOf(false) }
     val feedback: (String) -> Unit = { message -> scope.launch { snackbar.showSnackbar(message) } }
     val savedRules: () -> Unit = {
@@ -68,14 +69,14 @@ fun AkisApp(
             Box(Modifier.fillMaxSize().padding(padding)) {
                 val editedApp = editing
                 if (editedApp != null) {
-                    AppRuleEditorScreen(editedApp, repository.ruleFor(editedApp.uid), state, { editing = null }) { wifi, mobile ->
+                    AppRuleEditorScreen(editedApp, repository.ruleFor(editedApp.uid), state, { editingUid = null }) { wifi, mobile ->
                         repository.saveRule(AppRule(editedApp.uid, wifi, mobile))
-                        editing = null
+                        editingUid = null
                         savedRules()
                     }
                 } else when (destination) {
                     Destination.HOME -> Dashboard(state, onToggleProtection, { destination = Destination.APPS }, { destination = Destination.USAGE }, { quotaEditor = true })
-                    Destination.APPS -> AppsScreen(state, repository, onEdit = { editing = it }, onRulesSaved = savedRules, feedback = feedback, onToggleProtection = onToggleProtection, onOpenSettings = { destination = Destination.SETTINGS })
+                    Destination.APPS -> AppsScreen(state, repository, onEdit = { editingUid = it.uid }, onRulesSaved = savedRules, feedback = feedback, onToggleProtection = onToggleProtection, onOpenSettings = { destination = Destination.SETTINGS })
                     Destination.USAGE -> UsageScreen(state, onExportCsv)
                     Destination.SETTINGS -> SettingsScreen(state, repository, onExportBackup, onImportBackup, onOpenVpnSettings, feedback)
                 }

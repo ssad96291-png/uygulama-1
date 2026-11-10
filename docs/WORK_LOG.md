@@ -209,3 +209,8 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Akış marka satırı, koruma kartı, günlük ağ kullanımı, satır düzeninde Wi-Fi/mobil anahtarları ve toplu düzenleme eklendi. Mevcut filtreler, geçici izinler ve geri alma menüden erişilebilir.
 - Uygulamaya özel düzenleyici tam ekran; ağ sekmeleri, hız birimleri, günlük/haftalık/aylık kota, gerçek kullanım çubuğu ve gelişmiş ayarlar korunuyor. Alt gezinme mint seçimiyle güncellendi; açılış ekranı Uygulamalar oldu.
 - Bu entegrasyon checkpoint’i henüz derlenmedi/test edilmedi. Sıradaki adım derleme, inceleme düzeltmeleri ve emülatör doğrulaması.
+
+## 2026-11-10T13:04+03:00 — Düzenleyici gezinme durumunun korunması
+
+- Düzenlenen uygulama kimliği `rememberSaveable` ile saklanıyor; Android ekran yeniden oluşturulunca aynı uygulamanın düzenleyicisi açılıyor. Taslak alanların da geri yüklenmesi ve sekme erişilebilirliği üzerinde inceleme sürüyor.
+- İlk derleme/doğrulama çalıştırması devam ediyor; henüz yeni tasarımın tamamı için başarılı test sonucu verilmedi.
