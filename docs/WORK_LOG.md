@@ -271,3 +271,8 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Önceki `3da6a52` kaynak derlemesi bu makinede 1m 3s içinde geçti: 60 JVM testi, lint, uygulama/test/probe APK. Bu sonuç aşağıdaki yeni değişikliğin cihaz doğrulaması değildir.
 - Dar/yatay ekranda klavye açıkken sabit başlığın form alanını tüketmemesi için uygulama kimliği başlığı kaydırılan alana taşındı. Geri ve Kaydet sabit; portre yatay girintisi ve başlık-sekme aralığı korundu.
 - Cihaz testi düzenleyici varlığını kayabilen başlık yerine sabit Geri kontrolüyle izliyor; geçersiz taslağı iptal edince aramanın da korunduğunu kontrol ediyor. Bu checkpoint henüz derlenmedi/test edilmedi.
+
+## 2026-11-10T19:00+03:00 — İkinci Codex: birleşik kaynak derlemesi geçti
+
+- `966a330` kaynak koduyla Gradle uygulama/test/probe APK, lint ve JVM kontrolleri `BUILD SUCCESSFUL in 1m` verdi. 44 core + 16 app = 60 test; başarısız/atlanmış test yok.
+- Kanıt `docs/validation/0.1.4-ui/second-session-build.txt`, sayımlar `second-session-progress.json`. Bu sürümün cihaz testi ve dar ekran kontrolü sırada; native motor kaynakları değişmediği için aynı Go testleri tekrar edilmedi.

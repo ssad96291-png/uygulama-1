@@ -152,3 +152,7 @@ Devam ediyorum. Önce diğer Codex’in yeni kayıtlarını kontrol edeceğim; a
 ## 28 — Asistan
 
 Diğer Codex de arama durumunu koruyan düzeltmeyi ve cihaz testindeki iki seçici sorununu çözmüş; onun güncel kodunu aldım. Ayrıca klavye açıldığında formun daralmaması için uygulama başlığını kaydırılabilir alana taşıdım. Bu değişikliği hemen kaydedip birleşik sürümü sınayacağım.
+
+## 29 — Asistan
+
+Birleşik sürümün derlemesi, lint kontrolü ve 60 JVM testi geçti. Bu sonucu da GitHub’a kaydediyorum. Şimdi gerçek ekranda iki ağın ayrı değerlerini, kaydetme/iptal davranışını ve ekran yeniden oluşturulduğunda taslakların korunmasını sınayacağım.

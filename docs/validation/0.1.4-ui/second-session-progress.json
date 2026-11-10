@@ -1,0 +1,22 @@
+{
+  "source_commit": "966a330c72537334b90f67f2cae7408d34c49ed5",
+  "time": "2026-11-10T19:00+03:00",
+  "jvm": {
+    "core": {
+      "tests": 44,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "build": "passed",
+  "lint": "passed",
+  "device_tests": "pending",
+  "physical_device": "not run"
+}
