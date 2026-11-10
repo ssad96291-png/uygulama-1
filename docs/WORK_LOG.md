@@ -220,3 +220,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - İlk mint arayüz derlemesi `BUILD SUCCESSFUL in 1m 21s`: mevcut 54 JVM testi, lint, debug APK ve Android test APK derlemesi geçti (`/workspace/toolchains/mint-ui/build.log`). Native motor kaynakları değiştirilmedi.
 - İki ağdaki tamamlanmamış/hatalı girişler dahil düzenleme taslakları artık Android yeniden oluşturulmasında saklanıyor. Sekmeler seçili durumunu erişilebilirlik hizmetlerine bildiriyor; dokunma alanı en az 48 dp.
 - Dönüşüm, geçersiz giriş, bağımsız ağlar ve taslak geri yükleme için 6 yeni JVM testi eklendi. Bu son iyileştirmeler/yeni testler henüz çalıştırılmadı; sonraki birleşik doğrulamada ölçülecek.
+
+## 2026-11-10T13:10+03:00 — 60 JVM testi geçti; gerçek arayüz testi eklendi
+
+- `:core:test` 44/44, `:app:testDebugUnitTest` 16/16: toplam 60 test, sıfır hata/atlama. Lint ve 0.1.4 APK derlemesi geçti (`build-final.log`, 30 s).
+- Gerçek Uygulamalar → ağ düzenleyici akışı için `MintUiDeviceTest` eklendi: bağımsız ağ taslakları, Activity yeniden oluşturma, kaydetme, geçersiz girişin reddi ve geri dönüş. Bu cihaz testi henüz çalıştırılmadı.
+- İlk mint APK emülatöre kuruldu/açıldı (43 s yazılım emülatörü). İlk UI hiyerarşisi alındı; düzenleyiciye geçiş anındaki dump null root verdi, uygulama hatası olup olmadığı cihaz kaydı/sonraki görüntüyle inceleniyor.
