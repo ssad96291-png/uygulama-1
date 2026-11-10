@@ -190,3 +190,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
   - `02-koyu-ve-ayrintili.png` — 1691963 bayt; SHA-256 `9692b2cdd0bfdfe329ea8f31e444853a151092d18e18b5d3e65f91d3bec9419c`.
   - `03-renkli-ve-kolay.png` — 1601608 bayt; SHA-256 `4b1abdfb8eab4643be9f6291647dc7d423f0604b4fc3d77cd8a8638c63d53842`.
 - `docs/designs/README.md` seçenekleri ve iki ekranlık kapsamlarını gösterir. HANDOFF güncellendi: kullanıcı seçimi/revizyonu bekleniyor; uygulama kodu veya APK değiştirilmedi. 0.1.3'ün önceki testleri yeniden çalıştırılmadı; Samsung fiziksel test sonucu ayrıca bekleniyor.
+
+## 2026-11-10T07:43+03:00 — Açık mint seçimi ve anında GitHub kaydı
+
+- Kullanıcı `01 / AÇIK VE SADE` tasarımını uygulama talimatı verdi; iki Codex arasında devam için her anlamlı işlemden sonra anında commit/push ve kullanıcı/asistan mesajları ile görsellerin arşivini istedi.
+- Uzak main getirildi: `dc0ff63`; yerel/uzak ayrışma 0/0, çalışma ağacı temizdi. Seçilen tasarım depodaki `docs/designs/01-acik-ve-sade.png` ile görsel olarak eşleşiyor; yeni yüklemenin ham dosyası erişilebilir değil.
+- AGENTS, tasarım seçimi ve HANDOFF güncellendi. Konuşma arşivi ve arayüz dosyaları hazırlanıyor; yeni uygulama kodu henüz doğrulanmadı.

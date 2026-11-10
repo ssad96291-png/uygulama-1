@@ -28,6 +28,25 @@ Bu talimatlar kullanıcının 9 Kasım 2026 tarihli kayıt ve devam etme isteği
 5. Devir kaydındaki somut sonraki adımdan devam et. Yapılmış işi ve başarılı
    testleri yeni bir değişiklik/arıza gerektirmedikçe tekrarlama.
 
+## 10 Kasım 2026: anında yedek ve sohbet arşivi
+
+- Kullanıcı iki ayrı Codex ile devam ediyor. Tamamlanan her anlamlı işlem veya
+  dosya değişikliği grubunu **o anda** kaydet, açık dosya listesiyle commit oluştur
+  ve GitHub'a push et; oturum sonuna kadar biriktirme. Henüz test edilmemiş kodu
+  açıkça checkpoint olarak etiketle ve devir kaydında belirt.
+- Kullanıcının ve asistanın bu proje hakkındaki erişilebilir sohbet metinlerini
+  `docs/conversations/` altında konuşmacı ve sıra bilgisiyle sakla. Güncel mesajları
+  her checkpoint'e ekle. Erişilemeyen başka oturumların tam geçmişini uydurma;
+  eksik arşiv kapsamını açıkça belirt. Gizli sistem/araç talimatları, iç muhakeme,
+  tokenlar ve özel anahtarlar sohbet arşivi değildir; bunları kaydetme.
+- Kullanıcının paylaştığı ve asistanın ürettiği proje görsellerini, kullanıcı bu
+  mesajla izin verdiği için `docs/designs/` veya ilgili doğrulama dizininde arşivle.
+  Aynı görsel zaten kayıtlıysa yolunu ve özetini ilişkilendir; erişilmeyen özgün
+  yüklemenin byte düzeyinde kopyalandığını iddia etme. Ekran görüntüsünün hangi
+  sürüme/denemeye ait olduğunu yaz. Özel imzalama anahtarları bu izne dahil değildir.
+- Her “devam” isteğinde önce uzak main, son commit'ler, WORK_LOG, HANDOFF ve son
+  konuşma arşivini oku. Başka Codex'in yaptığı işi koru; force push yapma.
+
 ## İşlem kaydı ve yedekleme
 
 - Her anlamlı işlemden sonra (kod/belge değişikliği, test/derleme, araştırma sonucu,

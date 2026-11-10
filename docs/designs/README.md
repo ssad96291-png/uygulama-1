@@ -1,6 +1,6 @@
 # Akış tasarım seçenekleri
 
-9 Kasım 2026 tarihinde kullanıcıya sunulan üç görsel konsept. Her görsel iki ekran içerir. Bunlar uygulamaya henüz aktarılmadı; kullanıcı seçimi bekleniyor. APK 0.1.3 değişmedi.
+9 Kasım 2026 tarihinde kullanıcıya sunulan üç görsel konsept. Her görsel iki ekran içerir. 10 Kasım 2026 tarihinde kullanıcı **1 — Açık ve sade** tasarımını seçti ve uygulamaya aktarılmasını istedi. Uygulama çalışması devam ediyor; aşağıdaki görseller referans konseptlerdir.
 
 | Seçenek | Ekranlar ve yaklaşım |
 | --- | --- |
