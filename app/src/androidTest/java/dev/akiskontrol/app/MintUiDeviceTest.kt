@@ -112,7 +112,7 @@ class MintUiDeviceTest {
             objectOnScreen(By.clazz("android.widget.EditText")).text = label
             assertEquals("Fixture rule must be set before opening the editor", baseline, repository.ruleFor(info.uid))
             objectOnScreen(By.text(label).clazz("android.widget.TextView")).click()
-            objectOnScreen(By.text("Bağlantı kuralları"))
+            objectOnScreen(By.desc("Kaydetmeden geri dön"))
             expectDownload("12") // Existing byte rate is presented as KB/sn.
             downloadField().text = "3"
             expectDownload("3")
@@ -128,7 +128,7 @@ class MintUiDeviceTest {
             instrumentation.runOnMainSync { activity.recreate() }
             val recreated = resumedActivity(excluding = activity)
             assertNotSame("A new activity instance must restore the editor", activity, recreated)
-            objectOnScreen(By.text("Bağlantı kuralları"))
+            objectOnScreen(By.desc("Kaydetmeden geri dön"))
             objectOnScreen(By.desc("Mobil veri internet erişimi"))
             expectDownload("5")
             objectOnScreen(By.text("Wi-Fi")).click()
@@ -143,21 +143,23 @@ class MintUiDeviceTest {
             waitFor("Both networks and untouched quota fields must be saved correctly") {
                 repository.ruleFor(info.uid) == saved
             }
-            assertTrue("Save must leave the editor", device.wait(Until.gone(By.text("Bağlantı kuralları")), timeout))
+            assertTrue("Save must leave the editor", device.wait(Until.gone(By.desc("Kaydetmeden geri dön")), timeout))
             assertEquals("Returning from the editor must preserve the app search", label,
                 objectOnScreen(By.clazz("android.widget.EditText")).text)
 
             objectOnScreen(By.text(label).clazz("android.widget.TextView")).click()
-            objectOnScreen(By.text("Bağlantı kuralları"))
+            objectOnScreen(By.desc("Kaydetmeden geri dön"))
             expectDownload("3")
             downloadField().text = "-2"
             expectDownload("-2")
             objectOnScreen(By.text("Kaydet")).click()
             objectOnScreen(By.text("İşaretli alanları kontrol et."))
-            assertNotNull("Invalid input must keep the editor open", device.findObject(By.text("Bağlantı kuralları")))
+            assertNotNull("Invalid input must keep the editor open", device.findObject(By.desc("Kaydetmeden geri dön")))
             assertEquals("Invalid save must preserve both saved rules", saved, repository.ruleFor(info.uid))
             objectOnScreen(By.desc("Kaydetmeden geri dön")).click()
-            assertTrue("Back must close the editor", device.wait(Until.gone(By.text("Bağlantı kuralları")), timeout))
+            assertTrue("Back must close the editor", device.wait(Until.gone(By.desc("Kaydetmeden geri dön")), timeout))
+            assertEquals("Discarding an invalid draft must preserve the app search", label,
+                objectOnScreen(By.clazz("android.widget.EditText")).text)
             assertEquals("Back must discard the invalid draft", saved, repository.ruleFor(info.uid))
             assertEquals("Editing app rules must not alter global quota", originalGlobalQuota, repository.state.value.globalQuota)
         } finally {

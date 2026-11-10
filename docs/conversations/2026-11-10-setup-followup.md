@@ -136,3 +136,19 @@ korunmaktadır.
 ## 24 — Asistan
 
 GitHub’daki kayıtta hedefin **“01 / Açık ve sade” mint tasarımı** olduğunu gördüm. Diğer Codex uygulama listesini ve tam ekran kural düzenleyicisini hazırlamış; 60 JVM testi geçmiş, cihazdaki düzenleme testi henüz tamamlanmamış. Bu değişiklikleri aldım ve kalan arayüz doğrulamasından devam ediyorum.
+
+## 25 — Asistan
+
+Konuşma arşivini ve tasarım referansını GitHub’a ayrı bir kayıt olarak gönderdim. Yeni arayüzün derlemesi de bu makinede geçti. İncelemede, kural düzenleyicisinden dönünce aramanın ve liste konumunun kaybolduğunu buldum; şimdi bunu düzeltiyorum.
+
+## 26 — Kullanıcı
+
+devam
+
+## 27 — Asistan
+
+Devam ediyorum. Önce diğer Codex’in yeni kayıtlarını kontrol edeceğim; ardından arama ve liste konumunu koruyan düzeltmeyi tamamlayıp mint tasarımın cihaz testlerini çalıştıracağım.
+
+## 28 — Asistan
+
+Diğer Codex de arama durumunu koruyan düzeltmeyi ve cihaz testindeki iki seçici sorununu çözmüş; onun güncel kodunu aldım. Ayrıca klavye açıldığında formun daralmaması için uygulama başlığını kaydırılabilir alana taşıdım. Bu değişikliği hemen kaydedip birleşik sürümü sınayacağım.

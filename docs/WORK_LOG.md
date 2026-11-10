@@ -264,3 +264,10 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Üst EditText seçicisiyle ilk değer ve iki ağdaki taslak girişleri geçildi. İkinci deneme, `activity.recreate()` sonrasında launch odaklı Instrumentation.ActivityMonitor yeni örneği bildirmediği için başarısız oldu (231,127 s). Görselde mobil 5 KB/sn taslağı duruyordu; bu ekran tek başına test başarısı diye sunulmadı.
 - Test artık AndroidX ActivityLifecycleMonitorRegistry üzerinde RESUMED aşamasındaki farklı MainActivity örneğini ana thread’den bekliyor. Yeni örnek, iki ağ değeri, kaydetme ve geçersiz giriş doğrulamaları korundu. SaveableStateHolder için listeye dönüşte aramanın korunduğu da doğrulanacak.
 - Başarısız runner kaydı ve test sırasında incelenen gerçek ekran `docs/validation/0.1.4-ui/` içine eklendi. Yeniden doğrulama bekleniyor.
+
+## 2026-11-10T18:59+03:00 — İkinci Codex: eşzamanlı düzeltmeler birleştirildi, dar ekran düzeltmesi
+
+- “Devam” ile uzak main tekrar incelendi: `b7d9d41`. Diğer oturum SaveableStateHolder ve cihaz testinin EditText/lifecycle seçicilerini düzeltmiş. Bu oturumun örtüşen iki yerel taslağı `/workspace/toolchains/mint-followup/local-list-state.patch` ile korundu, aynı düzeltmenin uzak sürümü fast-forward ile alındı.
+- Önceki `3da6a52` kaynak derlemesi bu makinede 1m 3s içinde geçti: 60 JVM testi, lint, uygulama/test/probe APK. Bu sonuç aşağıdaki yeni değişikliğin cihaz doğrulaması değildir.
+- Dar/yatay ekranda klavye açıkken sabit başlığın form alanını tüketmemesi için uygulama kimliği başlığı kaydırılan alana taşındı. Geri ve Kaydet sabit; portre yatay girintisi ve başlık-sekme aralığı korundu.
+- Cihaz testi düzenleyici varlığını kayabilen başlık yerine sabit Geri kontrolüyle izliyor; geçersiz taslağı iptal edince aramanın da korunduğunu kontrol ediyor. Bu checkpoint henüz derlenmedi/test edilmedi.

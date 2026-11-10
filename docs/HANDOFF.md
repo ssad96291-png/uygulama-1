@@ -44,6 +44,12 @@ Kaynak arayüz dosyaları üzerinde diğer oturumun işi korunuyor; her checkpoi
 uzak main kontrol edilecek. Önceki `dc0ff63` kurulum testleri yeni tasarımın
 doğrulaması olarak kullanılmıyor.
 
+## Son ikinci oturum checkpoint'i — 2026-11-10T18:59+03:00
+
+`b7d9d41` değişiklikleri alındı. Kaydırılan uygulama başlığı ve cihaz testinin sabit
+geri düğmesi seçicisi eklendi; yeni kaynak için derleme, mint cihaz testi ve dar
+ekran kontrolü sırada. Eski başarılar bu checkpoint'in doğrulaması değildir.
+
 ## Kesin sonraki adım
 
 1. Açık mint tema, satırlı uygulama listesi ve tam ekran ağ/hız/kota düzenleyicisini
