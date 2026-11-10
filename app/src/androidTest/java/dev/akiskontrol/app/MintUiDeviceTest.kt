@@ -42,15 +42,28 @@ class MintUiDeviceTest {
 
     private fun downloadField(): UiObject2 {
         val field = objectOnScreen(By.desc("İndirme değeri"))
-        return if (field.className == "android.widget.EditText") field
-        else field.findObject(By.clazz("android.widget.EditText"))
+        // Material3 exposes this semantics label as a child of the editable node.
+        // Follow its ancestors first; a description-only node has no editable child.
+        var candidate: UiObject2? = field
+        repeat(4) {
+            val current = candidate ?: return@repeat
+            if (current.className == "android.widget.EditText") return current
+            candidate = current.parent
+        }
+        return field.findObject(By.clazz("android.widget.EditText"))
             ?: throw AssertionError("Download amount must expose an editable accessibility node")
     }
 
     private fun expectDownload(text: String) {
-        waitFor("Expected download draft $text") {
-            runCatching { downloadField().text == text }.getOrDefault(false)
+        val end = SystemClock.uptimeMillis() + timeout
+        var observed = "not read"
+        while (SystemClock.uptimeMillis() < end) {
+            val read = runCatching { downloadField().text }
+            if (read.isSuccess && read.getOrNull() == text) return
+            observed = read.fold({ "text=$it" }, { "${it.javaClass.simpleName}: ${it.message}" })
+            SystemClock.sleep(150)
         }
+        throw AssertionError("Expected download draft $text; last observation: $observed")
     }
 
     @Test
@@ -83,6 +96,7 @@ class MintUiDeviceTest {
             objectOnScreen(By.desc("Ayarları aç"))
             // Search keeps the probe row visible even when many apps are installed.
             objectOnScreen(By.clazz("android.widget.EditText")).text = label
+            assertEquals("Fixture rule must be set before opening the editor", baseline, repository.ruleFor(info.uid))
             objectOnScreen(By.text(label).clazz("android.widget.TextView")).click()
             objectOnScreen(By.text("Bağlantı kuralları"))
             expectDownload("12") // Existing byte rate is presented as KB/sn.

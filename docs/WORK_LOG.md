@@ -246,3 +246,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - API 36 cihaz paketi 4 test çalıştırdı: 3 JSON testi geçti; MintUiDeviceTest ilk hız alanını `12` olarak okuma adımında başarısız oldu (190,933 s). Kanıt `docs/validation/0.1.4-ui/android-tests-initial-failure.txt`. İlk değerin görüntülenmesi/erişilebilirlik seçimi inceleniyor; uygulama kuralı hatası henüz kanıtlanmadı.
 - İlk mint koyu tema/başlangıç görüntüleri sohbet media dizinine özetleriyle eklendi. Hedef açık tema son görüntüleri henüz kaydedilmedi.
 - Bu oturum test alanı erişimi tanısı ve açık ekran kanıtları üzerinde çalışıyor; diğer oturum kaynak değişikliklerini korumak için her push öncesi uzak main yeniden kontrol edilecek.
+
+## 2026-11-10T18:36+03:00 — UI testi seçici hatasının nedeni doğrulandı
+
+- Android UI XML: `İndirme değeri` content-description düğümü düzenlenebilir alanın çocuğu; gerçek `android.widget.EditText` ve metin onun üst düğümünde. Eski test yalnız alt düğüm aradığı için ilk değer kontrolüne ulaşamıyordu.
+- Test yardımcısı etiketin en yakın EditText üst düğümünü bulacak şekilde düzeltildi; tüm değer/kaydetme/koruma doğrulamaları tutuldu. İlk kural fixture doğrulaması ve gerçek son gözlemi bildiren hata metni eklendi. Uygulama sayısal dönüşümünde kusur saptanmadı.
+- Düzeltme henüz cihazda çalıştırılmadı; yalnız etkilenen UI testi yeniden derlenip sınanacak.
