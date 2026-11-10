@@ -239,3 +239,10 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Kullanıcının isteğiyle bu oturumdaki erişilebilir doğal dil mesajları, asistan ilerleme/sonuç metinleri ve güncel kullanıcı isteği `docs/conversations/2026-11-10-setup-followup.md` içine sıra ve konuşmacıyla kaydedildi. Diğer Codex'in konuşması değiştirilmedi.
 - Seçilen mint görseli mevcut özgün depo dosyasına ve SHA-256 özetine bağlandı; bu oturuma yeni dosya eki gelmediği açıkça belirtildi. Kurulumdaki UI XML kontrolleri yeni PNG gibi sunulmadı.
 - Yeni tasarımın bu makinedeki Gradle doğrulaması sürüyor. İncelemede tam ekran düzenleyiciden listeye dönünce arama/filtre durumunun kaybolduğu belirlendi; düzeltme henüz uygulanmadı.
+
+## 2026-11-10T18:32+03:00 — İlk Codex: diğer oturum kayıtları alındı, UI testi tanısı
+
+- Uzak `be0839d` (ikinci Codex’in iki belge kaydı) temiz yerel kopyaya fast-forward edildi. İkinci oturumun arama/filtre korunması incelemesi korundu; bu oturum o uygulama listesi değişikliğini üstlenmiyor.
+- API 36 cihaz paketi 4 test çalıştırdı: 3 JSON testi geçti; MintUiDeviceTest ilk hız alanını `12` olarak okuma adımında başarısız oldu (190,933 s). Kanıt `docs/validation/0.1.4-ui/android-tests-initial-failure.txt`. İlk değerin görüntülenmesi/erişilebilirlik seçimi inceleniyor; uygulama kuralı hatası henüz kanıtlanmadı.
+- İlk mint koyu tema/başlangıç görüntüleri sohbet media dizinine özetleriyle eklendi. Hedef açık tema son görüntüleri henüz kaydedilmedi.
+- Bu oturum test alanı erişimi tanısı ve açık ekran kanıtları üzerinde çalışıyor; diğer oturum kaynak değişikliklerini korumak için her push öncesi uzak main yeniden kontrol edilecek.
