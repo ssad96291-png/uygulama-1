@@ -36,6 +36,14 @@ Uygulamalar listesi, tam ekran kural düzenleyici ve ortak tema ayrı dosyalarda
 hazırlanıyor. Diğer oturumlar bu dosyalarda değişiklik yapmadan son uzak kaydı
 kontrol etmeli. Bu not kilit değildir.
 
+## İkinci Codex doğrulama oturumu — 2026-11-10T15:36+03:00
+
+Bu makine uzak `3da6a52` sürümünü aldı. Bu oturumun işi yeni mint arayüzünün
+cihaz testini tamamlamak, gerçek ekranları ve erişilebilir konuşmayı kaydetmektir.
+Kaynak arayüz dosyaları üzerinde diğer oturumun işi korunuyor; her checkpoint'te
+uzak main kontrol edilecek. Önceki `dc0ff63` kurulum testleri yeni tasarımın
+doğrulaması olarak kullanılmıyor.
+
 ## Kesin sonraki adım
 
 1. Açık mint tema, satırlı uygulama listesi ve tam ekran ağ/hız/kota düzenleyicisini
