@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.SystemClock
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
+import androidx.test.runner.lifecycle.Stage
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.BySelector
 import androidx.test.uiautomator.UiDevice
@@ -66,6 +68,20 @@ class MintUiDeviceTest {
         throw AssertionError("Expected download draft $text; last observation: $observed")
     }
 
+    private fun resumedActivity(excluding: MainActivity? = null): MainActivity {
+        var result: MainActivity? = null
+        waitFor("Expected a resumed MainActivity distinct from the previous instance") {
+            instrumentation.runOnMainSync {
+                result = ActivityLifecycleMonitorRegistry.getInstance()
+                    .getActivitiesInStage(Stage.RESUMED)
+                    .filterIsInstance<MainActivity>()
+                    .firstOrNull { it !== excluding }
+            }
+            result != null
+        }
+        return result!!
+    }
+
     @Test
     fun independentDraftsSurviveRecreationAndInvalidInputDoesNotOverwriteSavedRules() {
         assertEquals("Use an idle dedicated test emulator", ProtectionStatus.STOPPED, repository.state.value.status)
@@ -83,7 +99,6 @@ class MintUiDeviceTest {
             ),
             mobile = NetworkRule(allowed = false, downloadBps = 21_000, uploadBps = 9_000),
         )
-        val monitor = instrumentation.addMonitor(MainActivity::class.java.name, null, false)
         try {
             repository.saveSettings(originalSettings.copy(darkTheme = false, showSystemApps = false))
             repository.saveRule(baseline)
@@ -91,8 +106,7 @@ class MintUiDeviceTest {
             device.wakeUp()
             context.startActivity(Intent(context, MainActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
-            val activity = instrumentation.waitForMonitorWithTimeout(monitor, timeout)
-                ?: throw AssertionError("MainActivity did not launch")
+            val activity = resumedActivity()
             objectOnScreen(By.desc("Ayarları aç"))
             // Search keeps the probe row visible even when many apps are installed.
             objectOnScreen(By.clazz("android.widget.EditText")).text = label
@@ -112,8 +126,7 @@ class MintUiDeviceTest {
             // Activity recreation exercises the same saved-state path as a rotation,
             // without depending on a particular emulator display orientation.
             instrumentation.runOnMainSync { activity.recreate() }
-            val recreated = instrumentation.waitForMonitorWithTimeout(monitor, timeout)
-                ?: throw AssertionError("MainActivity did not recreate")
+            val recreated = resumedActivity(excluding = activity)
             assertNotSame("A new activity instance must restore the editor", activity, recreated)
             objectOnScreen(By.text("Bağlantı kuralları"))
             objectOnScreen(By.desc("Mobil veri internet erişimi"))
@@ -131,6 +144,8 @@ class MintUiDeviceTest {
                 repository.ruleFor(info.uid) == saved
             }
             assertTrue("Save must leave the editor", device.wait(Until.gone(By.text("Bağlantı kuralları")), timeout))
+            assertEquals("Returning from the editor must preserve the app search", label,
+                objectOnScreen(By.clazz("android.widget.EditText")).text)
 
             objectOnScreen(By.text(label).clazz("android.widget.TextView")).click()
             objectOnScreen(By.text("Bağlantı kuralları"))
@@ -146,7 +161,6 @@ class MintUiDeviceTest {
             assertEquals("Back must discard the invalid draft", saved, repository.ruleFor(info.uid))
             assertEquals("Editing app rules must not alter global quota", originalGlobalQuota, repository.state.value.globalQuota)
         } finally {
-            instrumentation.removeMonitor(monitor)
             repository.saveRule(originalRule)
             repository.saveSettings(originalSettings)
             repository.setGlobalQuota(originalGlobalQuota)

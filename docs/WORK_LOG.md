@@ -258,3 +258,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - README/TESTING yeni 0.1.4 kaynak arayüzünü, 60 JVM testini ve cihaz testi durumunu 0.1.3 dağıtımından ayıracak şekilde güncellendi; yayımlanmamış APK yeni indirme gibi sunulmadı.
 - Diğer Codex’in saptadığı listeye dönüşte arama/filtre kaybı, uzak dal tekrar kontrol edildikten sonra bu oturumda ortak gezinme katmanına SaveableStateHolder eklenerek giderildi. Ekranların rememberSaveable durumları düzenleyiciye gidip dönerken korunuyor. Bu yeni katman henüz derlenmedi/test edilmedi.
 - Hâlen çalışan cihaz testi önceki kurulu APK üzerinde; yeni kaynakla karıştırılmayacak. Düzeltilmiş seçici yeni testte alanlara ulaşabiliyor, nihai runner sonucu bekleniyor.
+
+## 2026-11-10T18:43+03:00 — Activity yeniden oluşturma test izlemesi düzeltildi
+
+- Üst EditText seçicisiyle ilk değer ve iki ağdaki taslak girişleri geçildi. İkinci deneme, `activity.recreate()` sonrasında launch odaklı Instrumentation.ActivityMonitor yeni örneği bildirmediği için başarısız oldu (231,127 s). Görselde mobil 5 KB/sn taslağı duruyordu; bu ekran tek başına test başarısı diye sunulmadı.
+- Test artık AndroidX ActivityLifecycleMonitorRegistry üzerinde RESUMED aşamasındaki farklı MainActivity örneğini ana thread’den bekliyor. Yeni örnek, iki ağ değeri, kaydetme ve geçersiz giriş doğrulamaları korundu. SaveableStateHolder için listeye dönüşte aramanın korunduğu da doğrulanacak.
+- Başarısız runner kaydı ve test sırasında incelenen gerçek ekran `docs/validation/0.1.4-ui/` içine eklendi. Yeniden doğrulama bekleniyor.
