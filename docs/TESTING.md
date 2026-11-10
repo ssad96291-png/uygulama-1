@@ -2,6 +2,54 @@
 
 Bu dosya otomatik testlerle doğrulanan davranışları cihazda henüz doğrulanmamış davranışlardan ayırır. APK'nın derlenmesi tek başına telefon üzerinde VPN uyumluluğunu kanıtlamaz.
 
+## 0.1.4 mint arayüzü — güncel doğrulama
+
+Kaynak sürümü **0.1.4 / versionCode 5**: açık mint uygulama listesi, tam ekran ağ kuralı düzenleyicisi ve yeniden oluşturma sırasında korunan düzenleme taslakları. Yeni kurulumların açık tema varsayılanı, mevcut kayıtlı tema tercihini değiştirmez; koyu tema seçeneği korunur.
+
+| Kontrol | Sonuç | Kapsam |
+| --- | --- | --- |
+| `:core:test` | 44 test geçti | Mevcut erişim, hız, kota, dönem ve uygulama kimliği kuralları |
+| `:app:testDebugUnitTest` | 16 test geçti | Mevcut 10 test ve birim dönüşümü, geçersiz giriş, bağımsız ağ taslakları ve taslak geri yükleme için 6 yeni test |
+| `:app:lintDebug` | 0 hata, 2 uyarı, 2 öneri | Android statik incelemesi |
+| Debug ve Android test APK derlemeleri | Geçti | 0.1.4 uygulama ve test paketleri üretildi |
+| `StateJsonDeviceTest` | 3 test geçti | Android'in gerçek JSON uygulamasıyla yerel kayıt/yedek kontrolleri |
+| `MintUiDeviceTest` | İlk çalıştırma başarısız; düzeltilmiş testin sonucu bekleniyor | İlk hız alanının UI düğümünü bulma yöntemi düzeltildi; değer ve kaydetme doğrulamaları korunuyor |
+
+İlk Android çalıştırması 4 test içerdi: üç JSON testi geçti, arayüz testi ilk `12 KB/sn` değerini okuma adımında başarısız oldu. [İlk sonuç kaydı](validation/0.1.4-ui/android-tests-initial-failure.txt) depodadır. Android UI hiyerarşisi, `İndirme değeri` etiketinin gerçek `EditText` düğümünün çocuğu olduğunu gösterdi. `ccda25c` test düzeltmesi bu üst düğümü bulur ve başarısızlıkta gözlenen değeri bildirir; uygulamanın sayısal dönüşümünde hata saptanmadı. Yalnız etkilenen arayüz testinin yeniden çalıştırması henüz tamamlanmadı.
+
+Bu arayüz çalışmasında native motor değiştirilmedi. 0.1.3 için aşağıda kayıtlı native/VPN testleri tarihsel kanıttır; 0.1.4 üzerinde tam VPN paketi veya fiziksel Samsung doğrulaması yapılmış sayılmaz. Bu ortamın debug imzası yayımlanmış 0.1.3 APK'sından farklıdır; 0.1.4 için telefon üzerine güncellenebilir yeni APK yayımlanmadı.
+
+## Kısa mint arayüz testi
+
+`MintUiDeviceTest` tek bir mevcut uygulama üzerinden gerçek arayüzü sınar: Wi-Fi ve mobil indirme taslaklarının bağımsızlığı, `Activity.recreate()` sonrasında seçili ağ ve girişlerin korunması, iki ağın birlikte kaydı, diğer hız/kota alanlarının değişmemesi, geçersiz girişin reddi ve geri dönüşte taslağın atılması. Önceki probe kuralı ve ayarlar test sonunda geri yüklenir.
+
+Ayrı test emülatöründe koruma kapalı olmalı; ana uygulama, `probe` ve test APK'sı kurulu olmalıdır. Bu kısa test VPN başlatmaz, HTTP/DNS fixture sunucularına ihtiyaç duymaz. Paketleri hazırla:
+
+```sh
+./gradlew :app:assembleDebug :app:assembleDebugAndroidTest :probe:assembleDebug
+adb -s emulator-5554 install -r app/build/outputs/apk/debug/app-debug.apk
+adb -s emulator-5554 install -r probe/build/outputs/apk/debug/probe-debug.apk
+adb -s emulator-5554 install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+```
+
+Yalnız arayüz testi için:
+
+```sh
+adb -s emulator-5554 shell am instrument -w -r \
+  -e class dev.akiskontrol.app.MintUiDeviceTest \
+  dev.akiskontrol.app.test/androidx.test.runner.AndroidJUnitRunner
+```
+
+Beklenen başarılı sonuç `OK (1 test)` olur. JSON kontrollerini de aynı çalıştırmaya eklemek için:
+
+```sh
+adb -s emulator-5554 shell am instrument -w -r \
+  -e class dev.akiskontrol.app.MintUiDeviceTest,dev.akiskontrol.app.data.StateJsonDeviceTest \
+  dev.akiskontrol.app.test/androidx.test.runner.AndroidJUnitRunner
+```
+
+Bu seçimin beklenen başarılı sonucu `OK (4 tests)` olur. Test yardımcısı yavaş yazılım emülatöründe UI öğeleri için 120 saniyeye kadar bekler. Runner sonucu ve test sayısı doğrulanmalıdır; yalnız komutun çıkış kodu veya APK kurulumu yeterli değildir. Aşağıdaki tam VPN trafik paketi ayrı bir kapsamdır.
+
 ## 0.1.3 bağlantı düzeltmesi — tamamlanan kontroller
 
 Eski 0.1.2 APK'da ulaşılamayan IPv6 hedefinin VPN açıkken sahte TCP bağlantı başarısı vermesi Android 16 emülatöründe tekrarlandı. VPN kapalıyken aynı hedefe bağlantı kurulamadı; alan adıyla DNS/HTTP her iki durumda çalıştı. [Önceki sürümün başarısız regresyon testi](validation/0.1.3/regression-before-0.1.2.txt) bu ayrımı kaydeder. Emülatör Wi-Fi'si site-local IPv6 adresi taşır; test sonucu fiziksel Samsung cihazının ağ durumu olarak yorumlanmamalıdır.
@@ -97,7 +145,7 @@ adb shell am instrument -w -r \
   dev.akiskontrol.app.test/androidx.test.runner.AndroidJUnitRunner
 ```
 
-Birden fazla cihaz bağlıysa her `adb` komutuna `-s SERIAL` ekle. Güncel kaynakta üç VPN testi ve üç JSON testi vardır; tümü birlikte çalıştırıldığında beklenen sonuç `OK (6 tests)` olur. Yalnızca paketlerin kurulması veya uygulamanın açılması başarı sayılmaz. Eski sürümün 4 testlik kayıtları tarihsel kanıttır.
+Birden fazla cihaz bağlıysa her `adb` komutuna `-s SERIAL` ekle. Yukarıdaki seçim üç VPN testi ve üç JSON testi çalıştırır; beklenen başarılı sonuç `OK (6 tests)` olur. Ayrı `MintUiDeviceTest` de seçilirse toplam yedi cihaz testi vardır. Yalnızca paketlerin kurulması veya uygulamanın açılması başarı sayılmaz. Eski sürümün 4 testlik kayıtları tarihsel kanıttır.
 
 Donanım hızlandırması olmayan yavaş emülatörde, Android hizmetinin hazır olmasını bekleyen süreyi 120 saniyeye çıkarmak için:
 

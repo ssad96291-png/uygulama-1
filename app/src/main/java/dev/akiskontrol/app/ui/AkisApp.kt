@@ -11,6 +11,7 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -43,6 +44,7 @@ fun AkisApp(
 ) {
     val state by repository.state.collectAsStateWithLifecycle()
     var destination by rememberSaveable { mutableStateOf(Destination.APPS) }
+    val destinationState = rememberSaveableStateHolder()
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     var editingUid by rememberSaveable { mutableStateOf<Int?>(null) }
@@ -74,11 +76,13 @@ fun AkisApp(
                         editingUid = null
                         savedRules()
                     }
-                } else when (destination) {
+                } else destinationState.SaveableStateProvider(destination.name) {
+                    when (destination) {
                     Destination.HOME -> Dashboard(state, onToggleProtection, { destination = Destination.APPS }, { destination = Destination.USAGE }, { quotaEditor = true })
                     Destination.APPS -> AppsScreen(state, repository, onEdit = { editingUid = it.uid }, onRulesSaved = savedRules, feedback = feedback, onToggleProtection = onToggleProtection, onOpenSettings = { destination = Destination.SETTINGS })
                     Destination.USAGE -> UsageScreen(state, onExportCsv)
                     Destination.SETTINGS -> SettingsScreen(state, repository, onExportBackup, onImportBackup, onOpenVpnSettings, feedback)
+                    }
                 }
             }
         }

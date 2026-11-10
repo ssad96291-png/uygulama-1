@@ -252,3 +252,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Android UI XML: `İndirme değeri` content-description düğümü düzenlenebilir alanın çocuğu; gerçek `android.widget.EditText` ve metin onun üst düğümünde. Eski test yalnız alt düğüm aradığı için ilk değer kontrolüne ulaşamıyordu.
 - Test yardımcısı etiketin en yakın EditText üst düğümünü bulacak şekilde düzeltildi; tüm değer/kaydetme/koruma doğrulamaları tutuldu. İlk kural fixture doğrulaması ve gerçek son gözlemi bildiren hata metni eklendi. Uygulama sayısal dönüşümünde kusur saptanmadı.
 - Düzeltme henüz cihazda çalıştırılmadı; yalnız etkilenen UI testi yeniden derlenip sınanacak.
+
+## 2026-11-10T18:41+03:00 — Kaynak sürüm belgesi ve liste durumunun korunması
+
+- README/TESTING yeni 0.1.4 kaynak arayüzünü, 60 JVM testini ve cihaz testi durumunu 0.1.3 dağıtımından ayıracak şekilde güncellendi; yayımlanmamış APK yeni indirme gibi sunulmadı.
+- Diğer Codex’in saptadığı listeye dönüşte arama/filtre kaybı, uzak dal tekrar kontrol edildikten sonra bu oturumda ortak gezinme katmanına SaveableStateHolder eklenerek giderildi. Ekranların rememberSaveable durumları düzenleyiciye gidip dönerken korunuyor. Bu yeni katman henüz derlenmedi/test edilmedi.
+- Hâlen çalışan cihaz testi önceki kurulu APK üzerinde; yeni kaynakla karıştırılmayacak. Düzeltilmiş seçici yeni testte alanlara ulaşabiliyor, nihai runner sonucu bekleniyor.
