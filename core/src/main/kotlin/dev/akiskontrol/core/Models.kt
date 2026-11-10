@@ -53,7 +53,7 @@ data class LogEntry(val time: Long, val message: String)
 enum class ProtectionStatus { STOPPED, STARTING, RUNNING, ERROR }
 data class AppSettings(
     val advanced: Boolean = false,
-    val darkTheme: Boolean = true,
+    val darkTheme: Boolean = false,
     val defaultWifiAllowed: Boolean = true,
     val defaultMobileAllowed: Boolean = true,
     val showSystemApps: Boolean = false,

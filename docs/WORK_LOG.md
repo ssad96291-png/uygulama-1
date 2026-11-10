@@ -196,3 +196,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Kullanıcı `01 / AÇIK VE SADE` tasarımını uygulama talimatı verdi; iki Codex arasında devam için her anlamlı işlemden sonra anında commit/push ve kullanıcı/asistan mesajları ile görsellerin arşivini istedi.
 - Uzak main getirildi: `dc0ff63`; yerel/uzak ayrışma 0/0, çalışma ağacı temizdi. Seçilen tasarım depodaki `docs/designs/01-acik-ve-sade.png` ile görsel olarak eşleşiyor; yeni yüklemenin ham dosyası erişilebilir değil.
 - AGENTS, tasarım seçimi ve HANDOFF güncellendi. Konuşma arşivi ve arayüz dosyaları hazırlanıyor; yeni uygulama kodu henüz doğrulanmadı.
+
+## 2026-11-10T07:44+03:00 — Açık mint tema ve konuşma arşivi checkpoint
+
+- Ortak tema beyaz/mint renkler, daha sade tipografi ve ince kenarlıklı panellerle güncellendi. Yeni kurulumlarda açık tema varsayılan; mevcut kullanıcının kayıtlı tema tercihi korunuyor. Geliştirme sürümü 0.1.4/versionCode 5 oldu.
+- Erişilebilir kullanıcı/asistan metinleri `docs/conversations/` altında, önceki kurulumda incelenen üç ekran görüntüsü de media dizininde arşivlendi. Başka hesapların erişilemeyen geçmişi ve yeni ekin byte düzeyinde kopyası varmış gibi gösterilmedi.
+- Bu kaynak checkpoint’i henüz derlenmedi/test edilmedi. Uygulama listesi ve tam ekran kural düzenleyicisi paralel dosyalarda hazırlanıyor.
