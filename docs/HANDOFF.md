@@ -43,7 +43,7 @@ kontrol etmeli. Bu not kilit değildir.
 2. Her tamamlanan değişiklik grubunu hemen günlükle/commit/push; test edilmemiş
    checkpoint'leri açıkça etiketle. Görselleri ve erişilebilir konuşmaları arşivle.
 3. JVM testleri, lint, APK derlemesi ve emülatör arayüz akışlarını doğrula.
-   Yeni tasarım henüz test edilmedi; önceki 0.1.3 testleri yeni tasarımın kanıtı değildir.
+   Uygulama listesi/tam ekran düzenleyici entegre edildi, açılış Uygulamalar; yeni tasarım henüz test edilmedi; önceki 0.1.3 testleri yeni tasarımın kanıtı değildir.
 4. Bu ortamın debug sertifikası mevcut dağıtımdan farklıdır. Yetkili eski anahtar
    olmadan yeni APK'yı telefondaki sürümün üzerine güncellenebilir diye sunma.
    Fiziksel Samsung testi ve mağaza yayını bu çalışmanın doğrulaması değildir.

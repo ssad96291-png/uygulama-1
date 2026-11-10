@@ -1,9 +1,11 @@
 package dev.akiskontrol.app.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
@@ -12,6 +14,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -22,7 +26,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 private enum class Destination(val label: String, val icon: ImageVector) {
-    HOME("Ana ekran", Icons.Outlined.Dashboard),
+    HOME("Ana ekran", Icons.Outlined.Home),
     APPS("Uygulamalar", Icons.Outlined.Apps),
     USAGE("Kullanım", Icons.Outlined.BarChart),
     SETTINGS("Ayarlar", Icons.Outlined.Settings),
@@ -38,7 +42,7 @@ fun AkisApp(
     onOpenVpnSettings: () -> Unit,
 ) {
     val state by repository.state.collectAsStateWithLifecycle()
-    var destination by rememberSaveable { mutableStateOf(Destination.HOME) }
+    var destination by rememberSaveable { mutableStateOf(Destination.APPS) }
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     var editing by remember { mutableStateOf<AppEntry?>(null) }
@@ -58,38 +62,58 @@ fun AkisApp(
             containerColor = MaterialTheme.colorScheme.background,
             snackbarHost = { SnackbarHost(snackbar) },
             bottomBar = {
-                NavigationBar(containerColor = MaterialTheme.colorScheme.surface) {
-                    Destination.entries.forEach { item ->
-                        NavigationBarItem(
-                            selected = destination == item,
-                            onClick = { destination = item },
-                            icon = { Icon(item.icon, null) },
-                            label = { Text(item.label, maxLines = 1) },
-                        )
-                    }
-                }
+                if (editing == null) AkisNavigation(destination) { destination = it }
             },
         ) { padding ->
             Box(Modifier.fillMaxSize().padding(padding)) {
-                when (destination) {
+                val editedApp = editing
+                if (editedApp != null) {
+                    AppRuleEditorScreen(editedApp, repository.ruleFor(editedApp.uid), state, { editing = null }) { wifi, mobile ->
+                        repository.saveRule(AppRule(editedApp.uid, wifi, mobile))
+                        editing = null
+                        savedRules()
+                    }
+                } else when (destination) {
                     Destination.HOME -> Dashboard(state, onToggleProtection, { destination = Destination.APPS }, { destination = Destination.USAGE }, { quotaEditor = true })
-                    Destination.APPS -> AppsScreen(state, repository, onEdit = { editing = it }, onRulesSaved = savedRules, feedback = feedback)
+                    Destination.APPS -> AppsScreen(state, repository, onEdit = { editing = it }, onRulesSaved = savedRules, feedback = feedback, onToggleProtection = onToggleProtection, onOpenSettings = { destination = Destination.SETTINGS })
                     Destination.USAGE -> UsageScreen(state, onExportCsv)
                     Destination.SETTINGS -> SettingsScreen(state, repository, onExportBackup, onImportBackup, onOpenVpnSettings, feedback)
                 }
-            }
-        }
-        editing?.let { app ->
-            RuleEditorDialog(app.label, repository.ruleFor(app.uid), { editing = null }) { wifi, mobile ->
-                repository.saveRule(AppRule(app.uid, wifi, mobile))
-                editing = null
-                savedRules()
             }
         }
         if (quotaEditor) GlobalQuotaDialog(state.globalQuota, { quotaEditor = false }) { quota ->
             repository.setGlobalQuota(quota)
             quotaEditor = false
             feedback("Toplam kota kaydedildi")
+        }
+    }
+}
+
+@Composable
+private fun AkisNavigation(destination: Destination, onSelect: (Destination) -> Unit) {
+    Surface(color = MaterialTheme.colorScheme.background) {
+        Column {
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = .55f))
+            Row(Modifier.fillMaxWidth().navigationBarsPadding().padding(horizontal = 14.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Destination.entries.forEach { item ->
+                    val selected = destination == item
+                    Surface(
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(16.dp),
+                        color = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.background,
+                    ) {
+                        Column(
+                            modifier = Modifier.selectable(selected = selected, role = Role.Tab, onClick = { onSelect(item) }).heightIn(min = 58.dp).padding(horizontal = 2.dp, vertical = 6.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(3.dp, Alignment.CenterVertically),
+                        ) {
+                            val tint = if (selected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurfaceVariant
+                            Icon(item.icon, null, Modifier.size(24.dp), tint = tint)
+                            Text(item.label, color = tint, style = MaterialTheme.typography.labelSmall, fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal, textAlign = TextAlign.Center)
+                        }
+                    }
+                }
+            }
         }
     }
 }

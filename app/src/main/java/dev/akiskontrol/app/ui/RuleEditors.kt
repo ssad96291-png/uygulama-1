@@ -51,16 +51,16 @@ import dev.akiskontrol.core.QuotaPeriod
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-private data class InputUnit(val label: String, val multiplier: Long)
+internal data class InputUnit(val label: String, val multiplier: Long)
 private val rateUnits = listOf(InputUnit("KB/s", 1_000), InputUnit("MB/s", 1_000_000), InputUnit("Mbps", 125_000))
 private val quotaUnits = listOf(InputUnit("MB", 1_000_000), InputUnit("GB", 1_000_000_000))
 private val decimalInput = Regex("-?(?:[0-9]+(?:[.,][0-9]*)?|[.,][0-9]+)")
 
 @Stable
-private class AmountDraft(value: Long, val units: List<InputUnit>, val maximum: Long, val canBeUnlimited: Boolean = true) {
+internal class AmountDraft(value: Long, val units: List<InputUnit>, val maximum: Long, val canBeUnlimited: Boolean = true) {
     var unlimited by mutableStateOf(value == 0L && canBeUnlimited)
-    var unit by mutableStateOf(units.first())
-    var text by mutableStateOf(if (value == 0L) "1" else exactNumber(value, units.first().multiplier))
+    var unit by mutableStateOf(units.filter { value >= it.multiplier }.maxByOrNull { it.multiplier } ?: units.first())
+    var text by mutableStateOf(if (value == 0L) "1" else exactNumber(value, unit.multiplier))
     var error by mutableStateOf<String?>(null)
 
     fun changeUnit(next: InputUnit) {
@@ -105,7 +105,7 @@ private fun exactNumber(value: Long, multiplier: Long): String = BigDecimal.valu
     .stripTrailingZeros().toPlainString()
 
 @Stable
-private class RenewalDayDraft(private val initial: Int) {
+internal class RenewalDayDraft(private val initial: Int) {
     var text by mutableStateOf(initial.toString())
     var error by mutableStateOf<String?>(null)
 
@@ -120,7 +120,7 @@ private class RenewalDayDraft(private val initial: Int) {
 }
 
 @Stable
-private class NetworkDraft(private val initial: NetworkRule) {
+internal class NetworkDraft(private val initial: NetworkRule) {
     var allowed by mutableStateOf(initial.allowed)
     val download = AmountDraft(initial.downloadBps, rateUnits, MAX_RATE_BPS)
     val upload = AmountDraft(initial.uploadBps, rateUnits, MAX_RATE_BPS)
@@ -270,7 +270,7 @@ private fun NetworkEditor(draft: NetworkDraft) {
 }
 
 @Composable
-private fun RenewalDayInput(draft: RenewalDayDraft) {
+internal fun RenewalDayInput(draft: RenewalDayDraft) {
     OutlinedTextField(
         value = draft.text,
         onValueChange = { draft.text = it; draft.error = null },
@@ -287,7 +287,7 @@ private fun RenewalDayInput(draft: RenewalDayDraft) {
 }
 
 @Composable
-private fun AmountInput(title: String, draft: AmountDraft, unlimitedLabel: String = "Sınırsız") {
+internal fun AmountInput(title: String, draft: AmountDraft, unlimitedLabel: String = "Sınırsız") {
     var unitMenu by remember { mutableStateOf(false) }
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {

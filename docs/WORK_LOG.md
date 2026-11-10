@@ -202,3 +202,10 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Ortak tema beyaz/mint renkler, daha sade tipografi ve ince kenarlıklı panellerle güncellendi. Yeni kurulumlarda açık tema varsayılan; mevcut kullanıcının kayıtlı tema tercihi korunuyor. Geliştirme sürümü 0.1.4/versionCode 5 oldu.
 - Erişilebilir kullanıcı/asistan metinleri `docs/conversations/` altında, önceki kurulumda incelenen üç ekran görüntüsü de media dizininde arşivlendi. Başka hesapların erişilemeyen geçmişi ve yeni ekin byte düzeyinde kopyası varmış gibi gösterilmedi.
 - Bu kaynak checkpoint’i henüz derlenmedi/test edilmedi. Uygulama listesi ve tam ekran kural düzenleyicisi paralel dosyalarda hazırlanıyor.
+
+## 2026-11-10T13:02+03:00 — Uygulama listesi ve tam ekran kural düzenleyici checkpoint
+
+- “Devam” isteğinde uzak main yeniden kontrol edildi: `3c9cc63`, ayrışma 0/0. Yarım kalan yerel arayüz dosyaları korundu; diğer oturumdan yeni uzak commit yoktu.
+- Akış marka satırı, koruma kartı, günlük ağ kullanımı, satır düzeninde Wi-Fi/mobil anahtarları ve toplu düzenleme eklendi. Mevcut filtreler, geçici izinler ve geri alma menüden erişilebilir.
+- Uygulamaya özel düzenleyici tam ekran; ağ sekmeleri, hız birimleri, günlük/haftalık/aylık kota, gerçek kullanım çubuğu ve gelişmiş ayarlar korunuyor. Alt gezinme mint seçimiyle güncellendi; açılış ekranı Uygulamalar oldu.
+- Bu entegrasyon checkpoint’i henüz derlenmedi/test edilmedi. Sıradaki adım derleme, inceleme düzeltmeleri ve emülatör doğrulaması.
