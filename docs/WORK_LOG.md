@@ -233,3 +233,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Yerel temiz `dc0ff63` kopyası, uzak main incelendikten sonra `3da6a52` commit'ine fast-forward edildi. Diğer Codex'in mint arayüzü, taslak koruması ve cihaz testi korundu.
 - Bu oturum tamamlanmamış `MintUiDeviceTest` doğrulamasını ve ekran kanıtlarını üstleniyor; kaynak değişikliği gerekirse önce uzak dal tekrar kontrol edilecek. Diğer oturumun sahiplik notu kilit kabul edilmiyor.
 - Önceki bu-makine kurulum sonuçları eski `dc0ff63` içindi. Şimdiki kaynak için gerekli derleme ve yeni arayüz testi henüz çalıştırılmadı. Konuşmanın bu oturuma ait tam erişilebilir bölümü ayrı arşiv dosyasına hazırlanıyor.
+
+## 2026-11-10T15:37+03:00 — Bu oturumun erişilebilir konuşma arşivi
+
+- Kullanıcının isteğiyle bu oturumdaki erişilebilir doğal dil mesajları, asistan ilerleme/sonuç metinleri ve güncel kullanıcı isteği `docs/conversations/2026-11-10-setup-followup.md` içine sıra ve konuşmacıyla kaydedildi. Diğer Codex'in konuşması değiştirilmedi.
+- Seçilen mint görseli mevcut özgün depo dosyasına ve SHA-256 özetine bağlandı; bu oturuma yeni dosya eki gelmediği açıkça belirtildi. Kurulumdaki UI XML kontrolleri yeni PNG gibi sunulmadı.
+- Yeni tasarımın bu makinedeki Gradle doğrulaması sürüyor. İncelemede tam ekran düzenleyiciden listeye dönünce arama/filtre durumunun kaybolduğu belirlendi; düzeltme henüz uygulanmadı.
