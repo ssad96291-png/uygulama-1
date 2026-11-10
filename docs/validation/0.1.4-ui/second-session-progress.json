@@ -17,6 +17,12 @@
   },
   "build": "passed",
   "lint": "passed",
-  "device_tests": "pending",
+  "device_tests": {
+    "run": 4,
+    "passed": 3,
+    "failed": 1,
+    "failure": "Mobile access switch description not found at MintUiDeviceTest.kt:120",
+    "evidence": "second-session-android-initial.txt"
+  },
   "physical_device": "not run"
 }

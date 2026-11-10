@@ -276,3 +276,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 
 - `966a330` kaynak koduyla Gradle uygulama/test/probe APK, lint ve JVM kontrolleri `BUILD SUCCESSFUL in 1m` verdi. 44 core + 16 app = 60 test; başarısız/atlanmış test yok.
 - Kanıt `docs/validation/0.1.4-ui/second-session-build.txt`, sayımlar `second-session-progress.json`. Bu sürümün cihaz testi ve dar ekran kontrolü sırada; native motor kaynakları değişmediği için aynı Go testleri tekrar edilmedi.
+
+## 2026-11-10T19:06+03:00 — İkinci Codex: cihaz testi seçici tanısı
+
+- Güncel `966a330` APK üzerinde 4 cihaz testi çalıştı: 3 JSON testi geçti, mint UI testi mobil erişim anahtarının content-description seçicisinde başarısız oldu. Runner kaydı `second-session-android-initial.txt`.
+- Test sırasında alınan gerçek görüntü `second-session-mobile-selector.png`: mobil sekmesi seçili, alanlar 21/9 KB/sn; görüntü test başarısı değildir. Test finally aşamasında önceki koyu tema tercihini geri yükleyebildiğinden açık mint teslim ekranı olarak sunulmaz.
+- İlk testten sonra UI dump launcher'a ait çıktı; bunu uygulama seçicisinin kanıtı gibi kullanmadık. Uygulama yeniden açılıp erişilebilirlik düğümü doğrudan incelenecek.

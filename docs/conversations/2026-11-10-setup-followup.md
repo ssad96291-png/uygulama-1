@@ -156,3 +156,13 @@ Diğer Codex de arama durumunu koruyan düzeltmeyi ve cihaz testindeki iki seçi
 ## 29 — Asistan
 
 Birleşik sürümün derlemesi, lint kontrolü ve 60 JVM testi geçti. Bu sonucu da GitHub’a kaydediyorum. Şimdi gerçek ekranda iki ağın ayrı değerlerini, kaydetme/iptal davranışını ve ekran yeniden oluşturulduğunda taslakların korunmasını sınayacağım.
+
+## 30 — Asistan
+
+Güncel uygulama ve test paketleri emülatöre yüklendi; dört cihaz testi çalışıyor. Tamamlanan değişikliklerin tümü GitHub’da. Test sonucu çıktıktan sonra açık tema ekranlarını ve dar ekranda düzenleme görünümünü kontrol edip görselleri de ekleyeceğim.
+
+## 31 — Asistan
+
+Üç veri/yedek testi geçti; arayüz testi mobil erişim anahtarının beklenen etiketini bulamadığı için durdu. Ekranda mobil sekmesi ve doğru başlangıç değerleri görünüyor. Hata kaydını ve ekran görüntüsünü GitHub’a ekleyip bunun test seçicisinden mi, arayüzden mi kaynaklandığını inceliyorum.
+
+Test sırasında incelenen görsel: [mobil sekmesi seçici tanısı](../validation/0.1.4-ui/second-session-mobile-selector.png). Bu görüntü tamamlanmış açık tema tasarımının teslim ekranı değildir.
