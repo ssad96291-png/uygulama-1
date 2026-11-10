@@ -130,7 +130,7 @@ internal fun AppsScreen(
         }
         item {
             BoxWithConstraints(Modifier.fillMaxWidth().padding(bottom = 8.dp)) {
-                val stacked = maxWidth < 340.dp || LocalDensity.current.fontScale > 1.3f
+                val stacked = maxWidth < 308.dp || LocalDensity.current.fontScale > 1.3f
                 Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                     Text("Uygulama", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
                     if (!stacked) {
@@ -236,7 +236,7 @@ private fun AppRuleRow(
         border = BorderStroke(0.5.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
     ) {
         BoxWithConstraints(Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 6.dp)) {
-            val stacked = maxWidth < 332.dp || LocalDensity.current.fontScale > 1.3f
+            val stacked = maxWidth < 300.dp || LocalDensity.current.fontScale > 1.3f
             val rowTitle: @Composable RowScope.() -> Unit = {
                 if (selectionMode) Checkbox(checked = selected, onCheckedChange = { onSelect() }, modifier = Modifier.semantics { contentDescription = "${app.label} seç" })
                 else AppIcon(app, Modifier.size(40.dp))

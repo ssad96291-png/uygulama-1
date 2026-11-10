@@ -282,3 +282,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Güncel `966a330` APK üzerinde 4 cihaz testi çalıştı: 3 JSON testi geçti, mint UI testi mobil erişim anahtarının content-description seçicisinde başarısız oldu. Runner kaydı `second-session-android-initial.txt`.
 - Test sırasında alınan gerçek görüntü `second-session-mobile-selector.png`: mobil sekmesi seçili, alanlar 21/9 KB/sn; görüntü test başarısı değildir. Test finally aşamasında önceki koyu tema tercihini geri yükleyebildiğinden açık mint teslim ekranı olarak sunulmaz.
 - İlk testten sonra UI dump launcher'a ait çıktı; bunu uygulama seçicisinin kanıtı gibi kullanmadık. Uygulama yeniden açılıp erişilebilirlik düğümü doğrudan incelenecek.
+
+## 2026-11-10T19:12+03:00 — Görünür kontrol önkoşulu ve standart telefon satırları
+
+- Gerçek UI ağacında mobil erişim etiketi hem açık hem kapalı anahtarda doğru bulundu (`second-session-mobile-on.xml`, `second-session-mobile-off.xml`). Ağ etiketi/dönüşüm kusuru kanıtlanmadı; başarısız test anının XML'i önceki sürümde alınmamıştı.
+- Test ağ kontrollerinden önce klavyeyi kapatıp formu yukarı kaydırıyor; mevcut değer, iki ağ, yeniden oluşturma, kaydetme/iptal assertions korunuyor. Sonraki görünür düğüm hatasında test bitmeden UI ağacı kaydedilecek. Bu değişiklik henüz cihazda doğrulanmadı.
+- 360 dp telefonun iç genişliği 320/312 dp olduğundan eski 340/332 dp eşikleri standart telefonlarda da iki satıra düşüyordu. Eşikler 308/300 dp yapıldı; 320 dp dar ekran ve büyük yazıda alt satır korunurken standart telefon referanstaki yatay uygulama/Wi-Fi/mobil düzenini kullanacak.

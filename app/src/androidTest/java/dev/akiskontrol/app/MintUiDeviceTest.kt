@@ -2,12 +2,15 @@ package dev.akiskontrol.app
 
 import android.content.Intent
 import android.os.SystemClock
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.BySelector
+import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
@@ -17,6 +20,7 @@ import dev.akiskontrol.core.NetworkRule
 import dev.akiskontrol.core.ProtectionStatus
 import dev.akiskontrol.core.QuotaAction
 import dev.akiskontrol.core.QuotaPeriod
+import java.io.File
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,7 +36,10 @@ class MintUiDeviceTest {
 
     private fun objectOnScreen(selector: BySelector): UiObject2 =
         device.wait(Until.findObject(selector), timeout)
-            ?: throw AssertionError("Expected visible UI element: $selector")
+            ?: run {
+                device.dumpWindowHierarchy(File(context.cacheDir, "mint-ui-failure.xml"))
+                throw AssertionError("Expected visible UI element: $selector; hierarchy saved to mint-ui-failure.xml")
+            }
 
     private fun waitFor(message: String, condition: () -> Boolean) {
         val end = SystemClock.uptimeMillis() + timeout
@@ -82,6 +89,18 @@ class MintUiDeviceTest {
         return result!!
     }
 
+    private fun revealNetworkControls() {
+        val activity = resumedActivity()
+        instrumentation.runOnMainSync {
+            activity.currentFocus?.clearFocus()
+            WindowCompat.getInsetsController(activity.window, activity.window.decorView)
+                .hide(WindowInsetsCompat.Type.ime())
+        }
+        device.waitForIdle()
+        device.findObject(By.scrollable(true))?.scroll(Direction.UP, 1f)
+        device.waitForIdle()
+    }
+
     @Test
     fun independentDraftsSurviveRecreationAndInvalidInputDoesNotOverwriteSavedRules() {
         assertEquals("Use an idle dedicated test emulator", ProtectionStatus.STOPPED, repository.state.value.status)
@@ -116,6 +135,7 @@ class MintUiDeviceTest {
             expectDownload("12") // Existing byte rate is presented as KB/sn.
             downloadField().text = "3"
             expectDownload("3")
+            revealNetworkControls()
             objectOnScreen(By.text("Mobil veri")).click()
             objectOnScreen(By.desc("Mobil veri internet erişimi"))
             expectDownload("21")
@@ -127,6 +147,7 @@ class MintUiDeviceTest {
             // without depending on a particular emulator display orientation.
             instrumentation.runOnMainSync { activity.recreate() }
             val recreated = resumedActivity(excluding = activity)
+            revealNetworkControls()
             assertNotSame("A new activity instance must restore the editor", activity, recreated)
             objectOnScreen(By.desc("Kaydetmeden geri dön"))
             objectOnScreen(By.desc("Mobil veri internet erişimi"))

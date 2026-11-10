@@ -166,3 +166,7 @@ Güncel uygulama ve test paketleri emülatöre yüklendi; dört cihaz testi çal
 Üç veri/yedek testi geçti; arayüz testi mobil erişim anahtarının beklenen etiketini bulamadığı için durdu. Ekranda mobil sekmesi ve doğru başlangıç değerleri görünüyor. Hata kaydını ve ekran görüntüsünü GitHub’a ekleyip bunun test seçicisinden mi, arayüzden mi kaynaklandığını inceliyorum.
 
 Test sırasında incelenen görsel: [mobil sekmesi seçici tanısı](../validation/0.1.4-ui/second-session-mobile-selector.png). Bu görüntü tamamlanmış açık tema tasarımının teslim ekranı değildir.
+
+## 32 — Asistan
+
+Erişilebilirlik ağacında mobil anahtarın etiketi hem açık hem kapalı durumda doğru görünüyor. Teste, alan düzenlemesinden sonra klavyeyi kapatıp ağ kontrollerini görünür alana getiren bir adım ekleyeceğim; kaydetme ve veri koruma kontrolleri aynı kalacak. Ayrıca 360 dp genişlikteki telefonlarda satırların referanstaki gibi yan yana görünmesi için yerleşim eşiğini düzeltiyorum.
