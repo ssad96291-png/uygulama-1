@@ -34,6 +34,7 @@ import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.mapSaver
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -129,6 +130,59 @@ internal class NetworkDraft(private val initial: NetworkRule) {
     val renewalDay = RenewalDayDraft(initial.renewalDay)
     var action by mutableStateOf(initial.quotaAction)
     val afterQuota = AmountDraft(initial.afterQuotaBps, rateUnits, MAX_RATE_BPS, canBeUnlimited = false)
+
+    /** Save raw inputs, including unfinished/invalid edits, without validating or changing them. */
+    fun saveState(): Map<String, Any?> = buildMap {
+        put("initial.allowed", initial.allowed)
+        put("initial.download", initial.downloadBps)
+        put("initial.upload", initial.uploadBps)
+        put("initial.quota", initial.quotaBytes)
+        put("initial.period", initial.period.name)
+        put("initial.action", initial.quotaAction.name)
+        put("initial.afterQuota", initial.afterQuotaBps)
+        put("initial.renewal", initial.renewalDay)
+        put("allowed", allowed)
+        put("period", period.name)
+        put("action", action.name)
+        put("renewal.text", renewalDay.text)
+        put("renewal.error", renewalDay.error)
+        listOf("download" to download, "upload" to upload, "quota" to quota, "afterQuota" to afterQuota).forEach { (name, draft) ->
+            put("$name.text", draft.text)
+            put("$name.unit", draft.units.indexOf(draft.unit))
+            put("$name.unlimited", draft.unlimited)
+            put("$name.error", draft.error)
+        }
+    }
+
+    companion object {
+        val Saver = mapSaver<NetworkDraft>(save = { it.saveState() }, restore = { restoreState(it) })
+
+        fun restoreState(saved: Map<String, Any?>): NetworkDraft {
+            val initial = NetworkRule(
+                allowed = saved.getValue("initial.allowed") as Boolean,
+                downloadBps = saved.getValue("initial.download") as Long,
+                uploadBps = saved.getValue("initial.upload") as Long,
+                quotaBytes = saved.getValue("initial.quota") as Long,
+                period = QuotaPeriod.valueOf(saved.getValue("initial.period") as String),
+                quotaAction = QuotaAction.valueOf(saved.getValue("initial.action") as String),
+                afterQuotaBps = saved.getValue("initial.afterQuota") as Long,
+                renewalDay = saved.getValue("initial.renewal") as Int,
+            )
+            return NetworkDraft(initial).apply {
+                allowed = saved.getValue("allowed") as Boolean
+                period = QuotaPeriod.valueOf(saved.getValue("period") as String)
+                action = QuotaAction.valueOf(saved.getValue("action") as String)
+                renewalDay.text = saved.getValue("renewal.text") as String
+                renewalDay.error = saved["renewal.error"] as String?
+                listOf("download" to download, "upload" to upload, "quota" to quota, "afterQuota" to afterQuota).forEach { (name, draft) ->
+                    draft.text = saved.getValue("$name.text") as String
+                    draft.unit = draft.units[saved.getValue("$name.unit") as Int]
+                    draft.unlimited = saved.getValue("$name.unlimited") as Boolean
+                    draft.error = saved["$name.error"] as String?
+                }
+            }
+        }
+    }
 
     fun rule(): NetworkRule? {
         val down = download.value("İndirme hızı")

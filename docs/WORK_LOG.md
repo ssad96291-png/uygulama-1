@@ -214,3 +214,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 
 - Düzenlenen uygulama kimliği `rememberSaveable` ile saklanıyor; Android ekran yeniden oluşturulunca aynı uygulamanın düzenleyicisi açılıyor. Taslak alanların da geri yüklenmesi ve sekme erişilebilirliği üzerinde inceleme sürüyor.
 - İlk derleme/doğrulama çalıştırması devam ediyor; henüz yeni tasarımın tamamı için başarılı test sonucu verilmedi.
+
+## 2026-11-10T13:06+03:00 — İlk derleme geçti; taslak koruma ve erişilebilirlik
+
+- İlk mint arayüz derlemesi `BUILD SUCCESSFUL in 1m 21s`: mevcut 54 JVM testi, lint, debug APK ve Android test APK derlemesi geçti (`/workspace/toolchains/mint-ui/build.log`). Native motor kaynakları değiştirilmedi.
+- İki ağdaki tamamlanmamış/hatalı girişler dahil düzenleme taslakları artık Android yeniden oluşturulmasında saklanıyor. Sekmeler seçili durumunu erişilebilirlik hizmetlerine bildiriyor; dokunma alanı en az 48 dp.
+- Dönüşüm, geçersiz giriş, bağımsız ağlar ve taslak geri yükleme için 6 yeni JVM testi eklendi. Bu son iyileştirmeler/yeni testler henüz çalıştırılmadı; sonraki birleşik doğrulamada ölçülecek.

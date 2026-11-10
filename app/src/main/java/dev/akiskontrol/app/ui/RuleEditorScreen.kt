@@ -5,6 +5,8 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -18,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -36,11 +39,11 @@ internal fun AppRuleEditorScreen(
     onDismiss: () -> Unit,
     onSave: (NetworkRule, NetworkRule) -> Unit,
 ) {
-    val wifi = remember(app.uid) { NetworkDraft(rule.wifi) }
-    val mobile = remember(app.uid) { NetworkDraft(rule.mobile) }
+    val wifi = rememberSaveable(app.uid, saver = NetworkDraft.Saver) { NetworkDraft(rule.wifi) }
+    val mobile = rememberSaveable(app.uid, saver = NetworkDraft.Saver) { NetworkDraft(rule.mobile) }
     var selectedNetwork by rememberSaveable(app.uid) { mutableStateOf(0) }
     var advanced by rememberSaveable(app.uid) { mutableStateOf(false) }
-    var error by remember(app.uid) { mutableStateOf<String?>(null) }
+    var error by rememberSaveable(app.uid) { mutableStateOf<String?>(null) }
     val draft = if (selectedNetwork == 0) wifi else mobile
     val network = if (selectedNetwork == 0) NetworkKind.WIFI else NetworkKind.MOBILE
     BackHandler(onBack = onDismiss)
@@ -190,15 +193,14 @@ private fun EditorSectionHeading(icon: ImageVector, title: String) {
 @Composable
 private fun EditorSegments(labels: List<String>, selected: Int, onSelect: (Int) -> Unit) {
     Surface(shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = .55f)) {
-        Row(Modifier.fillMaxWidth().padding(3.dp)) {
+        Row(Modifier.fillMaxWidth().padding(3.dp).selectableGroup()) {
             labels.forEachIndexed { index, label ->
                 Surface(
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(13.dp),
                     color = if (index == selected) MaterialTheme.colorScheme.primaryContainer else androidx.compose.ui.graphics.Color.Transparent,
-                    onClick = { onSelect(index) },
                 ) {
-                    Box(Modifier.heightIn(min = 42.dp).padding(horizontal = 4.dp, vertical = 8.dp), contentAlignment = Alignment.Center) {
+                    Box(Modifier.fillMaxWidth().heightIn(min = 48.dp).selectable(selected = index == selected, role = Role.Tab, onClick = { onSelect(index) }).padding(horizontal = 4.dp, vertical = 8.dp), contentAlignment = Alignment.Center) {
                         Text(label, style = MaterialTheme.typography.bodyMedium, fontWeight = if (index == selected) FontWeight.SemiBold else FontWeight.Normal, color = if (index == selected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurfaceVariant, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
                     }
                 }
