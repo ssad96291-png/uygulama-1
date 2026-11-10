@@ -1,5 +1,5 @@
 {
-  "source_commit": "966a330c72537334b90f67f2cae7408d34c49ed5",
+  "source_commit": "781c4169d74db6ec89ef95aebd2b8fcd0b04a351",
   "time": "2026-11-10T19:00+03:00",
   "jvm": {
     "core": {
@@ -17,12 +17,6 @@
   },
   "build": "passed",
   "lint": "passed",
-  "device_tests": {
-    "run": 4,
-    "passed": 3,
-    "failed": 1,
-    "failure": "Mobile access switch description not found at MintUiDeviceTest.kt:120",
-    "evidence": "second-session-android-initial.txt"
-  },
+  "device_tests": "retry pending after visibility precondition change",
   "physical_device": "not run"
 }

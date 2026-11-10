@@ -288,3 +288,8 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Gerçek UI ağacında mobil erişim etiketi hem açık hem kapalı anahtarda doğru bulundu (`second-session-mobile-on.xml`, `second-session-mobile-off.xml`). Ağ etiketi/dönüşüm kusuru kanıtlanmadı; başarısız test anının XML'i önceki sürümde alınmamıştı.
 - Test ağ kontrollerinden önce klavyeyi kapatıp formu yukarı kaydırıyor; mevcut değer, iki ağ, yeniden oluşturma, kaydetme/iptal assertions korunuyor. Sonraki görünür düğüm hatasında test bitmeden UI ağacı kaydedilecek. Bu değişiklik henüz cihazda doğrulanmadı.
 - 360 dp telefonun iç genişliği 320/312 dp olduğundan eski 340/332 dp eşikleri standart telefonlarda da iki satıra düşüyordu. Eşikler 308/300 dp yapıldı; 320 dp dar ekran ve büyük yazıda alt satır korunurken standart telefon referanstaki yatay uygulama/Wi-Fi/mobil düzenini kullanacak.
+
+## 2026-11-10T19:13+03:00 — Kompakt satır sürümünün derlemesi geçti
+
+- `781c416` kaynakla Gradle 24 saniyede başarılı: uygulama/Android test APK, lint ve 60 JVM sonucu başarılı. Değişmeyen core görevleri önceki geçerli çıktıyı kullandı; değişen uygulama testleri çalıştı. Kanıt `second-session-build-compact.txt`.
+- Yalnız etkilenen mint cihaz testi yeniden çalıştırılacak; önceki üç JSON testi kaynakları değişmediği için aynı kontroller tekrar edilmiyor.
