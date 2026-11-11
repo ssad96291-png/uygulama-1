@@ -1,10 +1,14 @@
 package dev.akiskontrol.app
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
+import android.graphics.Rect
 import android.os.Build
 import android.os.SystemClock
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.ViewCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
@@ -109,6 +113,99 @@ class MintUiDeviceTest {
         device.waitForIdle()
         freshObject(By.scrollable(true))?.scroll(Direction.UP, 1f)
         device.waitForIdle()
+    }
+
+    @Test
+    fun landscapeKeyboardKeepsAmountAndSaveVisible() {
+        assertEquals("Use an idle dedicated test emulator", ProtectionStatus.STOPPED, repository.state.value.status)
+        val info = context.packageManager.getApplicationInfo("dev.akiskontrol.probe", 0)
+        val label = context.packageManager.getApplicationLabel(info).toString()
+        val originalRule = repository.ruleFor(info.uid)
+        val originalSettings = repository.state.value.settings
+        val baseline = AppRule(info.uid, wifi = NetworkRule(downloadBps = 12_000))
+        var originalOrientation: Int? = null
+        try {
+            repository.saveSettings(originalSettings.copy(darkTheme = false, showSystemApps = false))
+            repository.saveRule(baseline)
+            repository.refreshApps()
+            device.wakeUp()
+            context.startActivity(Intent(context, MainActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
+            val activity = resumedActivity()
+            originalOrientation = activity.requestedOrientation
+            objectOnScreen(By.desc("Ayarları aç"))
+            objectOnScreen(By.clazz("android.widget.EditText")).text = label
+            objectOnScreen(By.text(label).clazz("android.widget.TextView")).click()
+            objectOnScreen(By.desc("Kaydetmeden geri dön"))
+            instrumentation.runOnMainSync {
+                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            }
+            waitFor("Expected landscape configuration") {
+                context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+            }
+            assertTrue("Run this regression on a phone with a short side of at most 360 dp",
+                context.resources.configuration.screenHeightDp <= 360)
+            val landscape = resumedActivity()
+            waitFor("Expected download field in the scrolling form") {
+                if (freshObject(By.desc("İndirme değeri")) != null) true else {
+                    freshObject(By.scrollable(true))?.scroll(Direction.DOWN, .5f)
+                    false
+                }
+            }
+            downloadField().click()
+            instrumentation.runOnMainSync {
+                WindowCompat.getInsetsController(landscape.window, landscape.window.decorView)
+                    .show(WindowInsetsCompat.Type.ime())
+            }
+            var keyboardTop = 0
+            waitFor("Expected the real system keyboard to be visible") {
+                var visible = false
+                instrumentation.runOnMainSync {
+                    val decor = landscape.window.decorView
+                    val insets = ViewCompat.getRootWindowInsets(decor)
+                    visible = insets?.isVisible(WindowInsetsCompat.Type.ime()) == true
+                    keyboardTop = decor.height - (insets?.getInsets(WindowInsetsCompat.Type.ime())?.bottom ?: 0)
+                }
+                visible
+            }
+            val minimumTouchHeight = (48 * context.resources.displayMetrics.density).toInt()
+            waitFor("The amount and Save must each remain at least 48 dp tall above the keyboard") {
+                val amount = runCatching { downloadField().visibleBounds }.getOrNull()
+                val save = freshObject(By.text("Kaydet"))?.let {
+                    var button = it
+                    while (!button.isClickable) button = button.parent ?: return@let null
+                    button.visibleBounds
+                }
+                amount != null && save != null && amount.height() >= minimumTouchHeight &&
+                    save.height() >= minimumTouchHeight && amount.bottom <= keyboardTop &&
+                    save.bottom <= keyboardTop && !Rect.intersects(amount, save)
+            }
+            expectDownload("12")
+            downloadField().text = "6"
+            expectDownload("6")
+            assertTrue("Screenshot must be saved", device.takeScreenshot(File(context.cacheDir, "mint-landscape-ime-after.png")))
+            downloadField().text = "-2"
+            objectOnScreen(By.text("Kaydet")).click()
+            objectOnScreen(By.text("İşaretli alanları kontrol et."))
+            assertEquals("Invalid compact save must preserve the stored rule", baseline, repository.ruleFor(info.uid))
+            downloadField().text = "6"
+            expectDownload("6")
+            objectOnScreen(By.text("Kaydet")).click()
+            waitFor("Compact Save must persist the edited amount and preserve the other network") {
+                repository.ruleFor(info.uid) == baseline.copy(wifi = baseline.wifi.copy(downloadBps = 6_000))
+            }
+            waitFor("Compact Save must close the editor") { freshObject(By.desc("Kaydetmeden geri dön")) == null }
+        } finally {
+            try {
+                originalOrientation?.let { orientation ->
+                    val current = resumedActivity()
+                    instrumentation.runOnMainSync { current.requestedOrientation = orientation }
+                }
+            } finally {
+                repository.saveRule(originalRule)
+                repository.saveSettings(originalSettings)
+            }
+        }
     }
 
     @Test

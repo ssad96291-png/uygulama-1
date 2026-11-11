@@ -352,3 +352,8 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Düzenleyici kullanılabilir yüksekliği klavye boşluğu çıkarıldıktan sonra ölçüyor. 320 dp altında Geri ve Kaydet aynı satırda, form kalan kaydırılabilir alanı kullanıyor. Portredeki geniş alt Kaydet korunuyor.
 - Her iki Kaydet düğmesi aynı doğrulama/kayıt işlevini çağırıyor; kısa düzende hata özeti üst satırda erişilebilir. Taslakların composition konumu korunuyor.
 - `git diff --check` temiz. Android araç kurulumu sürüyor; bu kaynak henüz derlenmedi veya cihazda sınanmadı.
+
+## 2026-11-11T07:08+03:00 — Gerçek yatay klavye regresyon testi eklendi
+
+- MintUiDeviceTest yeni kontrolü gerçek Android IME açıyor: 360 dp kısa kenarlı telefonda yatay alan ve Kaydet en az 48 dp görünür kalmalı, klavyeyle/ birbirleriyle örtüşmemeli. Negatif giriş kaydedilmez; geçerli değişiklik iki ağın diğer değerlerini koruyarak kaydedilir.
+- Test yön/ayar/kural değişikliklerini sonunda geri yükler; başarılı görünür alanın ekranını test cache dizinine alır. Henüz derlenmedi/çalıştırılmadı. Android SDK paketleri kuruluyor.
