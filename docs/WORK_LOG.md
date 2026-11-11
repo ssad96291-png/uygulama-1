@@ -310,3 +310,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 
 - `c5c2cc5` test değişikliğiyle Android test APK ve lint kontrolü 25 saniyede geçti. Uygulama kaynakları/APK değişmedi; gereksiz JVM/native tekrarına gidilmedi. Kanıt `second-session-cache-fix-build.txt`.
 - Yalnız yeni test APK'sı kurulup mint arayüz testi yeniden başlatıldı. Sonuç bekleniyor.
+
+## 2026-11-11T04:37+03:00 — Mint arayüz testi geçti
+
+- `c5c2cc5` test paketi, değişmeyen `781c416` uygulama APK'sı üzerinde **OK (1 test)**, 174,528 saniye verdi. İki ağın değerleri, ayrı taslaklar, Activity yeniden oluşturma, iki ağın birlikte kaydı, diğer kota alanlarının korunması, geçersiz giriş reddi, iptal ve arama koruması geçti.
+- Önceki üç Android JSON kontrolüyle toplam dört cihaz kontrolü iki çalıştırmada başarılıdır; tam VPN paketi/fiziksel telefon kapsamı değildir. Başarısız denemeler silinmedi. Kanıt `second-session-android-ui-passed.txt`.
+- TESTING ve README güncellendi. Son açık tema ekranları ve dar/yatay klavyeli görünüm kontrolü sırada.

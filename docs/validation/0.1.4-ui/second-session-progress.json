@@ -18,10 +18,14 @@
   "build": "passed",
   "lint": "passed",
   "device_tests": {
-    "passed_unchanged_json_tests": 3,
-    "mint_ui": "failed at mobile access description after reveal controls",
-    "seconds": 182.147,
-    "evidence": "second-session-visibility-retry.txt"
+    "json_tests_passed": 3,
+    "json_run_source": "966a330",
+    "mint_ui_passed": 1,
+    "mint_ui_seconds": 174.528,
+    "mint_ui_evidence": "second-session-android-ui-passed.txt",
+    "note": "Two runs; JSON implementation unchanged since its passing run"
   },
-  "physical_device": "not run"
+  "physical_device": "not run",
+  "instrumentation_source": "c5c2cc5f9fbe50b0b122b49eb985188f4eba4367",
+  "screenshots": "pending"
 }

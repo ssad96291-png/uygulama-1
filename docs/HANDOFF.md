@@ -8,23 +8,17 @@ Kullanıcı [01 / Açık ve sade](designs/01-acik-ve-sade.png) tasarımını se�
 
 Son uygulama/test kaynak değişikliği `781c416`; `db691cf` bunun başarılı derleme kaydı. Bu oturum cihaz testi tanısını ve son açık tema ekranlarını tamamlıyor. Diğer Codex'in kaynak/test düzeltmeleri alındı; iki oturumun örtüşen işi atılmadı.
 
-## Doğrulananlar ve kalan sorun
+## Doğrulananlar ve kalan iş
 
-- 44 core + 16 app = **60 JVM testi** geçti. Lint ve uygulama/test/probe APK derlemeleri geçti; native motor değiştirilmedi.
-- Android API 36 üzerinde **3 JSON testi** geçti.
-- Mint cihaz testi **henüz geçmedi**: son deneme `second-session-visibility-retry.txt`, 182,147 s; mobil erişim anahtarının etiketinde durdu.
-- Hata anındaki `second-session-failure-hierarchy.xml`, Wi-Fi etiket/7 yükleme ile 21 indirme bilgisini karışık gösteriyor. Eski erişilebilirlik önbelleği olasılığı araştırılıyor. Sırf testi geçirmek için değer/kaydetme assertions kaldırılmayacak.
-- Son açık tema ekran görüntüleri ve klavyeli dar/yatay ekran kontrolü bekliyor. Önceki hata/ara görüntüler teslim ekranı değildir.
-
-## Kesin sonraki adımlar
-
-1. Hata XML'ini ve Android UiAutomation/UiAutomator önbellek davranışını incele; desteklenen düzeltmeyi testte uygulayıp yalnız etkilenen cihaz testini tekrar çalıştır.
-2. Test geçince açık tema uygulama listesi/düzenleyici ve dar ekranda klavye görünümünü doğrula; gerçek PNG'leri commit/push et.
-3. TESTING/README/devir kaydını gerçek sonuca göre güncelle. Sohbet ve görselleri kullanıcı isteği doğrultusunda kaydet.
+- 44 core + 16 app = **60 JVM testi** geçti; lint ve uygulama/test/probe APK derlemeleri başarılı.
+- **3 Android JSON testi** ve **1 mint arayüz testi** iki çalıştırmada geçti. Arayüz testi `c5c2cc5`, 174,528 s; uygulama kodu `781c416`.
+- Eski erişilebilirlik önbelleği, testin API 34+ taze sorgularında genel UiAutomation.clearCache API'siyle düzeltildi. Bütün değer/kaydetme assertions korundu.
+- Kanıt: `docs/validation/0.1.4-ui/second-session-android-ui-passed.txt`; önceki başarısız kayıtlar tanı geçmişidir.
+- **Kalan iş:** açık tema uygulama listesi/düzenleyici ekranlarını ve dar/yatay klavyeli görünümü doğrulayıp PNG'leri arşivle; ardından son devir notunu güncelle. Kaynak kodunu gereksiz tekrar değiştirme veya geçmiş testleri yeni neden olmadan yineleme.
 
 ## Bu makine
 
-Depo `/workspace/uygulama-1`, dal `work`, hedef `main`. `source /workspace/toolchains/android-env.sh`. Emülatör `emulator-5554`, API 36, yazılım emülasyonu; `ro.hw_timeout_multiplier=10`. Cihazdaki eski test tamamlandı, yeni test başlatılmadı. Yeni günlükler `/workspace/toolchains/mint-followup/`; depodaki kanıtlar `docs/validation/0.1.4-ui/`. Başka makinede bu yolların varlığını varsayma.
+Depo `/workspace/uygulama-1`, dal `work`, hedef `main`. `source /workspace/toolchains/android-env.sh`. Emülatör `emulator-5554`, API 36, yazılım emülasyonu; `ro.hw_timeout_multiplier=10`. Cihazdaki son mint testi tamamlandı ve geçti; etkin instrumentation testi yok. Yeni günlükler `/workspace/toolchains/mint-followup/`; depodaki kanıtlar `docs/validation/0.1.4-ui/`. Başka makinede bu yolların varlığını varsayma.
 
 ## Yayımlanmış sürüm ve imza sınırı
 

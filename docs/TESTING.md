@@ -13,9 +13,11 @@ Kaynak sürümü **0.1.4 / versionCode 5**: açık mint uygulama listesi, tam ek
 | `:app:lintDebug` | 0 hata, 2 uyarı, 2 öneri | Android statik incelemesi |
 | Debug ve Android test APK derlemeleri | Geçti | 0.1.4 uygulama ve test paketleri üretildi |
 | `StateJsonDeviceTest` | 3 test geçti | Android'in gerçek JSON uygulamasıyla yerel kayıt/yedek kontrolleri |
-| `MintUiDeviceTest` | İlk çalıştırma başarısız; düzeltilmiş testin sonucu bekleniyor | İlk hız alanının UI düğümünü bulma yöntemi düzeltildi; değer ve kaydetme doğrulamaları korunuyor |
+| `MintUiDeviceTest` | 1 test geçti, 174,528 s | Bağımsız ağ taslakları, Activity yeniden oluşturma, iki ağın birlikte kaydı, geçersiz giriş, geri dönüş ve arama koruması |
 
-İlk Android çalıştırması 4 test içerdi: üç JSON testi geçti, arayüz testi ilk `12 KB/sn` değerini okuma adımında başarısız oldu. [İlk sonuç kaydı](validation/0.1.4-ui/android-tests-initial-failure.txt) depodadır. Android UI hiyerarşisi, `İndirme değeri` etiketinin gerçek `EditText` düğümünün çocuğu olduğunu gösterdi. `ccda25c` test düzeltmesi bu üst düğümü bulur ve başarısızlıkta gözlenen değeri bildirir; uygulamanın sayısal dönüşümünde hata saptanmadı. Yalnız etkilenen arayüz testinin yeniden çalıştırması henüz tamamlanmadı.
+Güncel arayüz testi [OK (1 test)](validation/0.1.4-ui/second-session-android-ui-passed.txt) ile geçti. Üç JSON testi daha önce ayrı çalıştırmada geçti; toplam dört Android kontrolü iki çalıştırmada doğrulandı. Son uygulama kodu `781c416`, testin erişilebilirlik önbellek düzeltmesi `c5c2cc5` sürümündedir.
+
+Önceki başarısız kayıtlar tanı geçmişi olarak korunur. EditText üst düğümü ve Activity lifecycle izleme düzeltmelerinden sonra yakalanan [hata XML'i](validation/0.1.4-ui/second-session-failure-hierarchy.xml), Wi-Fi'nin eski düğümleri ile mobil alanın yeni değerini birlikte gösteriyordu. UiAutomator 2.3.0 bu Android sürümünde düğüm önbelleğini yenilemediği için test API 34+ üzerinde desteklenen `UiAutomation.clearCache()` çağrısını her taze sorgudan önce kullanır. Bütün değer/kaydetme/yeniden oluşturma doğrulamaları korunmuştur; kontrol kaldırılarak başarı elde edilmemiştir.
 
 Bu arayüz çalışmasında native motor değiştirilmedi. 0.1.3 için aşağıda kayıtlı native/VPN testleri tarihsel kanıttır; 0.1.4 üzerinde tam VPN paketi veya fiziksel Samsung doğrulaması yapılmış sayılmaz. Bu ortamın debug imzası yayımlanmış 0.1.3 APK'sından farklıdır; 0.1.4 için telefon üzerine güncellenebilir yeni APK yayımlanmadı.
 
