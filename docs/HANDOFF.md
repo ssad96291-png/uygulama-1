@@ -18,7 +18,11 @@ Güncel uygulama düzeltmesi `8ddfe06`, yeni cihaz testleri `7946d33`; diğer Co
 
 ## Yeni devam oturumu
 
-11 Kasım yeni sohbeti yatay klavye düzenini üstlendi. Güncel main `cb3f115` temiz kopyalandı. Bu yeni makinede önceki araçlar/çıktılar yoktu; `/workspace/toolchains/install-android.sh` ile yeniden hazırlanıyor. Kısa kullanılabilir yükseklikte birleşik Geri/Kaydet satırı kaynakta hazır; derleme, 60 JVM ve lint kontrolü geçti (0 hata, 10 sürüm/KTX uyarısı, 2 öneri). Uygulama kaynağı `8ddfe06`, yeni cihaz testi `7946d33`. Test/probe APK da derlendi (`landscape-test-build.txt`). Sırada iki mint cihaz testi var; henüz cihazda sınanmadı. Yeni sohbet: [devam kaydı](conversations/2026-11-11-resume.md).
+Bu devam sohbeti yatay cihaz doğrulamasını sürdürüyor. Depo `/workspace/uygulama-1`, dal `main`. Uygulama `8ddfe06`, yeni test `7946d33`; 60 JVM/lint ve tüm APK derlemeleri geçti. API 36 emülatörü açıldı (`sys.boot_completed=1`, timeout multiplier 10); üç APK kuruluyor ve sonra iki mint testi çalışacak. Yeni loglar `/workspace/toolchains/logs/landscape-ui-tests.txt` (henüz sonuç yok), `landscape-test-build.log`.
+
+Geçici test ekranı 360×640 px / 160 dpi, yani yatay 640×360 dp. İş sonunda `wm size reset`, `wm density reset`, klavye/animasyon ayarlarını geri alma ve portreye dönme bekliyor. Bu makinede imzalama anahtarı yeniden üretildi; APK telefon güncellemesi olarak yayımlanmaz. Yer için yalnız native/Gradle türetilmiş önbellekleri ve native derleme tamamlandıktan sonra NDK kaldırıldı; aynı native motoru yeniden derlemek gerekirse NDK 28.2.13676358 yeniden kurulmalı. Mevcut AAR kaynaklardan üretildi ve korunuyor.
+
+Yeni görünür sohbet: [devam kaydı](conversations/2026-11-11-resume.md). Diğer oturumun `f818b53` arşivi `9196469` ile kayıpsız birleştirildi.
 
 ## Önceki makine (tarihsel yollar)
 

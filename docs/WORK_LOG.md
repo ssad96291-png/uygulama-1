@@ -393,3 +393,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 
 - Diğer oturumun `f818b53` kapanış/arşiv kaydı ile bu devam sohbetinin test paketi/özet kaydı birleştirildi. WORK_LOG ekleme çatışmasında her iki kayıt eksiksiz korundu; uygulama/test kaynağı değişmedi.
 - Diğer oturum limit nedeniyle kapanmış. Bu devam sohbetinde mevcut yetkilendirilmiş yatay cihaz doğrulaması sürüyor; diğer makinenin eski testleri yeni APK sonucu sayılmıyor.
+
+## 2026-11-11T13:21+03:00 — Yeni emülatör açıldı, cihaz paketi kuruluyor
+
+- API 36 ilk açılışı tamamlandı: `sys.boot_completed=1`, framework paket yolu mevcut, `ro.hw_timeout_multiplier=10`. Sistem crash günlüğü boştu; bekleme ilk açılış servislerinden kaynaklandı.
+- GPU yükünü azaltmak için yalnız bu test cihazında 360×640 px / 160 dpi override uygulandı. Mantıksal portre 360×640 dp, yatay 640×360 dp: önceki hata ile aynı dp koşulu. Fiziksel temel 720×1280 / 320 dpi; geçici override iş sonunda kaldırılacak.
+- Uygulama/probe/test APK kurulum zinciri çalışıyor; ardından iki MintUiDeviceTest seçilecek. Henüz başarılı cihaz sonucu yok.
