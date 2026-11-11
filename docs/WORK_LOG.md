@@ -333,3 +333,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 
 - README artık gerçek 0.1.4 açık liste/düzenleyici görüntülerini gösteriyor; önceki koyu görsel arşivde korundu. Görsellerin sürümü ile yayımlanmış 0.1.3 APK bağlantısı açıkça ayrıldı.
 - Yatay emülatör görünümü açıldı; geçici dönüşte ilk UI ağacı boş geldi, yerleşim oturduktan sonraki sorgu başarılı. Klavyeli kontrol sürüyor.
+
+## 2026-11-11T04:48+03:00 — Gerçek yatay klavyede form alanı yetersiz
+
+- 640×360 dp yatay ekranda AOSP sayısal klavye açıkken sabit geri satırı ve Kaydet altlığı form için yalnız yaklaşık 3,5 dp bıraktı. Hız girişi görsel olarak okunamıyor. Otomatik taslak testi bu yerleşim koşulunu kapsamıyordu.
+- Gerçek hata görüntüsü/XML `mint-landscape-ime-before.*`; PNG SHA-256 `db572eb1e2617f9c694496469319571e3b51b3b505f0904517c27500562cbacb`. XML geçişte eski düğümler içerebilir; kusur yerleşmiş PNG üzerinden doğrulandı.
+- Kısa kullanılabilir yüksekliğe özel daha küçük birleşik geri/kaydet alanı uygulanacak. Bu checkpoint yalnız bulgu kaydıdır; düzeltme ve cihaz doğrulaması bekleniyor.

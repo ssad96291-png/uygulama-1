@@ -14,7 +14,7 @@ Son uygulama/test kaynak değişikliği `781c416`; `db691cf` bunun başarılı d
 - **3 Android JSON testi** ve **1 mint arayüz testi** iki çalıştırmada geçti. Arayüz testi `c5c2cc5`, 174,528 s; uygulama kodu `781c416`.
 - Eski erişilebilirlik önbelleği, testin API 34+ taze sorgularında genel UiAutomation.clearCache API'siyle düzeltildi. Bütün değer/kaydetme assertions korundu.
 - Kanıt: `docs/validation/0.1.4-ui/second-session-android-ui-passed.txt`; önceki başarısız kayıtlar tanı geçmişidir.
-- **Kalan iş:** açık tema liste/düzenleyici PNG ve XML kayıtları arşivlendi (`mint-apps-light.*`, `mint-editor-light.*`). Yatay klavyeli görünümü doğrula, geçici emülatör ekran ayarlarını geri al ve son devir notunu güncelle. Kaynak kodunu gereksiz tekrar değiştirme veya geçmiş testleri yeni neden olmadan yineleme.
+- **Kalan iş:** gerçek 640×360 dp yatay klavyede form yalnız yaklaşık 3,5 dp kalıyor (`mint-landscape-ime-before.png`). Kısa ekran düzenini düzelt, derle ve aynı koşulda doğrula. Açık tema portre görüntüleri arşivli. Ardından geçici emülatör ayarlarını geri al ve son devir notunu güncelle.
 
 ## Bu makine
 
