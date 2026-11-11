@@ -6,6 +6,7 @@ Bu dizin, ajanın erişebildiği görünür yazışmaları kaynak olarak saklar.
 
 - [10 Kasım 2026 — ortam kurulumu, sürekli kayıt isteği ve Sade Mint seçimi](2026-11-10.md)
 - [Aynı gün ikinci Codex: kurulum ve tasarıma devam](2026-11-10-setup-followup.md)
+- [11 Kasım — cihaz doğrulamasına devam](2026-11-11.md)
 - [Tasarım görselleri](../designs/README.md)
 - [İşlem ve doğrulama günlüğü](../WORK_LOG.md)
 - [Güncel devir kaydı](../HANDOFF.md)

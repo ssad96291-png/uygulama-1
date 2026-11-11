@@ -293,3 +293,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 
 - `781c416` kaynakla Gradle 24 saniyede başarılı: uygulama/Android test APK, lint ve 60 JVM sonucu başarılı. Değişmeyen core görevleri önceki geçerli çıktıyı kullandı; değişen uygulama testleri çalıştı. Kanıt `second-session-build-compact.txt`.
 - Yalnız etkilenen mint cihaz testi yeniden çalıştırılacak; önceki üç JSON testi kaynakları değişmediği için aynı kontroller tekrar edilmiyor.
+
+## 2026-11-11T04:31+03:00 — Devam: hata anındaki erişilebilirlik ağacı korundu
+
+- Uzak main `db691cf`, yerel/uzak 0/0 ve çalışma ağacı temiz. Son mint testi 182,147 saniyede aynı mobil erişim etiketi sorgusunda başarısız olmuş. Sonuç ve gerçek hata anındaki XML depoya alındı.
+- XML aynı anda Wi-Fi seçimi, Wi-Fi erişim etiketi ve 7 yükleme değeriyle 21 indirme değeri gösteriyor. Önceki canlı görüntü ve manuel XML mobile geçişin çalıştığını gösteriyordu. Eski AccessibilityCache verisi olasılığı inceleniyor; henüz kesin kök neden ilan edilmedi.
+- Yeni konuşma bölümü kaydedildi ve HANDOFF artık güncel 0.1.4 kaynak/test durumunu önde gösterecek şekilde yenilendi. Başarısız testler başarı gibi sunulmadı.

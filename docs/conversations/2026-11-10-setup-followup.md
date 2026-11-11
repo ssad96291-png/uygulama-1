@@ -170,3 +170,7 @@ Test sırasında incelenen görsel: [mobil sekmesi seçici tanısı](../validati
 ## 32 — Asistan
 
 Erişilebilirlik ağacında mobil anahtarın etiketi hem açık hem kapalı durumda doğru görünüyor. Teste, alan düzenlemesinden sonra klavyeyi kapatıp ağ kontrollerini görünür alana getiren bir adım ekleyeceğim; kaydetme ve veri koruma kontrolleri aynı kalacak. Ayrıca 360 dp genişlikteki telefonlarda satırların referanstaki gibi yan yana görünmesi için yerleşim eşiğini düzeltiyorum.
+
+## 33 — Asistan
+
+Standart telefon genişliğine uygun satır düzeni de derleme ve lint kontrolünden geçti. Şimdi yalnızca etkilenen arayüz testini yeniden çalıştırıyorum; önceki üç veri/yedek testi başarılı. Testin ardından gerçek açık tema ekranlarını kaydedeceğim.

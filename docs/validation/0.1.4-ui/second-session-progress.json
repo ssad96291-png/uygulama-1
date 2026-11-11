@@ -17,6 +17,11 @@
   },
   "build": "passed",
   "lint": "passed",
-  "device_tests": "retry pending after visibility precondition change",
+  "device_tests": {
+    "passed_unchanged_json_tests": 3,
+    "mint_ui": "failed at mobile access description after reveal controls",
+    "seconds": 182.147,
+    "evidence": "second-session-visibility-retry.txt"
+  },
   "physical_device": "not run"
 }
