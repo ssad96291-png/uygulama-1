@@ -20,9 +20,9 @@ Android 10 ve üzeri telefonda APK'yı kur. 0.1.2 ile aynı imzayı kullandığ�
 
 [Dosya özeti](downloads/akis-0.1.3-debug.apk.sha256) · [Doğrulama kaydı](docs/validation/0.1.3/verification.json) · [Android test sonucu](docs/validation/0.1.3/android-instrumentation.txt)
 
-<img src="docs/images/akis-home.png" alt="Akış uygulamasının koyu temalı ana ekranı" width="300" />
+<img src="docs/validation/0.1.4-ui/mint-apps-light.png" alt="Akış 0.1.4 açık mint uygulama listesi" width="280" /> <img src="docs/validation/0.1.4-ui/mint-editor-light.png" alt="Akış 0.1.4 açık mint kural düzenleyicisi" width="280" />
 
-Bu ekran görüntüsü önceki koyu arayüzü gösterir; 0.1.4 mint tasarımının son ekran kanıtı değildir.
+Bunlar geliştirme sürümü **0.1.4** uygulamasının 360×800 dp emülatördeki gerçek ekranlarıdır. Yukarıdaki indirme bağlantısı hâlâ **0.1.3** sürümüdür. Önceki [koyu arayüz görüntüsü](docs/images/akis-home.png) arşivde korunur.
 
 ## Mevcut özellikler
 

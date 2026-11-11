@@ -328,3 +328,8 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Gerçek probe uygulamasının Wi-Fi düzenleyicisi 360×800 dp ekranda incelendi: başlık, ağ sekmeleri, erişim anahtarı, hız alanları, kota seçenekleri ve sabit Kaydet görülebiliyor. Varsayılan sınırsız değerler korunuyor; görüntü için kural kaydedilmedi.
 - Görsel/XML `docs/validation/0.1.4-ui/mint-editor-light.*`; PNG SHA-256 `53c862f23161fb9c9ccd08fcb4f9fe14ddb856ecdc6589b15ddded79b6ca79c5`. Kaynak `781c416`.
 - Açık tema portre ekranları tamamlandı; yatay klavye kontrolü ve geçici ekran ayarlarının geri alınması kaldı.
+
+## 2026-11-11T04:46+03:00 — README güncel mint ekranları
+
+- README artık gerçek 0.1.4 açık liste/düzenleyici görüntülerini gösteriyor; önceki koyu görsel arşivde korundu. Görsellerin sürümü ile yayımlanmış 0.1.3 APK bağlantısı açıkça ayrıldı.
+- Yatay emülatör görünümü açıldı; geçici dönüşte ilk UI ağacı boş geldi, yerleşim oturduktan sonraki sorgu başarılı. Klavyeli kontrol sürüyor.
