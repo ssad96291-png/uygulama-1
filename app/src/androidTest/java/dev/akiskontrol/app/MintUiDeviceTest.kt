@@ -1,6 +1,7 @@
 package dev.akiskontrol.app
 
 import android.content.Intent
+import android.os.Build
 import android.os.SystemClock
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -13,7 +14,6 @@ import androidx.test.uiautomator.BySelector
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
-import androidx.test.uiautomator.Until
 import dev.akiskontrol.app.data.AppRepository
 import dev.akiskontrol.core.AppRule
 import dev.akiskontrol.core.NetworkRule
@@ -34,12 +34,22 @@ class MintUiDeviceTest {
     private val repository = AppRepository.get(context)
     private val timeout = 120_000L
 
-    private fun objectOnScreen(selector: BySelector): UiObject2 =
-        device.wait(Until.findObject(selector), timeout)
-            ?: run {
-                device.dumpWindowHierarchy(File(context.cacheDir, "mint-ui-failure.xml"))
-                throw AssertionError("Expected visible UI element: $selector; hierarchy saved to mint-ui-failure.xml")
-            }
+    private fun freshObject(selector: BySelector): UiObject2? {
+        // UiAutomator 2.3.0 does not invalidate cached Compose nodes on recent Android.
+        // A field can refresh independently while its sibling tab/label remains stale.
+        if (Build.VERSION.SDK_INT >= 34) instrumentation.uiAutomation.clearCache()
+        return device.findObject(selector)
+    }
+
+    private fun objectOnScreen(selector: BySelector): UiObject2 {
+        val deadline = SystemClock.uptimeMillis() + timeout
+        while (SystemClock.uptimeMillis() < deadline) {
+            freshObject(selector)?.let { return it }
+            SystemClock.sleep(150)
+        }
+        runCatching { device.dumpWindowHierarchy(File(context.cacheDir, "mint-ui-failure.xml")) }
+        throw AssertionError("Expected visible UI element: $selector; hierarchy saved to mint-ui-failure.xml")
+    }
 
     private fun waitFor(message: String, condition: () -> Boolean) {
         val end = SystemClock.uptimeMillis() + timeout
@@ -97,7 +107,7 @@ class MintUiDeviceTest {
                 .hide(WindowInsetsCompat.Type.ime())
         }
         device.waitForIdle()
-        device.findObject(By.scrollable(true))?.scroll(Direction.UP, 1f)
+        freshObject(By.scrollable(true))?.scroll(Direction.UP, 1f)
         device.waitForIdle()
     }
 
@@ -164,7 +174,7 @@ class MintUiDeviceTest {
             waitFor("Both networks and untouched quota fields must be saved correctly") {
                 repository.ruleFor(info.uid) == saved
             }
-            assertTrue("Save must leave the editor", device.wait(Until.gone(By.desc("Kaydetmeden geri dön")), timeout))
+            waitFor("Save must leave the editor") { freshObject(By.desc("Kaydetmeden geri dön")) == null }
             assertEquals("Returning from the editor must preserve the app search", label,
                 objectOnScreen(By.clazz("android.widget.EditText")).text)
 
@@ -175,10 +185,10 @@ class MintUiDeviceTest {
             expectDownload("-2")
             objectOnScreen(By.text("Kaydet")).click()
             objectOnScreen(By.text("İşaretli alanları kontrol et."))
-            assertNotNull("Invalid input must keep the editor open", device.findObject(By.desc("Kaydetmeden geri dön")))
+            assertNotNull("Invalid input must keep the editor open", freshObject(By.desc("Kaydetmeden geri dön")))
             assertEquals("Invalid save must preserve both saved rules", saved, repository.ruleFor(info.uid))
             objectOnScreen(By.desc("Kaydetmeden geri dön")).click()
-            assertTrue("Back must close the editor", device.wait(Until.gone(By.desc("Kaydetmeden geri dön")), timeout))
+            waitFor("Back must close the editor") { freshObject(By.desc("Kaydetmeden geri dön")) == null }
             assertEquals("Discarding an invalid draft must preserve the app search", label,
                 objectOnScreen(By.clazz("android.widget.EditText")).text)
             assertEquals("Back must discard the invalid draft", saved, repository.ruleFor(info.uid))

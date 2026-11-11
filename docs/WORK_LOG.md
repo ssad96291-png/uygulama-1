@@ -299,3 +299,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Uzak main `db691cf`, yerel/uzak 0/0 ve çalışma ağacı temiz. Son mint testi 182,147 saniyede aynı mobil erişim etiketi sorgusunda başarısız olmuş. Sonuç ve gerçek hata anındaki XML depoya alındı.
 - XML aynı anda Wi-Fi seçimi, Wi-Fi erişim etiketi ve 7 yükleme değeriyle 21 indirme değeri gösteriyor. Önceki canlı görüntü ve manuel XML mobile geçişin çalıştığını gösteriyordu. Eski AccessibilityCache verisi olasılığı inceleniyor; henüz kesin kök neden ilan edilmedi.
 - Yeni konuşma bölümü kaydedildi ve HANDOFF artık güncel 0.1.4 kaynak/test durumunu önde gösterecek şekilde yenilendi. Başarısız testler başarı gibi sunulmadı.
+
+## 2026-11-11T04:32+03:00 — UiAutomator eski önbellek davranışı ve desteklenen düzeltme
+
+- Kurulu UiAutomator 2.3.0 bytecode incelemesi: UiDevice.findObject pencere köklerini okurken önbelleği temizlemiyor; UiObject2 metin okurken yalnız kendi düğümünü yeniliyor. Kütüphanenin özel temizleme yolu API 33+ için işlem yapmıyor. Bu davranış hata XML'indeki karışık eski/yeni değerlerle uyumlu.
+- Android SDK'nın sınıfa özel API kaydı `android.app.UiAutomation.clearCache()` için API 34 başlangıcını doğruladı. Test artık API 34+ üzerinde her taze seçici sorgusundan önce bu genel API'yi kullanıyor; önceki API'lerde mevcut davranış korunuyor.
+- Görünme/kaybolma kontrolleri aynı taze sorgu yolunu kullanıyor. Hiçbir veri, ağ, kaydetme/iptal veya yeniden oluşturma doğrulaması kaldırılmadı. Yalnız test kodu değişti; yeniden çalışma sonucu bekleniyor.
