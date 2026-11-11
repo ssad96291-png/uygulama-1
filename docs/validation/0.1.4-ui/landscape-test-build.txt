@@ -1,0 +1,127 @@
+> Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig UP-TO-DATE
+> Task :core:compileKotlin UP-TO-DATE
+> Task :core:compileJava NO-SOURCE
+> Task :core:processResources NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar UP-TO-DATE
+> Task :probe:preBuild UP-TO-DATE
+> Task :probe:preDebugBuild UP-TO-DATE
+> Task :probe:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :probe:javaPreCompileDebug
+> Task :probe:checkDebugAarMetadata
+> Task :probe:processDebugNavigationResources
+> Task :probe:compileDebugNavigationResources
+> Task :probe:generateDebugResValues
+> Task :probe:mapDebugSourceSetPaths
+> Task :probe:generateDebugResources
+> Task :probe:mergeDebugResources
+> Task :probe:packageDebugResources
+> Task :probe:parseDebugLocalResources
+> Task :probe:createDebugCompatibleScreenManifests
+> Task :probe:extractDeepLinksDebug
+> Task :probe:processDebugMainManifest
+> Task :probe:processDebugManifest
+> Task :probe:processDebugManifestForPackage
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :probe:processDebugResources
+> Task :app:processDebugNavigationResources UP-TO-DATE
+> Task :app:compileDebugNavigationResources UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+> Task :app:compileDebugKotlin UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:compileDebugJavaWithJavac UP-TO-DATE
+> Task :app:bundleDebugClassesToCompileJar UP-TO-DATE
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :app:processDebugAndroidTestManifest
+> Task :app:generateDebugAndroidTestBuildConfig
+> Task :app:checkDebugAndroidTestAarMetadata
+> Task :app:processDebugAndroidTestNavigationResources
+> Task :app:compileDebugAndroidTestNavigationResources
+> Task :app:generateDebugAndroidTestResValues UP-TO-DATE
+
+> Task :probe:compileDebugJavaWithJavac
+Java compiler version 21 has deprecated support for compiling with source/target version 8.
+Try one of the following options:
+    1. [Recommended] Use Java toolchain with a lower language version
+    2. Set a higher source/target version
+    3. Use a lower version of the JDK running the build (if you're not using Java toolchain)
+For more details on how to configure these settings, see https://developer.android.com/build/jdks.
+To suppress this warning, set android.javaCompile.suppressSourceTargetDeprecationWarning=true in gradle.properties.
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+3 warnings
+
+> Task :app:mapDebugAndroidTestSourceSetPaths
+> Task :app:generateDebugAndroidTestResources
+> Task :probe:mergeDebugShaders
+> Task :probe:compileDebugShaders NO-SOURCE
+> Task :probe:generateDebugAssets UP-TO-DATE
+> Task :probe:mergeDebugAssets
+> Task :probe:compressDebugAssets
+> Task :app:javaPreCompileDebugAndroidTest
+> Task :app:mergeDebugAndroidTestShaders
+> Task :app:mergeDebugAndroidTestResources
+> Task :app:compileDebugAndroidTestShaders NO-SOURCE
+> Task :probe:processDebugJavaRes NO-SOURCE
+> Task :probe:mergeDebugJavaResource
+> Task :probe:checkDebugDuplicateClasses
+> Task :probe:desugarDebugFileDependencies
+> Task :probe:mergeExtDexDebug
+> Task :probe:mergeLibDexDebug
+> Task :probe:dexBuilderDebug
+> Task :app:generateDebugAndroidTestAssets UP-TO-DATE
+> Task :app:mergeDebugAndroidTestAssets
+> Task :app:compressDebugAndroidTestAssets
+> Task :app:desugarDebugAndroidTestFileDependencies
+> Task :app:processDebugAndroidTestResources
+> Task :probe:mergeProjectDexDebug
+> Task :probe:mergeDebugJniLibFolders
+> Task :probe:mergeDebugNativeLibs NO-SOURCE
+> Task :probe:stripDebugDebugSymbols NO-SOURCE
+> Task :probe:validateSigningDebug
+> Task :probe:writeDebugAppMetadata
+> Task :probe:writeDebugSigningConfigVersions
+> Task :probe:packageDebug
+> Task :probe:createDebugApkListingFileRedirect
+> Task :probe:assembleDebug
+> Task :app:checkDebugAndroidTestDuplicateClasses
+> Task :app:mergeExtDexDebugAndroidTest
+> Task :app:mergeLibDexDebugAndroidTest
+> Task :app:mergeDebugAndroidTestJniLibFolders
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+> Task :app:mergeDebugNativeLibs UP-TO-DATE
+> Task :app:mergeDebugAndroidTestNativeLibs NO-SOURCE
+> Task :app:stripDebugAndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningDebugAndroidTest
+> Task :app:writeDebugAndroidTestSigningConfigVersions
+> Task :app:compileDebugAndroidTestKotlin
+> Task :app:compileDebugAndroidTestJavaWithJavac
+> Task :app:dexBuilderDebugAndroidTest
+> Task :app:mergeDebugAndroidTestGlobalSynthetics
+> Task :app:processDebugAndroidTestJavaRes
+> Task :app:mergeDebugAndroidTestJavaResource
+> Task :app:mergeProjectDexDebugAndroidTest
+> Task :app:packageDebugAndroidTest
+> Task :app:createDebugAndroidTestApkListingFileRedirect
+> Task :app:assembleDebugAndroidTest
+
+[Incubating] Problems report is available at: file:///workspace/uygulama-1/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 21s
+87 actionable tasks: 62 executed, 25 up-to-date

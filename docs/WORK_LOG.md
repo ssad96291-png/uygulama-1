@@ -375,3 +375,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Uyarı artışı güncel ağ bağımlılık sürümü önerilerinden geliyor: 9 Gradle/bağımlılık güncelleme uyarısı ve mevcut QuotaAlerts UseKtx uyarısı; yeni yerleşim hatası raporlanmadı. Sürüm yükseltmeleri bu düzeltmeye eklenmedi.
 - Kanıt: `landscape-build.txt/json`. Yeni APK yalnız bu ortamın emülatör testi içindir; telefon güncellemesi olarak yayımlanmadı. Test/probe APK hazırlanıyor.
 - 8 GB bellek sınırı nedeniyle emülatör ilk açılışı durduruldu; derleme/test paketi tamamlandıktan sonra ayrı çalıştırılacak. Native derleme önbelleği temizlendi.
+
+## 2026-11-11T13:07+03:00 — Cihaz test paketleri hazır, sohbet özeti istendi
+
+- Uygulama test APK’sı ve probe APK 21 saniyede derlendi. Kanıt `landscape-test-build.txt`; iki mint testi henüz cihazda çalışmadı.
+- Gradle/Kotlin daemon süreçleri kapatıldı. Android açılışına yer bırakmak için yalnız yeniden üretilebilir Gradle transforms önbelleği temizlendi; APK, AAR, test sonuçları ve kaynaklar korundu.
+- Kullanıcı bu sohbette neler konuşulduğunu sordu; güncel durum özetlendi ve görünür mesajlar konuşma arşivine eklendi.
