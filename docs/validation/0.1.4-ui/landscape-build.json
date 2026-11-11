@@ -1,0 +1,39 @@
+{
+  "time": "2026-11-11T07:23+03:00",
+  "app_source_commit": "8ddfe06",
+  "test_source_commit": "7946d33",
+  "build_result": "BUILD SUCCESSFUL in 9m 46s",
+  "tests": {
+    "core": {
+      "tests": 44,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "Error": 0,
+    "Warning": 10,
+    "Hint": 2
+  },
+  "lint_warning_ids": [
+    "AndroidGradlePluginVersion",
+    "GradleDependency",
+    "GradleDependency",
+    "GradleDependency",
+    "GradleDependency",
+    "GradleDependency",
+    "GradleDependency",
+    "GradleDependency",
+    "NewerVersionAvailable",
+    "UseKtx"
+  ],
+  "apk_sha256": "e0854190377cda47b515b893e71cf956a57f7e333f2142043db66876c4705eee",
+  "device_tests": "pending"
+}

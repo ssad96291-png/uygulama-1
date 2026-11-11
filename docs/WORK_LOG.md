@@ -368,3 +368,10 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Go 1.25.5 / NDK 28.2.13676358 ile race kontrolü geçti ve üç mimarili AAR üretildi. Özet/hash `docs/validation/0.1.4-ui/landscape-native-build.json`. Android/JVM/lint derlemesi sürüyor.
 - 8 GB diskte yer kazanmak için AAR üretimi tamamlandıktan sonra SDK yöneticisiyle NDK kaldırıldı; yeniden native derleme gerekirse aynı sürüm kurulmalı. Mevcut AAR kaynaklardan üretildi, APK’dan çıkarılmadı.
 - Yeni boş AVD’nin 6 GB kullanıcı diskini SDK mkfs.ext4 ile sparse olarak hazırladık (ilk gerçek kullanım 130 MB). Emülatör 720×1280 px, 320 dpi ile açılıyor; cihaz henüz hazır değil. Kullanıcı/telefon verisine müdahale edilmedi.
+
+## 2026-11-11T07:23+03:00 — Kısa ekran düzeninin derlemesi ve 60 JVM testi geçti
+
+- `8ddfe06` uygulama / `7946d33` test kaynağı ile derleme 9m 46s içinde başarılı: 44 core + 16 app testi, hata/atlanan test yok. Lint 0 hata / 10 uyarı / 2 öneri.
+- Uyarı artışı güncel ağ bağımlılık sürümü önerilerinden geliyor: 9 Gradle/bağımlılık güncelleme uyarısı ve mevcut QuotaAlerts UseKtx uyarısı; yeni yerleşim hatası raporlanmadı. Sürüm yükseltmeleri bu düzeltmeye eklenmedi.
+- Kanıt: `landscape-build.txt/json`. Yeni APK yalnız bu ortamın emülatör testi içindir; telefon güncellemesi olarak yayımlanmadı. Test/probe APK hazırlanıyor.
+- 8 GB bellek sınırı nedeniyle emülatör ilk açılışı durduruldu; derleme/test paketi tamamlandıktan sonra ayrı çalıştırılacak. Native derleme önbelleği temizlendi.

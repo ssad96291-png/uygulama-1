@@ -1,0 +1,189 @@
+> Configure project :app
+w: file:///workspace/uygulama-1/app/build.gradle.kts:17:21: 'jvmTarget: String' is deprecated. Please migrate to the compilerOptions DSL. More details are here: https://kotl.in/u1r8ln
+
+> Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig
+> Task :core:processResources NO-SOURCE
+> Task :core:processTestResources NO-SOURCE
+> Task :core:compileKotlin
+> Task :core:compileJava NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar
+> Task :app:checkDebugAarMetadata
+> Task :core:compileTestKotlin
+> Task :core:compileTestJava NO-SOURCE
+> Task :core:testClasses UP-TO-DATE
+> Task :app:processDebugNavigationResources
+
+> Task :core:test
+
+
+> Task :app:generateDebugResValues
+> Task :app:compileDebugNavigationResources
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+
+> Task :core:test
+PolicyEngineTest > verySlowUdpMayOccupyEmptyQueueAndCancellationReleasesItsDelay PASSED
+
+PolicyEngineTest > rateBudgetIsSharedAcrossFlowsButNotDirectionsOrNetworks PASSED
+
+PolicyEngineTest > recycledUidArchivesCompletedAndPendingUsageWithoutResettingGlobalQuota PASSED
+
+PolicyEngineTest > quotaReturnsFinalPartialChunkAndRefundsFailures PASSED
+
+PolicyEngineTest > customRenewalCountsPreviousMonthUntilBoundaryAndSettlesOldReservations PASSED
+
+PolicyEngineTest > midnightSettlesOldReservationToOldDayAndResetsDailyBudget PASSED
+
+PolicyEngineTest > hugePersistedCountsSaturateRatherThanWrapQuota PASSED
+
+PolicyEngineTest > restoringInvalidHistoryIsAtomic PASSED
+
+PolicyEngineTest > wallClockMovementDoesNotChangeRateDelay PASSED
+
+PolicyEngineTest > udpSlowQuotaCrossingStillRespectsGlobalHardQuota PASSED
+
+PolicyEngineTest > restoreDuringTransferIsRejected PASSED
+
+PolicyEngineTest > udpDatagramsArePacedWholeWhileTcpRetainsSmallChunks PASSED
+
+PolicyEngineTest > wifiAndMobileRulesAreIndependent PASSED
+
+PolicyEngineTest > monthlyDay31QuotaRenewsOnLeapDayAndRetainsUsageThroughoutMarch PASSED
+
+PolicyEngineTest > updatingSettingsCannotResetAlreadyReservedPacing PASSED
+
+PolicyEngineTest > invalidCompletionDoesNotDestroyReservationAndDoubleCompletionIsHarmless PASSED
+
+PolicyEngineTest > weekStartsOnMonday PASSED
+
+PolicyEngineTest > rateHasNoInitialUnpacedChunkAndSmallRatesStayFinite PASSED
+
+PolicyEngineTest > udpSlowdownUsesCustomPeriodAndReturnsToNormalAtRenewal PASSED
+
+PolicyEngineTest > defaultsApplyToNewApplications PASSED
+
+PolicyEngineTest > networkChangeDoesNotMisattributeAlreadyReservedBytes PASSED
+
+PolicyEngineTest > unlimitedSpeedStillCapsChunkAndHasNoDelay PASSED
+
+PolicyEngineTest > quotaSlowdownStartsAfterNormalBudget PASSED
+
+PolicyEngineTest > monthRolloverResetsMonthlyBudgetButNotWithinMonth PASSED
+
+PolicyEngineTest > globalHistorySaturatesAcrossApplicationsAndDirections PASSED
+
+PolicyEngineTest > udpInvalidSizeAndUnknownOwnersAreRejectedWithoutReservations PASSED
+
+PolicyEngineTest > unsupportedNetworkAndUnknownOwnerFailClosed PASSED
+
+PolicyEngineTest > partialCompletionReturnsUnusedTailPacingWithoutMovingLaterSlots PASSED
+
+PolicyEngineTest > simultaneousFlowsCannotOverspendGlobalQuota PASSED
+
+PolicyEngineTest > udpCrossesSlowQuotaBoundaryWithoutLosingTheWholeDatagram PASSED
+
+PolicyEngineTest > temporaryPermissionExpiresAndDoesNotBypassGlobalQuota PASSED
+
+PolicyEngineTest > applicationAndGlobalQuotasUseIndependentRenewalDates PASSED
+
+PolicyEngineTest > udpInsufficientQuotaConsumesNeitherQuotaNorPacing PASSED
+
+PolicyEngineTest > malformedModelLimitsAreRejectedBeforeConfiguration PASSED
+
+PolicyEngineTest > globalAndApplicationQuotasBothApply PASSED
+
+QuotaPeriodsTest > day31ClampsToFebruaryEndAndReturnsToMarch31 PASSED
+
+QuotaPeriodsTest > monthlyPeriodStartsOnConfiguredDayIncludingPreviousYear PASSED
+
+QuotaPeriodsTest > invalidRenewalDaysAreRejectedBeforeTheyCanWrap PASSED
+
+QuotaPeriodsTest > leapFebruaryRenewsOn29AndDay30DoesNotDrift PASSED
+
+QuotaPeriodsTest > defaultMonthlyDailyAndWeeklyRemainCompatible PASSED
+
+TrafficOwnerTest > mapsOnlySdkSandboxAppIdBoundaries PASSED
+
+TrafficOwnerTest > preservesAndroidUserPrefix PASSED
+
+TrafficOwnerTest > preservesUnknownSystemOrdinaryAndIsolatedOwners PASSED
+
+TrafficOwnerTest > sandboxTrafficSharesItsParentsRulesQuotaAndUsage PASSED
+
+> Task :app:packageDebugResources
+> Task :app:mergeDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:parseDebugLocalResources
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:processDebugManifestForPackage
+> Task :app:javaPreCompileDebugUnitTest
+> Task :app:javaPreCompileDebug
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :app:generateDebugAndroidTestResValues
+> Task :app:extractProguardFiles
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:compressDebugAssets
+> Task :app:processDebugResources
+> Task :app:desugarDebugFileDependencies
+> Task :app:checkDebugDuplicateClasses
+> Task :app:compileDebugKotlin
+> Task :app:mergeExtDexDebug
+
+> Task :app:compileDebugKotlin
+w: file:///workspace/uygulama-1/app/src/main/java/dev/akiskontrol/app/MainActivity.kt:77:32 'val allNetworks: Array<(out) Network!>' is deprecated. Deprecated in Java.
+w: file:///workspace/uygulama-1/app/src/main/java/dev/akiskontrol/app/ui/AkisApp.kt:176:73 'val Icons.Outlined.ArrowForward: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.ArrowForward.
+w: file:///workspace/uygulama-1/app/src/main/java/dev/akiskontrol/app/ui/SettingsScreen.kt:67:186 'val Icons.Outlined.OpenInNew: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Outlined.OpenInNew.
+w: file:///workspace/uygulama-1/app/src/main/java/dev/akiskontrol/app/vpn/AkisVpnService.kt:156:85 'val allNetworks: Array<(out) Network!>' is deprecated. Deprecated in Java.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:processDebugJavaRes
+> Task :app:compileDebugUnitTestKotlin
+> Task :app:generateDebugAndroidTestLintModel
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes
+> Task :app:testDebugUnitTest
+> Task :app:generateDebugLintReportModel
+> Task :app:generateDebugUnitTestLintModel
+> Task :app:lintAnalyzeDebug
+> Task :app:lintAnalyzeDebugUnitTest
+> Task :app:lintAnalyzeDebugAndroidTest
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics
+> Task :app:mergeLibDexDebug
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs
+> Task :app:mergeDebugJavaResource
+
+> Task :app:stripDebugDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libgojni.so. Run with --info option to learn more.
+
+> Task :app:validateSigningDebug
+> Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+
+> Task :app:lintReportDebug
+Wrote HTML report to file:///workspace/uygulama-1/app/build/reports/lint-results-debug.html
+
+> Task :app:lintDebug
+
+BUILD SUCCESSFUL in 9m 46s
+59 actionable tasks: 59 executed
+Debug APK: /workspace/uygulama-1/app/build/outputs/apk/debug/app-debug.apk
