@@ -375,3 +375,10 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Uyarı artışı güncel ağ bağımlılık sürümü önerilerinden geliyor: 9 Gradle/bağımlılık güncelleme uyarısı ve mevcut QuotaAlerts UseKtx uyarısı; yeni yerleşim hatası raporlanmadı. Sürüm yükseltmeleri bu düzeltmeye eklenmedi.
 - Kanıt: `landscape-build.txt/json`. Yeni APK yalnız bu ortamın emülatör testi içindir; telefon güncellemesi olarak yayımlanmadı. Test/probe APK hazırlanıyor.
 - 8 GB bellek sınırı nedeniyle emülatör ilk açılışı durduruldu; derleme/test paketi tamamlandıktan sonra ayrı çalıştırılacak. Native derleme önbelleği temizlendi.
+
+## 2026-11-11T13:02+03:00 — Limit nedeniyle arşiv ve devir; bu oturum durduruldu
+
+- Kullanıcı kalan limitinin yaklaşık %1 olduğunu belirterek yalnız konuşmaların/GitHub kaydının tamamlanmasını istedi. Yeni test, derleme veya uygulama değişikliği başlatılmadı; yerel düzeltme alt görevi dosya değiştirmeden durduruldu.
+- Son fetch diğer Codex’in altı commit ilerlediğini gösterdi; temiz ağaç `240c0b2` seviyesine fast-forward edildi. Başka oturumun kısa ekran düzeltmesi `8ddfe06`, cihaz testi `7946d33`, başarılı 60 JVM/derleme/lint kaydı `240c0b2` korundu. Yeni iki cihaz testinin sonucu henüz uzak kayıtta yok.
+- Bu makinenin geçici ekran ayarları geri alındı ve okuma ile doğrulandı: fiziksel 720×1280, rotation=0, accelerometer=0, show_ime_with_hard_keyboard=0, font_scale=1.0. Uygulama kapatıldı; açık tema tercihi demo için seçili kaldı. Yeni kaynak bu makinenin emülatörüne kurulmadı.
+- Konuşma/görsel arşivi ve son devir bilgisi tamamlandı. Sonraki yapay zekâ önce uzak main ve HANDOFF’u okumalı; diğer oturumun cihaz testlerini sonuçlarını görmeden tekrar başlatmamalı.
