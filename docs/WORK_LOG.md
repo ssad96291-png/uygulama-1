@@ -316,3 +316,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - `c5c2cc5` test paketi, değişmeyen `781c416` uygulama APK'sı üzerinde **OK (1 test)**, 174,528 saniye verdi. İki ağın değerleri, ayrı taslaklar, Activity yeniden oluşturma, iki ağın birlikte kaydı, diğer kota alanlarının korunması, geçersiz giriş reddi, iptal ve arama koruması geçti.
 - Önceki üç Android JSON kontrolüyle toplam dört cihaz kontrolü iki çalıştırmada başarılıdır; tam VPN paketi/fiziksel telefon kapsamı değildir. Başarısız denemeler silinmedi. Kanıt `second-session-android-ui-passed.txt`.
 - TESTING ve README güncellendi. Son açık tema ekranları ve dar/yatay klavyeli görünüm kontrolü sırada.
+
+## 2026-11-11T04:41+03:00 — Açık mint uygulama listesi gerçek ekranı
+
+- Uygulamanın kendi Ayarlar ekranından açık tema seçildi. 360×800 dp (720×1600 px, density 320) telefon görünümünde gerçek ekran alındı. Koruma kapalı/0 B ve tek probe uygulaması emülatörün gerçek durumudur; referanstaki örnek veriler taklit edilmedi.
+- Wi-Fi ve mobil anahtarlarının UI bounds üst/alt değerleri eşit; 360 dp üzerinde yatay satır doğrulandı. Görsel ve XML `mint-apps-light.*`. PNG SHA-256 `16c2117d31663c167b64c99f6b44119bc0d11d5411c19842af5ecee7b33e7a8e`. Kaynak uygulama `781c416`; bu bir maket değildir.
+- Düzenleyici ve yatay klavye kontrolü sonraki adım. Ekran boyutu geçici olarak uzatıldı; kontrol bitince eski emülatör boyutu/rotasyonu geri alınacak.
