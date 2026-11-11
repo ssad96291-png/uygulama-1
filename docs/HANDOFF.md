@@ -1,6 +1,6 @@
 # Güncel devir kaydı
 
-Son güncelleme: **2026-11-11T04:45+03:00**. Her devam isteğinde AGENTS, uzak main, son WORK_LOG ve konuşma arşivini oku. Kullanıcı iki Codex kullanıyor; tamamlanan her anlamlı işlemi anında commit/push et, force push yapma.
+Son güncelleme: **2026-11-11T07:05+03:00**. Her devam isteğinde AGENTS, uzak main, son WORK_LOG ve konuşma arşivini oku. Kullanıcı iki Codex kullanıyor; tamamlanan her anlamlı işlemi anında commit/push et, force push yapma.
 
 ## Güncel görev ve kaynak
 
@@ -16,7 +16,11 @@ Son uygulama/test kaynak değişikliği `781c416`; `db691cf` bunun başarılı d
 - Kanıt: `docs/validation/0.1.4-ui/second-session-android-ui-passed.txt`; önceki başarısız kayıtlar tanı geçmişidir.
 - **Kalan iş:** gerçek 640×360 dp yatay klavyede form yalnız yaklaşık 3,5 dp kalıyor (`mint-landscape-ime-before.png`). Kısa ekran düzenini düzelt, derle ve aynı koşulda doğrula. Açık tema portre görüntüleri arşivli. Ardından geçici emülatör ayarlarını geri al ve son devir notunu güncelle.
 
-## Bu makine
+## Yeni devam oturumu
+
+11 Kasım yeni sohbeti yatay klavye düzenini üstlendi. Güncel main `cb3f115` temiz kopyalandı. Bu yeni makinede önceki araçlar/çıktılar yoktu; `/workspace/toolchains/install-android.sh` ile yeniden hazırlanıyor. Henüz kaynak düzeltmesi veya yeni cihaz sonucu yok. Yeni sohbet: [devam kaydı](conversations/2026-11-11-resume.md).
+
+## Önceki makine (tarihsel yollar)
 
 Depo `/workspace/uygulama-1`, dal `work`, hedef `main`. `source /workspace/toolchains/android-env.sh`. Emülatör `emulator-5554`, API 36, yazılım emülasyonu; `ro.hw_timeout_multiplier=10`. Cihazdaki son mint testi tamamlandı ve geçti; etkin instrumentation testi yok. Yeni günlükler `/workspace/toolchains/mint-followup/`; depodaki kanıtlar `docs/validation/0.1.4-ui/`. Başka makinede bu yolların varlığını varsayma.
 

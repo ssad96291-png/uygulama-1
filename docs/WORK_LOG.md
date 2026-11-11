@@ -339,3 +339,10 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - 640×360 dp yatay ekranda AOSP sayısal klavye açıkken sabit geri satırı ve Kaydet altlığı form için yalnız yaklaşık 3,5 dp bıraktı. Hız girişi görsel olarak okunamıyor. Otomatik taslak testi bu yerleşim koşulunu kapsamıyordu.
 - Gerçek hata görüntüsü/XML `mint-landscape-ime-before.*`; PNG SHA-256 `db572eb1e2617f9c694496469319571e3b51b3b505f0904517c27500562cbacb`. XML geçişte eski düğümler içerebilir; kusur yerleşmiş PNG üzerinden doğrulandı.
 - Kısa kullanılabilir yüksekliğe özel daha küçük birleşik geri/kaydet alanı uygulanacak. Bu checkpoint yalnız bulgu kaydıdır; düzeltme ve cihaz doğrulaması bekleniyor.
+
+## 2026-11-11T07:05+03:00 — Yeni devam oturumu, güncel uzak kayıt alındı
+
+- Yeni ortamda depo/Android araçları bulunmuyordu. Uzak main temiz kopyalandı: `cb3f115`, yerel/uzak 0/0. Önceki başarılı mint testi tekrar çözülmesi gereken hata sanılmadı.
+- Bu oturumun işi: 640×360 dp yatay klavyede form alanını tüketen sabit geri/kaydet düzenini düzeltmek ve aynı koşulda doğrulamak. Önceki portre görüntüleri ve test kanıtları korundu.
+- Önceki kurulum sohbetindeki doğrulanmış Android kurulum betiği çalışma alanına geri alındı; araç kurulumu sürüyor. Kaynak veya APK henüz değiştirilmedi.
+- Yeni görünür sohbet `docs/conversations/2026-11-11-resume.md` altında arşivleniyor.
