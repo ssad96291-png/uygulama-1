@@ -18,7 +18,7 @@ Son uygulama/test kaynak değişikliği `781c416`; `db691cf` bunun başarılı d
 
 ## Yeni devam oturumu
 
-11 Kasım yeni sohbeti yatay klavye düzenini üstlendi. Güncel main `cb3f115` temiz kopyalandı. Bu yeni makinede önceki araçlar/çıktılar yoktu; `/workspace/toolchains/install-android.sh` ile yeniden hazırlanıyor. Henüz kaynak düzeltmesi veya yeni cihaz sonucu yok. Yeni sohbet: [devam kaydı](conversations/2026-11-11-resume.md).
+11 Kasım yeni sohbeti yatay klavye düzenini üstlendi. Güncel main `cb3f115` temiz kopyalandı. Bu yeni makinede önceki araçlar/çıktılar yoktu; `/workspace/toolchains/install-android.sh` ile yeniden hazırlanıyor. Kısa kullanılabilir yükseklikte birleşik Geri/Kaydet satırı kaynakta hazır; henüz derlenmedi veya cihazda sınanmadı. Sırada gerçek yatay klavye regresyon kontrolü var. Yeni sohbet: [devam kaydı](conversations/2026-11-11-resume.md).
 
 ## Önceki makine (tarihsel yollar)
 

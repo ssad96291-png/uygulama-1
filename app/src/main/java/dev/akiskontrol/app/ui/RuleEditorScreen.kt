@@ -48,139 +48,160 @@ internal fun AppRuleEditorScreen(
     val network = if (selectedNetwork == 0) NetworkKind.WIFI else NetworkKind.MOBILE
     BackHandler(onBack = onDismiss)
 
-    Column(Modifier.fillMaxSize().imePadding()) {
-        Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onDismiss) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Kaydetmeden geri dön") }
+    val save: () -> Unit = {
+        val wifiRule = wifi.rule()
+        val mobileRule = mobile.rule()
+        if (wifiRule == null || mobileRule == null) {
+            selectedNetwork = if (wifiRule == null) 0 else 1
+            val invalid = if (wifiRule == null) wifi else mobile
+            advanced = invalid.renewalDay.error != null || invalid.afterQuota.error != null
+            error = "İşaretli alanları kontrol et."
+        } else {
+            runCatching { onSave(wifiRule, mobileRule) }.onFailure { error = it.message ?: "Kurallar kaydedilemedi." }
         }
-        Column(
-            Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp),
-        ) {
-            // Let the identity header scroll away when the keyboard or large text
-            // leaves little height for the form; Back and Save stay reachable.
-            Row(
-                Modifier.fillMaxWidth().padding(start = 4.dp, end = 4.dp, bottom = 2.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-            ) {
-                AppIcon(app, Modifier.size(52.dp))
-                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                    Text(app.label, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
-                    Text("Bağlantı kuralları", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
+
+    // Measure the space left AFTER the keyboard inset, not the physical screen.
+    // One action row leaves room for a complete input on short/landscape windows.
+    BoxWithConstraints(Modifier.fillMaxSize().imePadding()) {
+        val compactActions = maxHeight < 320.dp
+        Column(Modifier.fillMaxSize()) {
+            Row(Modifier.fillMaxWidth().padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = onDismiss) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Kaydetmeden geri dön") }
+                if (compactActions) {
+                    val message = error
+                    if (message != null) {
+                        Text(message, Modifier.weight(1f).padding(horizontal = 8.dp), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
+                    } else {
+                        Spacer(Modifier.weight(1f))
+                    }
+                    RuleSaveButton(save, Modifier.heightIn(min = 48.dp))
                 }
             }
-            EditorSegments(
-                labels = listOf("Wi-Fi", "Mobil veri"),
-                selected = selectedNetwork,
-                onSelect = { selectedNetwork = it; error = null },
-            )
-            Surface(
-                shape = RoundedCornerShape(16.dp),
-                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-                color = MaterialTheme.colorScheme.surface,
+            Column(
+                Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(18.dp),
             ) {
-                Row(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Icon(Icons.Outlined.Language, null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Text("İnternet erişimi", Modifier.weight(1f), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                    Switch(
-                        checked = draft.allowed,
-                        onCheckedChange = { draft.allowed = it },
-                        modifier = Modifier.semantics { contentDescription = "${network.label()} internet erişimi" },
-                    )
+                // Let the identity header scroll away when the keyboard or large text
+                // leaves little height for the form; the action row stays reachable.
+                Row(
+                    Modifier.fillMaxWidth().padding(start = 4.dp, end = 4.dp, bottom = 2.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    AppIcon(app, Modifier.size(52.dp))
+                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                        Text(app.label, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+                        Text("Bağlantı kuralları", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
                 }
-            }
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                EditorSectionHeading(Icons.Outlined.Speed, "Hız sınırları")
-                CompactAmountInput("İndirme", draft.download, rate = true)
-                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = .5f))
-                CompactAmountInput("Yükleme", draft.upload, rate = true)
-                Text("0 = sınırsız · 1 MB/sn = 8 Mbps", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = .5f))
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                EditorSectionHeading(Icons.Outlined.Storage, "Veri kotası")
-                val selectedPeriod = if (draft.quota.unlimited) 0 else QuotaPeriod.entries.indexOf(draft.period) + 1
                 EditorSegments(
-                    labels = listOf("Yok") + QuotaPeriod.entries.map { it.label() },
-                    selected = selectedPeriod,
-                    onSelect = { index ->
-                        draft.quota.unlimited = index == 0
-                        draft.quota.error = null
-                        if (index > 0) {
-                            draft.period = QuotaPeriod.entries[index - 1]
-                            if (draft.quota.text.toBigDecimalOrNull()?.signum() == 0) draft.quota.text = "1"
-                        }
-                    },
+                    labels = listOf("Wi-Fi", "Mobil veri"),
+                    selected = selectedNetwork,
+                    onSelect = { selectedNetwork = it; error = null },
                 )
-                if (!draft.quota.unlimited) {
-                    CompactAmountInput("Kota", draft.quota, rate = false)
-                    QuotaUsage(draft, app.uid, network, state)
-                } else {
-                    Text("Bu ağda veri kotası yok.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                }
-            }
-            Surface(
-                shape = RoundedCornerShape(16.dp),
-                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = .7f)),
-                color = MaterialTheme.colorScheme.surface,
-            ) {
-                Column {
-                    Row(
-                        Modifier.fillMaxWidth().clickable { advanced = !advanced }.padding(horizontal = 14.dp, vertical = 16.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    ) {
-                        Icon(Icons.Outlined.Tune, null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                        Text("Gelişmiş ayarlar", Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
-                        Icon(if (advanced) Icons.Outlined.KeyboardArrowDown else Icons.Outlined.ChevronRight, if (advanced) "Gelişmiş ayarları daralt" else "Gelişmiş ayarları genişlet")
+                Surface(
+                    shape = RoundedCornerShape(16.dp),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                    color = MaterialTheme.colorScheme.surface,
+                ) {
+                    Row(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Icon(Icons.Outlined.Language, null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text("İnternet erişimi", Modifier.weight(1f), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                        Switch(
+                            checked = draft.allowed,
+                            onCheckedChange = { draft.allowed = it },
+                            modifier = Modifier.semantics { contentDescription = "${network.label()} internet erişimi" },
+                        )
                     }
-                    if (advanced) {
-                        Column(Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                            if (!draft.quota.unlimited) {
-                                if (draft.period == QuotaPeriod.MONTHLY) RenewalDayInput(draft.renewalDay)
-                                Text("Kota dolunca", style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.SemiBold)
-                                EditorSegments(
-                                    labels = listOf("Engelle", "Yavaşlat"),
-                                    selected = if (draft.action == QuotaAction.BLOCK) 0 else 1,
-                                    onSelect = { draft.action = if (it == 0) QuotaAction.BLOCK else QuotaAction.SLOW },
-                                )
-                                if (draft.action == QuotaAction.SLOW) {
-                                    AmountInput("Kota sonrası hız", draft.afterQuota)
-                                    Text("İndirme ve yükleme için ayrı ayrı uygulanır; daha düşük hız sınırları korunur.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                }
+                }
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    EditorSectionHeading(Icons.Outlined.Speed, "Hız sınırları")
+                    CompactAmountInput("İndirme", draft.download, rate = true)
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = .5f))
+                    CompactAmountInput("Yükleme", draft.upload, rate = true)
+                    Text("0 = sınırsız · 1 MB/sn = 8 Mbps", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = .5f))
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    EditorSectionHeading(Icons.Outlined.Storage, "Veri kotası")
+                    val selectedPeriod = if (draft.quota.unlimited) 0 else QuotaPeriod.entries.indexOf(draft.period) + 1
+                    EditorSegments(
+                        labels = listOf("Yok") + QuotaPeriod.entries.map { it.label() },
+                        selected = selectedPeriod,
+                        onSelect = { index ->
+                            draft.quota.unlimited = index == 0
+                            draft.quota.error = null
+                            if (index > 0) {
+                                draft.period = QuotaPeriod.entries[index - 1]
+                                if (draft.quota.text.toBigDecimalOrNull()?.signum() == 0) draft.quota.text = "1"
                             }
-                            Text("Hız sınırları uygulamanın tüm bağlantıları için ortaktır. Veri kotası indirme ve yüklemenin toplamıdır; günlük kota gece yarısı, haftalık kota pazartesi yenilenir.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            if (draft.quota.unlimited) Text("Kota sonrası davranışı düzenlemek için önce bir veri kotası seç.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        },
+                    )
+                    if (!draft.quota.unlimited) {
+                        CompactAmountInput("Kota", draft.quota, rate = false)
+                        QuotaUsage(draft, app.uid, network, state)
+                    } else {
+                        Text("Bu ağda veri kotası yok.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
+                Surface(
+                    shape = RoundedCornerShape(16.dp),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = .7f)),
+                    color = MaterialTheme.colorScheme.surface,
+                ) {
+                    Column {
+                        Row(
+                            Modifier.fillMaxWidth().clickable { advanced = !advanced }.padding(horizontal = 14.dp, vertical = 16.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        ) {
+                            Icon(Icons.Outlined.Tune, null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text("Gelişmiş ayarlar", Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
+                            Icon(if (advanced) Icons.Outlined.KeyboardArrowDown else Icons.Outlined.ChevronRight, if (advanced) "Gelişmiş ayarları daralt" else "Gelişmiş ayarları genişlet")
+                        }
+                        if (advanced) {
+                            Column(Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                                if (!draft.quota.unlimited) {
+                                    if (draft.period == QuotaPeriod.MONTHLY) RenewalDayInput(draft.renewalDay)
+                                    Text("Kota dolunca", style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.SemiBold)
+                                    EditorSegments(
+                                        labels = listOf("Engelle", "Yavaşlat"),
+                                        selected = if (draft.action == QuotaAction.BLOCK) 0 else 1,
+                                        onSelect = { draft.action = if (it == 0) QuotaAction.BLOCK else QuotaAction.SLOW },
+                                    )
+                                    if (draft.action == QuotaAction.SLOW) {
+                                        AmountInput("Kota sonrası hız", draft.afterQuota)
+                                        Text("İndirme ve yükleme için ayrı ayrı uygulanır; daha düşük hız sınırları korunur.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                    }
+                                }
+                                Text("Hız sınırları uygulamanın tüm bağlantıları için ortaktır. Veri kotası indirme ve yüklemenin toplamıdır; günlük kota gece yarısı, haftalık kota pazartesi yenilenir.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                if (draft.quota.unlimited) Text("Kota sonrası davranışı düzenlemek için önce bir veri kotası seç.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
                         }
                     }
                 }
+                if (!draft.quota.unlimited && draft.period == QuotaPeriod.MONTHLY && !advanced) {
+                    Text("Aylık yenilenme: ayın ${draft.renewalDay.text}. günü. Gelişmiş ayarlardan değiştirebilirsin.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                Spacer(Modifier.height(4.dp))
             }
-            if (!draft.quota.unlimited && draft.period == QuotaPeriod.MONTHLY && !advanced) {
-                Text("Aylık yenilenme: ayın ${draft.renewalDay.text}. günü. Gelişmiş ayarlardan değiştirebilirsin.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-            Spacer(Modifier.height(4.dp))
-        }
-        Surface(color = MaterialTheme.colorScheme.background) {
-            Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 14.dp)) {
-                error?.let { Text(it, Modifier.padding(bottom = 8.dp), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall) }
-                Button(
-                    onClick = {
-                        val wifiRule = wifi.rule()
-                        val mobileRule = mobile.rule()
-                        if (wifiRule == null || mobileRule == null) {
-                            selectedNetwork = if (wifiRule == null) 0 else 1
-                            val invalid = if (wifiRule == null) wifi else mobile
-                            advanced = invalid.renewalDay.error != null || invalid.afterQuota.error != null
-                            error = "İşaretli alanları kontrol et."
-                        } else {
-                            runCatching { onSave(wifiRule, mobileRule) }.onFailure { error = it.message ?: "Kurallar kaydedilemedi." }
-                        }
-                    },
-                    modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp),
-                    shape = RoundedCornerShape(14.dp),
-                ) { Text("Kaydet", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold) }
+            if (!compactActions) {
+                Surface(color = MaterialTheme.colorScheme.background) {
+                    Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 14.dp)) {
+                        error?.let { Text(it, Modifier.padding(bottom = 8.dp), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall) }
+                        RuleSaveButton(save, Modifier.fillMaxWidth().heightIn(min = 54.dp))
+                    }
+                }
             }
         }
+    }
+}
+
+@Composable
+private fun RuleSaveButton(onClick: () -> Unit, modifier: Modifier) {
+    Button(onClick = onClick, modifier = modifier, shape = RoundedCornerShape(14.dp)) {
+        Text("Kaydet", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
     }
 }
 

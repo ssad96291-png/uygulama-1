@@ -346,3 +346,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Bu oturumun işi: 640×360 dp yatay klavyede form alanını tüketen sabit geri/kaydet düzenini düzeltmek ve aynı koşulda doğrulamak. Önceki portre görüntüleri ve test kanıtları korundu.
 - Önceki kurulum sohbetindeki doğrulanmış Android kurulum betiği çalışma alanına geri alındı; araç kurulumu sürüyor. Kaynak veya APK henüz değiştirilmedi.
 - Yeni görünür sohbet `docs/conversations/2026-11-11-resume.md` altında arşivleniyor.
+
+## 2026-11-11T07:06+03:00 — Kısa ekran eylem satırı, doğrulama bekleyen checkpoint
+
+- Düzenleyici kullanılabilir yüksekliği klavye boşluğu çıkarıldıktan sonra ölçüyor. 320 dp altında Geri ve Kaydet aynı satırda, form kalan kaydırılabilir alanı kullanıyor. Portredeki geniş alt Kaydet korunuyor.
+- Her iki Kaydet düğmesi aynı doğrulama/kayıt işlevini çağırıyor; kısa düzende hata özeti üst satırda erişilebilir. Taslakların composition konumu korunuyor.
+- `git diff --check` temiz. Android araç kurulumu sürüyor; bu kaynak henüz derlenmedi veya cihazda sınanmadı.
