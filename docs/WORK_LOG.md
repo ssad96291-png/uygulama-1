@@ -357,3 +357,8 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 
 - MintUiDeviceTest yeni kontrolü gerçek Android IME açıyor: 360 dp kısa kenarlı telefonda yatay alan ve Kaydet en az 48 dp görünür kalmalı, klavyeyle/ birbirleriyle örtüşmemeli. Negatif giriş kaydedilmez; geçerli değişiklik iki ağın diğer değerlerini koruyarak kaydedilir.
 - Test yön/ayar/kural değişikliklerini sonunda geri yükler; başarılı görünür alanın ekranını test cache dizinine alır. Henüz derlenmedi/çalıştırılmadı. Android SDK paketleri kuruluyor.
+
+## 2026-11-11T07:10+03:00 — Test beklemeleri ve ortam kurulumu
+
+- Yeni yatay test, yön değişiminden sonra eski Activity yerine farklı RESUMED örneğini bekliyor; klavye üst sınırını her görünürlük kontrolünde taze okuyor.
+- Android araçları kuruldu, native race testleri geçti; AAR üretimi sürüyor. 8 GB diskli yeni ortamda emülatör boş alan kontrolü açılışı durdurdu. Yalnız bu oturumun indirilen/açılan kurulum arşivleri temizlendi; kaynak ve kanıtlar korunuyor. Android imajının sıfır blokları byte içeriği değişmeden sparse hâle getiriliyor. Yeni cihaz sonucu henüz yok.

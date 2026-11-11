@@ -115,6 +115,18 @@ class MintUiDeviceTest {
         device.waitForIdle()
     }
 
+    private fun visibleKeyboardTop(activity: MainActivity): Int? {
+        var top: Int? = null
+        instrumentation.runOnMainSync {
+            val decor = activity.window.decorView
+            val insets = ViewCompat.getRootWindowInsets(decor)
+            if (insets?.isVisible(WindowInsetsCompat.Type.ime()) == true) {
+                top = decor.height - insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
+            }
+        }
+        return top
+    }
+
     @Test
     fun landscapeKeyboardKeepsAmountAndSaveVisible() {
         assertEquals("Use an idle dedicated test emulator", ProtectionStatus.STOPPED, repository.state.value.status)
@@ -145,7 +157,7 @@ class MintUiDeviceTest {
             }
             assertTrue("Run this regression on a phone with a short side of at most 360 dp",
                 context.resources.configuration.screenHeightDp <= 360)
-            val landscape = resumedActivity()
+            val landscape = resumedActivity(excluding = activity)
             waitFor("Expected download field in the scrolling form") {
                 if (freshObject(By.desc("İndirme değeri")) != null) true else {
                     freshObject(By.scrollable(true))?.scroll(Direction.DOWN, .5f)
@@ -157,19 +169,12 @@ class MintUiDeviceTest {
                 WindowCompat.getInsetsController(landscape.window, landscape.window.decorView)
                     .show(WindowInsetsCompat.Type.ime())
             }
-            var keyboardTop = 0
             waitFor("Expected the real system keyboard to be visible") {
-                var visible = false
-                instrumentation.runOnMainSync {
-                    val decor = landscape.window.decorView
-                    val insets = ViewCompat.getRootWindowInsets(decor)
-                    visible = insets?.isVisible(WindowInsetsCompat.Type.ime()) == true
-                    keyboardTop = decor.height - (insets?.getInsets(WindowInsetsCompat.Type.ime())?.bottom ?: 0)
-                }
-                visible
+                visibleKeyboardTop(landscape) != null
             }
             val minimumTouchHeight = (48 * context.resources.displayMetrics.density).toInt()
             waitFor("The amount and Save must each remain at least 48 dp tall above the keyboard") {
+                val keyboardTop = visibleKeyboardTop(landscape) ?: return@waitFor false
                 val amount = runCatching { downloadField().visibleBounds }.getOrNull()
                 val save = freshObject(By.text("Kaydet"))?.let {
                     var button = it
