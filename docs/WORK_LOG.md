@@ -305,3 +305,8 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Kurulu UiAutomator 2.3.0 bytecode incelemesi: UiDevice.findObject pencere köklerini okurken önbelleği temizlemiyor; UiObject2 metin okurken yalnız kendi düğümünü yeniliyor. Kütüphanenin özel temizleme yolu API 33+ için işlem yapmıyor. Bu davranış hata XML'indeki karışık eski/yeni değerlerle uyumlu.
 - Android SDK'nın sınıfa özel API kaydı `android.app.UiAutomation.clearCache()` için API 34 başlangıcını doğruladı. Test artık API 34+ üzerinde her taze seçici sorgusundan önce bu genel API'yi kullanıyor; önceki API'lerde mevcut davranış korunuyor.
 - Görünme/kaybolma kontrolleri aynı taze sorgu yolunu kullanıyor. Hiçbir veri, ağ, kaydetme/iptal veya yeniden oluşturma doğrulaması kaldırılmadı. Yalnız test kodu değişti; yeniden çalışma sonucu bekleniyor.
+
+## 2026-11-11T04:33+03:00 — Önbellek düzeltmesinin derlemesi ve lint geçti
+
+- `c5c2cc5` test değişikliğiyle Android test APK ve lint kontrolü 25 saniyede geçti. Uygulama kaynakları/APK değişmedi; gereksiz JVM/native tekrarına gidilmedi. Kanıt `second-session-cache-fix-build.txt`.
+- Yalnız yeni test APK'sı kurulup mint arayüz testi yeniden başlatıldı. Sonuç bekleniyor.
