@@ -1,0 +1,18 @@
+{
+  "time": "2026-11-11T07:15+03:00",
+  "source_commit": "7946d33",
+  "go_version": "1.25.5",
+  "ndk_version": "28.2.13676358",
+  "native_race_result": [
+    "ok  \tdev.akiskontrol/engine/mobile\t2.342s",
+    "Built /workspace/uygulama-1/engine/../app/libs/engine.aar"
+  ],
+  "aar_sha256": "85e4d2c4d2f39da0070277d00d375e4d59597ec3db1fb66ff564acb470252031",
+  "jni_entries": [
+    "jni/arm64-v8a/libgojni.so",
+    "jni/armeabi-v7a/libgojni.so",
+    "jni/x86_64/libgojni.so"
+  ],
+  "android_build": "running",
+  "device_tests": "not yet run"
+}

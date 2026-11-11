@@ -362,3 +362,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 
 - Yeni yatay test, yön değişiminden sonra eski Activity yerine farklı RESUMED örneğini bekliyor; klavye üst sınırını her görünürlük kontrolünde taze okuyor.
 - Android araçları kuruldu, native race testleri geçti; AAR üretimi sürüyor. 8 GB diskli yeni ortamda emülatör boş alan kontrolü açılışı durdurdu. Yalnız bu oturumun indirilen/açılan kurulum arşivleri temizlendi; kaynak ve kanıtlar korunuyor. Android imajının sıfır blokları byte içeriği değişmeden sparse hâle getiriliyor. Yeni cihaz sonucu henüz yok.
+
+## 2026-11-11T07:15+03:00 — Yeni ortamda native derleme tamamlandı
+
+- Go 1.25.5 / NDK 28.2.13676358 ile race kontrolü geçti ve üç mimarili AAR üretildi. Özet/hash `docs/validation/0.1.4-ui/landscape-native-build.json`. Android/JVM/lint derlemesi sürüyor.
+- 8 GB diskte yer kazanmak için AAR üretimi tamamlandıktan sonra SDK yöneticisiyle NDK kaldırıldı; yeniden native derleme gerekirse aynı sürüm kurulmalı. Mevcut AAR kaynaklardan üretildi, APK’dan çıkarılmadı.
+- Yeni boş AVD’nin 6 GB kullanıcı diskini SDK mkfs.ext4 ile sparse olarak hazırladık (ilk gerçek kullanım 130 MB). Emülatör 720×1280 px, 320 dpi ile açılıyor; cihaz henüz hazır değil. Kullanıcı/telefon verisine müdahale edilmedi.
