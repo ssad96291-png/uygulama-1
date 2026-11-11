@@ -322,3 +322,9 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Uygulamanın kendi Ayarlar ekranından açık tema seçildi. 360×800 dp (720×1600 px, density 320) telefon görünümünde gerçek ekran alındı. Koruma kapalı/0 B ve tek probe uygulaması emülatörün gerçek durumudur; referanstaki örnek veriler taklit edilmedi.
 - Wi-Fi ve mobil anahtarlarının UI bounds üst/alt değerleri eşit; 360 dp üzerinde yatay satır doğrulandı. Görsel ve XML `mint-apps-light.*`. PNG SHA-256 `16c2117d31663c167b64c99f6b44119bc0d11d5411c19842af5ecee7b33e7a8e`. Kaynak uygulama `781c416`; bu bir maket değildir.
 - Düzenleyici ve yatay klavye kontrolü sonraki adım. Ekran boyutu geçici olarak uzatıldı; kontrol bitince eski emülatör boyutu/rotasyonu geri alınacak.
+
+## 2026-11-11T04:45+03:00 — Açık mint düzenleyici gerçek ekranı
+
+- Gerçek probe uygulamasının Wi-Fi düzenleyicisi 360×800 dp ekranda incelendi: başlık, ağ sekmeleri, erişim anahtarı, hız alanları, kota seçenekleri ve sabit Kaydet görülebiliyor. Varsayılan sınırsız değerler korunuyor; görüntü için kural kaydedilmedi.
+- Görsel/XML `docs/validation/0.1.4-ui/mint-editor-light.*`; PNG SHA-256 `53c862f23161fb9c9ccd08fcb4f9fe14ddb856ecdc6589b15ddded79b6ca79c5`. Kaynak `781c416`.
+- Açık tema portre ekranları tamamlandı; yatay klavye kontrolü ve geçici ekran ayarlarının geri alınması kaldı.

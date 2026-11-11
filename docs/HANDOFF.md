@@ -1,6 +1,6 @@
 # Güncel devir kaydı
 
-Son güncelleme: **2026-11-11T04:31+03:00**. Her devam isteğinde AGENTS, uzak main, son WORK_LOG ve konuşma arşivini oku. Kullanıcı iki Codex kullanıyor; tamamlanan her anlamlı işlemi anında commit/push et, force push yapma.
+Son güncelleme: **2026-11-11T04:45+03:00**. Her devam isteğinde AGENTS, uzak main, son WORK_LOG ve konuşma arşivini oku. Kullanıcı iki Codex kullanıyor; tamamlanan her anlamlı işlemi anında commit/push et, force push yapma.
 
 ## Güncel görev ve kaynak
 
@@ -14,7 +14,7 @@ Son uygulama/test kaynak değişikliği `781c416`; `db691cf` bunun başarılı d
 - **3 Android JSON testi** ve **1 mint arayüz testi** iki çalıştırmada geçti. Arayüz testi `c5c2cc5`, 174,528 s; uygulama kodu `781c416`.
 - Eski erişilebilirlik önbelleği, testin API 34+ taze sorgularında genel UiAutomation.clearCache API'siyle düzeltildi. Bütün değer/kaydetme assertions korundu.
 - Kanıt: `docs/validation/0.1.4-ui/second-session-android-ui-passed.txt`; önceki başarısız kayıtlar tanı geçmişidir.
-- **Kalan iş:** açık tema uygulama listesi/düzenleyici ekranlarını ve dar/yatay klavyeli görünümü doğrulayıp PNG'leri arşivle; ardından son devir notunu güncelle. Kaynak kodunu gereksiz tekrar değiştirme veya geçmiş testleri yeni neden olmadan yineleme.
+- **Kalan iş:** açık tema liste/düzenleyici PNG ve XML kayıtları arşivlendi (`mint-apps-light.*`, `mint-editor-light.*`). Yatay klavyeli görünümü doğrula, geçici emülatör ekran ayarlarını geri al ve son devir notunu güncelle. Kaynak kodunu gereksiz tekrar değiştirme veya geçmiş testleri yeni neden olmadan yineleme.
 
 ## Bu makine
 
