@@ -381,3 +381,15 @@ Yeni işlemleri bu bölümün altına ekle. Her kayıtta şu bilgileri ver:
 - Uygulama test APK’sı ve probe APK 21 saniyede derlendi. Kanıt `landscape-test-build.txt`; iki mint testi henüz cihazda çalışmadı.
 - Gradle/Kotlin daemon süreçleri kapatıldı. Android açılışına yer bırakmak için yalnız yeniden üretilebilir Gradle transforms önbelleği temizlendi; APK, AAR, test sonuçları ve kaynaklar korundu.
 - Kullanıcı bu sohbette neler konuşulduğunu sordu; güncel durum özetlendi ve görünür mesajlar konuşma arşivine eklendi.
+
+## 2026-11-11T13:02+03:00 — Limit nedeniyle arşiv ve devir; bu oturum durduruldu
+
+- Kullanıcı kalan limitinin yaklaşık %1 olduğunu belirterek yalnız konuşmaların/GitHub kaydının tamamlanmasını istedi. Yeni test, derleme veya uygulama değişikliği başlatılmadı; yerel düzeltme alt görevi dosya değiştirmeden durduruldu.
+- Son fetch diğer Codex’in altı commit ilerlediğini gösterdi; temiz ağaç `240c0b2` seviyesine fast-forward edildi. Başka oturumun kısa ekran düzeltmesi `8ddfe06`, cihaz testi `7946d33`, başarılı 60 JVM/derleme/lint kaydı `240c0b2` korundu. Yeni iki cihaz testinin sonucu henüz uzak kayıtta yok.
+- Bu makinenin geçici ekran ayarları geri alındı ve okuma ile doğrulandı: fiziksel 720×1280, rotation=0, accelerometer=0, show_ime_with_hard_keyboard=0, font_scale=1.0. Uygulama kapatıldı; açık tema tercihi demo için seçili kaldı. Yeni kaynak bu makinenin emülatörüne kurulmadı.
+- Konuşma/görsel arşivi ve son devir bilgisi tamamlandı. Sonraki yapay zekâ önce uzak main ve HANDOFF’u okumalı; diğer oturumun cihaz testlerini sonuçlarını görmeden tekrar başlatmamalı.
+
+## 2026-11-11T13:08+03:00 — Eşzamanlı arşiv kaydı korundu
+
+- Diğer oturumun `f818b53` kapanış/arşiv kaydı ile bu devam sohbetinin test paketi/özet kaydı birleştirildi. WORK_LOG ekleme çatışmasında her iki kayıt eksiksiz korundu; uygulama/test kaynağı değişmedi.
+- Diğer oturum limit nedeniyle kapanmış. Bu devam sohbetinde mevcut yetkilendirilmiş yatay cihaz doğrulaması sürüyor; diğer makinenin eski testleri yeni APK sonucu sayılmıyor.

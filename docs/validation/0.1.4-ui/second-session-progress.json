@@ -27,5 +27,22 @@
   },
   "physical_device": "not run",
   "instrumentation_source": "c5c2cc5f9fbe50b0b122b49eb985188f4eba4367",
-  "screenshots": "pending"
+  "screenshots": {
+    "source": "781c416",
+    "portrait": [
+      "mint-apps-light.png",
+      "mint-editor-light.png"
+    ],
+    "landscape_ime": "mint-landscape-ime-before.png",
+    "landscape_result": "Defect on old source; other-session fix 8ddfe06 awaits device verification"
+  },
+  "last_updated": "2026-11-11T13:02+03:00",
+  "session_status": "Stopped after archive at user request due to quota; no new tests started",
+  "remote_followup": {
+    "head_seen": "240c0b2",
+    "application_source": "8ddfe06",
+    "test_source": "7946d33",
+    "build_jvm_lint": "passed per landscape-build.json",
+    "device_tests": "pending"
+  }
 }
